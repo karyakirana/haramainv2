@@ -17,8 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth'])->name('dashboard');
+
+Route::get('/dashboard', [\App\Http\Controllers\Dashboard\DashboardController::class, 'index'])->name('dashboard');
+
+/**
+ * Login and Register
+ */
+Route::get('/signin', [\App\Http\Controllers\Security\AuthController::class, 'index'])->name('signin');
+Route::get('/signup', [\App\Http\Controllers\Security\AuthController::class, 'create'])->name('signup');
 
 require __DIR__.'/auth.php';

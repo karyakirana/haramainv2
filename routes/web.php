@@ -26,7 +26,12 @@ Route::get('/dashboard', [\App\Http\Controllers\Dashboard\DashboardController::c
 /**
  * Login and Register
  */
-Route::get('/signin', [\App\Http\Controllers\Security\AuthController::class, 'index'])->name('signin');
-Route::get('/signup', [\App\Http\Controllers\Security\AuthController::class, 'create'])->name('signup');
+Route::get('/signin', [\App\Http\Controllers\Security\AuthController::class, 'index'])
+    ->middleware('guest')
+    ->name('login');
+Route::post('/signin', [\App\Http\Controllers\Security\AuthController::class, 'login'])->middleware('guest');
 
-require __DIR__.'/auth.php';
+Route::get('/signup', [\App\Http\Controllers\Security\AuthController::class, 'create'])->name('register')->middleware('guest');
+Route::post('/signup', [\App\Http\Controllers\Security\AuthController::class, 'store'])->middleware('guest');
+
+//require __DIR__.'/auth.php';

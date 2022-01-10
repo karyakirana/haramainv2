@@ -33,7 +33,7 @@
         <!--begin::Content-->
         <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
             <!--begin::Logo-->
-            <a href="../../demo8/dist/index.html" class="mb-12">
+            <a href="{{url('/')}}" class="mb-12">
                 <img alt="Logo" src="{{asset('assets/media/logos/logo-1.svg')}}" class="h-40px" />
             </a>
             <!--end::Logo-->
@@ -48,7 +48,7 @@
                         <!--end::Title-->
                         <!--begin::Link-->
                         <div class="text-gray-400 fw-bold fs-4">Already have an account?
-                            <a href="../../demo8/dist/authentication/layouts/basic/sign-in.html" class="link-primary fw-bolder">Sign in here</a></div>
+                            <a href="{{route('login')}}" class="link-primary fw-bolder">Sign in here</a></div>
                         <!--end::Link-->
                     </div>
                     <!--end::Heading-->
@@ -101,16 +101,7 @@
                     <!--begin::Input group-->
                     <div class="fv-row mb-5">
                         <label class="form-label fw-bolder text-dark fs-6">Confirm Password</label>
-                        <input class="form-control form-control-lg form-control-solid" type="password" placeholder="" name="confirm-password" autocomplete="off" />
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="fv-row mb-10">
-                        <label class="form-check form-check-custom form-check-solid form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="toc" value="1" />
-                            <span class="form-check-label fw-bold text-gray-700 fs-6">I Agree
-									<a href="#" class="ms-1 link-primary">Terms and conditions</a>.</span>
-                        </label>
+                        <x-atom.input-auth :hasError="(bool)$errors->has('password_confirmation')" name="password_confirmation" type="password"/>
                     </div>
                     <!--end::Input group-->
                     <!--begin::Actions-->

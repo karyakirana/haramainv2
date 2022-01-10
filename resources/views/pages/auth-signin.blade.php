@@ -51,7 +51,7 @@ License: For each use you must have a valid license purchased only from above li
             <!--begin::Wrapper-->
             <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                 <!--begin::Form-->
-                <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="#" method="post">
+                <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="{{route('login')}}" method="post">
                     @csrf
                     <!--begin::Heading-->
                     <div class="text-center mb-10">
@@ -60,7 +60,7 @@ License: For each use you must have a valid license purchased only from above li
                         <!--end::Title-->
                         <!--begin::Link-->
                         <div class="text-gray-400 fw-bold fs-4">New Here?
-                            <a href="../../demo8/dist/authentication/layouts/basic/sign-up.html" class="link-primary fw-bolder">Create an Account</a></div>
+                            <a href="{{route('register')}}" class="link-primary fw-bolder">Create an Account</a></div>
                         <!--end::Link-->
                     </div>
                     <!--begin::Heading-->
@@ -82,9 +82,6 @@ License: For each use you must have a valid license purchased only from above li
                             <!--begin::Label-->
                             <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
                             <!--end::Label-->
-                            <!--begin::Link-->
-                            <a href="../../demo8/dist/authentication/layouts/basic/password-reset.html" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
-                            <!--end::Link-->
                         </div>
                         <!--end::Wrapper-->
                         <!--begin::Input-->

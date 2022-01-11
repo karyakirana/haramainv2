@@ -40,7 +40,7 @@
             <!--begin::Wrapper-->
             <div class="w-lg-600px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                 <!--begin::Form-->
-                <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form">
+                <form class="form w-100" novalidate="novalidate" method="post" action="{{route('register')}}">
                     <!--begin::Heading-->
                     <div class="mb-10 text-center">
                         <!--begin::Title-->

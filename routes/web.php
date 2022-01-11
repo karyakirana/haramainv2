@@ -35,3 +35,4 @@ Route::get('/signup', [\App\Http\Controllers\Security\AuthController::class, 'cr
 Route::post('/signup', [\App\Http\Controllers\Security\AuthController::class, 'store'])->middleware('guest');
 
 //require __DIR__.'/auth.php';
+require __DIR__.'/penjualanRoute.php';

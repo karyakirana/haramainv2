@@ -34,5 +34,7 @@ Route::post('/signin', [\App\Http\Controllers\Security\AuthController::class, 'l
 Route::get('/signup', [\App\Http\Controllers\Security\AuthController::class, 'create'])->name('register')->middleware('guest');
 Route::post('/signup', [\App\Http\Controllers\Security\AuthController::class, 'store'])->middleware('guest');
 
+Route::get('master/customer', [\App\Http\Controllers\Master\CustomerController::class, 'index'])->name('master.customer');
+
 //require __DIR__.'/auth.php';
 require __DIR__.'/penjualanRoute.php';

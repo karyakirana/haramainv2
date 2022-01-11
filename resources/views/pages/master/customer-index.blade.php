@@ -28,4 +28,7 @@
         </x-slot>
     </x-organism.modal>
 
+    @push('custom-scripts')
+    @endpush
+
 </x-metronics-layout>

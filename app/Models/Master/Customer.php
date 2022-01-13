@@ -19,4 +19,9 @@ class Customer extends Model
         'alamat',
         'keterangan',
     ];
+
+    public function getLastNumKodeAttribute()
+    {
+        return substr($this->kode, 1, 5);
+    }
 }

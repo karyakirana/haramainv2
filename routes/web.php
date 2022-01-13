@@ -35,6 +35,13 @@ Route::get('/signup', [\App\Http\Controllers\Security\AuthController::class, 'cr
 Route::post('/signup', [\App\Http\Controllers\Security\AuthController::class, 'store'])->middleware('guest');
 
 Route::get('master/customer', [\App\Http\Controllers\Master\CustomerController::class, 'index'])->name('master.customer');
+Route::patch('master/customer', [\App\Http\Controllers\Master\CustomerController::class, 'datatables']);
 
+Route::get('master/produk', [\App\Http\Controllers\Master\ProdukController::class, 'index'])->name('master.produk');
+Route::get('master/produk/kategori', [\App\Http\Controllers\Master\ProdukController::class, 'indexKategori'])->name('master.produk.kategori');
+Route::get('master/produk/kategoriharga', [\App\Http\Controllers\Master\ProdukController::class, 'indexKategoriHarga'])->name('master.produk.kategoriharga');
+
+Route::get('/master/supplier', [\App\Http\Controllers\Master\SupplierController::class, 'index'])->name('master.supplier');
+Route::get('/master/supplier/jenis', [\App\Http\Controllers\Master\SupplierController::class, 'indexJenis'])->name('master.supplier.jenis');
 //require __DIR__.'/auth.php';
 require __DIR__.'/penjualanRoute.php';

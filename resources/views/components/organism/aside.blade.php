@@ -263,7 +263,7 @@
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link" href="/master/kategori/harga">
+                                    <a class="menu-link" href="/master/produk/kategoriharga">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -294,7 +294,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="/master/jenis/supplier">
+                                <a class="menu-link" href="{{ route('master.supplier.jenis') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>

@@ -17,12 +17,11 @@ class CreateCustomerTable extends Migration
             $table->id();
             $table->string('kode');
             $table->string('nama');
-            $table->string('telepon')->nullable();
-            $table->string('email')->nullable();
-            $table->string('npwp')->nullable();
             $table->float('diskon', '255', '2')->nullable();
+            $table->string('telepon')->nullable();
             $table->text('alamat')->nullable();
             $table->text('keterangan')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

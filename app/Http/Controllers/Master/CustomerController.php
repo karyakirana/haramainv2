@@ -16,8 +16,13 @@ class CustomerController extends Controller
 
     public function datatables()
     {
-        $data = Customer::all();
-        return DataTables::of($data)
-            ->make(true);
+        $data = Customer::latest('kode')->get();
+        return $this->datatablesAll($data);
+    }
+
+    public function componentDatatables()
+    {
+        $data = Customer::latest('kode')->get();
+        return $this->datatablesForSet($data, 'setCustomer');
     }
 }

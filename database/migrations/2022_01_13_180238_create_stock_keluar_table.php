@@ -16,6 +16,7 @@ class CreateStockKeluarTable extends Migration
         Schema::create('stock_keluar', function (Blueprint $table) {
             $table->id();
             $table->string('kode');
+            $table->string('active_cash');
             $table->unsignedInteger('stockable_keluar_id')->nullable();
             $table->string('stockable_keluar_type')->nullable();
             $table->string('kondisi'); // baik atau rusak
@@ -26,6 +27,7 @@ class CreateStockKeluarTable extends Migration
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->cascadeOnUpdate();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

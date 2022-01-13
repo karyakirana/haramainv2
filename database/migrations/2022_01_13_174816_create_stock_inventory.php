@@ -15,6 +15,7 @@ class CreateStockInventory extends Migration
     {
         Schema::create('stock_inventory', function (Blueprint $table) {
             $table->id();
+            $table->string('active_cash');
             $table->string('jenis'); // baik atau rusak
             $table->foreignId('gudang_id')
                 ->constrained('gudang')

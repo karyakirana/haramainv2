@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStockMasukTable extends Migration
+class CreateStockMutasiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,17 @@ class CreateStockMasukTable extends Migration
      */
     public function up()
     {
-        Schema::create('stock_masuk', function (Blueprint $table) {
+        Schema::create('stock_mutasi', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
             $table->string('active_cash');
-            $table->unsignedInteger('stockable_masuk_id')->nullable();
-            $table->string('stockable_masuk_type')->nullable();
-            $table->string('kondisi'); // baik atau rusak
-            $table->foreignId('gudang_id')
-                ->constrained('gudang')
-                ->cascadeOnUpdate();
-            $table->date('tgl_masuk');
+            $table->string('kode');
+            $table->string('jenis_mutasi');
+            $table->unsignedBigInteger('gudang_asal_id');
+            $table->unsignedBigInteger('gudang_tujuan_id');
+            $table->date('tgl_mutasi');
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->cascadeOnUpdate();
-            $table->string('nomor_po')->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
@@ -40,6 +36,6 @@ class CreateStockMasukTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stock_masuk');
+        Schema::dropIfExists('stock_mutasi');
     }
 }

@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class ClosedCash extends Model
 {
     use HasFactory;
+    protected $table = 'closed_cash';
+    protected $fillable = [
+        'active',
+        'closed',
+        'user_id'
+    ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

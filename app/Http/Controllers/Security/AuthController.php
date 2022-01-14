@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Security;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\ClosedCash;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class AuthController extends Controller
 {
@@ -25,6 +27,10 @@ class AuthController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        // check and add session closed cash
+        $idUser = Auth::id();
+        $request->session()->put('ClosedCash', $this->ClosedCash($idUser));
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -61,7 +67,9 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
+            'role' => 'Umum',
             'name' => $request->name,
+            'username' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -70,6 +78,32 @@ class AuthController extends Controller
 
         Auth::login($user);
 
+        // check and add session closed cash
+        $idUser = Auth::id();
+        $request->session()->put('ClosedCash', $this->ClosedCash($idUser));
+
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    /**
+     * Handle Closed Cashed after login to session
+     * @param number ID USER
+     * @return string Active Closed id
+     */
+    public function ClosedCash($idUser)
+    {
+        $data = ClosedCash::whereNull('closed')->latest()->first();
+        if ($data) {
+            // jika null maka buat data
+            return $data->active;
+        }
+        $generateClosedCash = md5(now());
+        $isi = [
+            'active' => $generateClosedCash,
+            'user_id' => $idUser,
+        ];
+        $createData = ClosedCash::create($isi);
+        return $generateClosedCash;
+
     }
 }

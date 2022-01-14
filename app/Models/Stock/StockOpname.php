@@ -14,6 +14,7 @@ class StockOpname extends Model
     protected $fillable = [
         'active_cash',
         'kode',
+        'jenis',
         'tgl_input',
         'gudang_id',
         'user_id',

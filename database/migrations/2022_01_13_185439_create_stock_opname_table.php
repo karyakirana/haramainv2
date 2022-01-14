@@ -17,6 +17,7 @@ class CreateStockOpnameTable extends Migration
             $table->id();
             $table->string('active_cash');
             $table->string('kode');
+            $table->string('jenis');
             $table->date('tgl_input');
             $table->foreignId('gudang_id')
                 ->constrained('gudang')

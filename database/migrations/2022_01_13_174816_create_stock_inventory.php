@@ -23,11 +23,11 @@ class CreateStockInventory extends Migration
             $table->foreignId('produk_id')
                 ->constrained('produk')
                 ->cascadeOnUpdate();
-            $table->bigInteger('stock_awal')->default(0);
-            $table->bigInteger('stock_opname')->default(0);
-            $table->bigInteger('stock_masuk')->default(0);
-            $table->bigInteger('stock_keluar')->default(0);
-            $table->bigInteger('stock_lost')->default(0);
+            $table->bigInteger('stock_awal')->default(0)->nullable();
+            $table->bigInteger('stock_opname')->default(0)->nullable();
+            $table->bigInteger('stock_masuk')->default(0)->nullable();
+            $table->bigInteger('stock_keluar')->default(0)->nullable();
+            $table->bigInteger('stock_lost')->default(0)->nullable();
             $table->timestamps();
         });
     }

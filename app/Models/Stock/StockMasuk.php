@@ -2,10 +2,40 @@
 
 namespace App\Models\Stock;
 
+use App\Models\Master\Gudang;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class StockMasuk extends Model
 {
     use HasFactory;
+    protected $table = 'stock_masuk';
+    protected $fillable = [
+        'kode',
+        'active_cash',
+        'stockable_masuk_id',
+        'stockable_masuk_type',
+        'kondisi',
+        'gudang_id',
+        'tgl_masuk',
+        'user_id',
+        'nomor_po',
+        'keterangan',
+    ];
+
+    public function stockableMasuk()
+    {
+        return $this->morphTo();
+    }
+
+    public function gudang()
+    {
+        return $this->belongsTo(Gudang::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

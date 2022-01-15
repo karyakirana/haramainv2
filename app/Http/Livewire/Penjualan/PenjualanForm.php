@@ -3,7 +3,11 @@
 namespace App\Http\Livewire\Penjualan;
 
 use App\Models\Master\Customer;
+use App\Models\Master\Gudang;
 use App\Models\Master\Produk;
+use App\Http\Services\Repositories\PenjualanRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class PenjualanForm extends Component
@@ -15,6 +19,7 @@ class PenjualanForm extends Component
 
     public $dataDetail =[];
     public $update =false;
+    public $gudangData;
     public $indexDetail;
 
     // properti master
@@ -31,6 +36,8 @@ class PenjualanForm extends Component
     {
         $this->tgl_nota = tanggalan_format(now('ASIA/JAKARTA'));
         $this->tgl_tempo = tanggalan_format(now('ASIA/JAKARTA')->addMonth(2));
+
+        $this->gudangData = Gudang::all();
     }
 
     public function showCustomer()
@@ -169,11 +176,50 @@ class PenjualanForm extends Component
 
     public function store()
     {
-        // generate key
-        // store Penjualan
-        // store Stock
-        // store Detail
-        // update inventory real
+        // validation
+        $this->validate([
+            'customer_id'=>'required',
+            'gudang_id'=>'required',
+            'tgl_nota'=>'required|date_format:d-M-Y',
+            'tgl_tempo'=>'date_format:d-M-Y',
+        ]);
+
+        $dataDetail = [];
+        // set data penjualan detail
+        foreach ($this->dataDetail as $index=>$row)
+        {
+            $dataDetail []= [
+                'produk_id'=>$row['produk_id'],
+                'harga'=>$row['harga'],
+                'jumlah'=>$row['jumlah'],
+                'diskon'=>$row['diskon'],
+                'sub_total'=>$row['sub_total'],
+            ];
+        }
+        // set data
+        $dataPenjualan = (object)[
+            'customer_id'=>$this->customer_id,
+            'gudang_id'=>$this->gudang_id,
+            'tgl_nota'=>$this->tgl_nota,
+            'tgl_tempo'=>($this->jenis_bayar == 'tempo') ? $this->tgl_tempo : null,
+            'jenis_bayar'=>$this->jenis_bayar,
+            'total_barang'=>array_sum(array_column($this->dataDetail, 'jumlah')),
+            'ppn'=>$this->ppn,
+            'biaya_lain'=>$this->biaya_lain,
+            'total_bayar'=>$this->total_bayar,
+            'keterangan'=>$this->keterangan,
+            'detail'=>$dataDetail
+        ];
+//        dd($dataPenjualan);
+
+        DB::beginTransaction();
+        try {
+            (new PenjualanRepository())->store($dataPenjualan);
+            DB::commit();
+        } catch (ModelNotFoundException $e) {
+            DB::rollBack();
+            session()->flash('message', $e);
+        }
     }
 
     public function render()

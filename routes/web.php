@@ -50,6 +50,8 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('/master/supplier', [\App\Http\Controllers\Master\SupplierController::class, 'index'])->name('master.supplier');
     Route::get('/master/supplier/jenis', [\App\Http\Controllers\Master\SupplierController::class, 'indexJenis'])->name('master.supplier.jenis');
+
+    Route::get('master/gudang', [\App\Http\Controllers\Master\GudangController::class, 'index'])->name('master.gudang');
 });
 
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
@@ -66,7 +68,7 @@ require __DIR__.'/penjualanRoute.php';
 
     // transaksi stock masuk
         Route::get('stock/masuk/baik/trans', [\App\Http\Controllers\Stock\StockMasukController::class, 'createBaik'])->name('stockmasuk.baik.trans');
-        Route::get('stock/masuk/keluar/trans', [\App\Http\Controllers\Stock\StockMasukController::class, 'createRusak'])->name('stockmasuk.rusak.trans');
+        Route::get('stock/masuk/rusak/trans', [\App\Http\Controllers\Stock\StockMasukController::class, 'createRusak'])->name('stockmasuk.rusak.trans');
 
 // stock keluar
     Route::get('stock/keluar', [\App\Http\Controllers\Stock\StockKeluarController::class, 'index'])->name('stockkeluar.index');
@@ -76,3 +78,13 @@ require __DIR__.'/penjualanRoute.php';
     //transaksi stock keluar
         Route::get('stock/keluar/baik/trans', [\App\Http\Controllers\Stock\StockKeluarController::class, 'createBaik'])->name('stockkeluar.baik.trans');
         Route::get('stock/keluar/rusak/trans', [\App\Http\Controllers\Stock\StockKeluarController::class, 'createRusak'])->name('stockkeluar.rusak.trans');
+
+// Mutasi Stock
+    Route::get('stock/mutasi/baik/baik', [\App\Http\Controllers\Stock\StockMutasiController::class, 'indexBaikBaik'])->name('mutasibaik.baik');
+    Route::get('stock/mutasi/baik/rusak', [\App\Http\Controllers\Stock\StockMutasiController::class, 'indexBaikRusak'])->name('mutasibaik.rusak');
+    Route::get('stock/mutasi/rusak/rusak', [\App\Http\Controllers\Stock\StockMutasiController::class, 'indexRusakRusak'])->name('mutasirusak.rusak');
+
+    // transaksi mutasi stock
+        Route::get('stock/mutasi/baik/baik/trans', [\App\Http\Controllers\Stock\StockMutasiController::class, 'createBaikBaik'])->name('mutasibaik.baik.trans');
+        Route::get('stock/mutasi/baik/rusak/trans', [\App\Http\Controllers\Stock\StockMutasiController::class, 'createBaikRusak'])->name('mutasibaik.rusak.trans');
+        Route::get('stock/mutasi/rusak/rusak/trans', [\App\Http\Controllers\Stock\StockMutasiController::class, 'createRusakRusak'])->name('mutasirusak.rusak.trans');

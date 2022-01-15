@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Repositories;
+namespace App\Http\Services\Repositories;
 
 use App\Models\Stock\StockKeluar;
 

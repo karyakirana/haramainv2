@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Repositories;
+namespace App\Http\Services\Repositories;
 
 use App\Models\Penjualan\Penjualan;
-use App\Models\Stock\StockKeluar;
+use App\Http\Services\Repositories\StockKeluarRepository;
 use Illuminate\Support\Facades\Auth;
 
 class PenjualanRepository
@@ -28,7 +28,7 @@ class PenjualanRepository
             return '0001/PJ/'.date('Y');
         }
 
-        $num = $query->first()->last_num;
+        $num = (int)$query->first()->last_num + 1 ;
         return sprintf("%04s", $num)."/PJ/".date('Y');
     }
 
@@ -56,7 +56,7 @@ class PenjualanRepository
             ]);
 
         // store stock keluar
-        $stockKeluar = $penjualan->stockKeluar->create([
+        $stockKeluar = $penjualan->stockKeluar()->create([
             'kode'=>(new StockKeluarRepository())->kode('baik'),
             'active_cash'=>session('ClosedCash'),
             'kondisi'=>'baik',
@@ -68,20 +68,20 @@ class PenjualanRepository
         foreach ($data->detail as $row)
         {
             // insert penjualan detail
-            $penjualan->penjualanDetail->create([
-                'produk_id'=>$row->produk_id,
-                'harga'=>$row->harga,
-                'jumlah'=>$row->jumlah,
-                'diskon'=>$row->diskon,
-                'sub_total'=>$row->sub_total,
+            $penjualan->penjualanDetail()->create([
+                'produk_id'=>$row['produk_id'],
+                'harga'=>$row['harga'],
+                'jumlah'=>$row['jumlah'],
+                'diskon'=>$row['diskon'],
+                'sub_total'=>$row['sub_total'],
             ]);
             // insert stock keluar detail
-            $stockKeluar->stockKeluarDetail->create([
-                'produk_id'=>$row->produk_id,
-                'jumlah'=>$row->jumlah,
+            $stockKeluar->stockKeluarDetail()->create([
+                'produk_id'=>$row['produk_id'],
+                'jumlah'=>$row['jumlah'],
             ]);
             // update or create stock inventory
-            $this->stockInventoryRepo->updateOrCreateStockInventory($row, 'stock_masuk');
+            $this->stockInventoryRepo->updateOrCreateStockInventory($row, 'baik', $data->gudang_id,'stock_masuk');
         }
 
     }

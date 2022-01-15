@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Repositories;
+namespace App\Http\Services\Repositories;
 
 use App\Models\Stock\StockInventory;
 use Illuminate\Support\Facades\DB;
@@ -23,25 +23,25 @@ class StockInventoryRepo
         return $data->latest('produk_id')->get();
     }
 
-    public function updateOrCreateStockInventory($data, $field)
+    public function updateOrCreateStockInventory($data, $jenis, $gudang, $field)
     {
         // check by active_cash, produk_id, jenis, gudang
         $query = StockInventory::query()
             ->where('active_cash', session('ClosedCash'))
-            ->where('jenis', $data->jenis)
-            ->where('gudang_id', $data->gudang);
+            ->where('jenis', $jenis)
+            ->where('gudang_id', $gudang);
 
         if ($query->get()->count() > 0)
         {
             return StockInventory::create([
-                'produk_id'=>$data->produk_id,
-                $field=>$data->jumlah,
+                'produk_id'=>$data['produk_id'],
+                $field=>$data['jumlah'],
             ]);
         }
 
         return $query->update([
-            'produk_id'=>$data->produk_id,
-            $field=>DB::raw($field.' +'.$data->jumlah)
+            'produk_id'=>$data['produk_id'],
+            $field=>DB::raw($field.' +'.$data['jumlah'])
         ]);
     }
 

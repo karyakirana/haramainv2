@@ -535,51 +535,51 @@
 									</span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link">
+                            <a class="menu-link" href="{{ route('mutasibaik.baik') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Baik Ke Baik</span>
+                                <span class="menu-title">Mutasi Baik Ke Baik</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link">
+                            <a class="menu-link" href="{{ route('mutasibaik.baik.trans') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Baik Ke Baik Baru</span>
+                                <span class="menu-title">Mutasi Baik Ke Baik Baru</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link">
+                            <a class="menu-link" href="{{ route('mutasibaik.rusak') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Baik Ke Rusak</span>
+                                <span class="menu-title">Mutasi Baik Ke Rusak</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link">
+                            <a class="menu-link" href="{{ route('mutasibaik.rusak.trans') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Baik Ke Rusak Baru</span>
+                                <span class="menu-title">Mutasi Baik Ke Rusak Baru</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" >
+                            <a class="menu-link" href="{{ route('mutasirusak.rusak') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Rusak Ke Rusak</span>
+                                <span class="menu-title">Mutasi Rusak Ke Rusak</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" >
+                            <a class="menu-link" href="{{ route('mutasirusak.rusak.trans') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Rusak Ke Rusak Baru</span>
+                                <span class="menu-title">Mutasi Rusak Ke Rusak Baru</span>
                             </a>
                         </div>
                     </div>

@@ -1,16 +1,19 @@
 <x-metronics-layout>
-    <x-organism.card :title="__('Data Gudang')">
+
+    <x-organism.card :title="__('Mutasi Stock Baik ke Baik')">
         <x-slot name="header">
-            <button type="button" class="btn btn-primary align-self-center" onclick="gudangAdd()">New Data</button>
+            <button type="button" class="btn btn-primary align-self-center" onclick="">New Data</button>
         </x-slot>
 
-        <x-molecules.table-datatable id="gudangDatatables">
+        <x-molecules.table-datatable id="penjualanDatatables">
             <x-slot name="thead">
                 <tr class="text-start text-black-50 fw-bolder fs-7 text-uppercase gs-0 border-1">
                     <th class="text-center" width="10%">ID</th>
-                    <th class="text-center">Nama</th>
-                    <th class="text-center">Alamat</th>
-                    <th class="none">Kota</th>
+                    <th class="text-center none">Produk</th>
+                    <th class="text-center">Gudang Asal</th>
+                    <th class="text-center">Gudang Tujuan</th>
+                    <th class="text-center none">Pembuat</th>
+                    <th class="text-center">Tgl Mutasi</th>
                     <th class="none">Keterangan</th>
                     <th class="text-center" width="15%">Actions</th>
                 </tr>
@@ -27,10 +30,7 @@
                 <button type="submit" class="btn btn-primary">Save Changes</button>
             </div>
         </x-slot>
-
     </x-organism.card>
-
-    <livewire:master.gudang-form />
 
     @push('custom-scripts')
         <script>
@@ -44,7 +44,7 @@
 
                 // private functions
                 var initDatatable = function(){
-                    dt = $("#gudangDatatables").DataTable({
+                    dt = $("#penjualanDatatables").DataTable({
                         language : {
                             "lengthMenu": "Show _MENU_",
                         },
@@ -73,14 +73,16 @@
                             className: 'row-selected'
                         },
                         ajax : {
-                            url : "{{route('datatables.gudang')}}",
+                            url : "{{route('datatables.penjualan')}}",
                             method : 'PATCH',
                         },
                         columns : [
-                            {data:'DT_RowIndex'},
-                            {data:'nama'},
-                            {data:'alamat'},
-                            {data:'kota'},
+                            {data:'kode'},
+                            {data:'produk'},
+                            {data:'gudang_id'},
+                            {data:'gudang_id'},
+                            {data:'user_id'},
+                            {data:'tgl_mutasi'},
                             {data:'keterangan'},
                             {data:'actions'},
                         ],
@@ -90,6 +92,10 @@
                                 orderable : false,
                                 className: "text-center"
                             },
+                            {
+                                targets : 2,
+                                className: "text-center"
+                            }
                         ],
                     });
 
@@ -116,30 +122,31 @@
             // reload table
             function reloadTable()
             {
-                $('#gudangDatatables').DataTable().ajax.reload();
+                $('#customerDatatables').DataTable().ajax.reload();
             }
 
-            Livewire.on('storeGudang', ()=>{
+            Livewire.on('storeCustomer', ()=>{
                 reloadTable();
             });
 
-            Livewire.emit('gudangEdit');
+            Livewire.emit('customerEdit');
 
-            function gudangAdd()
+            function penjualanAdd()
             {
-                Livewire.emit('gudangAdd');
+                window.location.href = "{{route('penjualan.create')}}";
             }
 
             function edit(id)
             {
-                Livewire.emit('gudangEdit', id);
+                windows.location.href = "{{url('/').'penjualan/edit/'}}"+id;
             }
 
             function destroy(id)
             {
-                Livewire.emit('gudangDelete', id);
+                //
             }
 
         </script>
     @endpush
+
 </x-metronics-layout>

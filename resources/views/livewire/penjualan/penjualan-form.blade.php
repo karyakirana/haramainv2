@@ -1,4 +1,16 @@
 <div>
+    @if(session()->has('message'))
+        <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
+            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+            <div class="alert-text">{{session('message')}}</div>
+            <div class="alert-close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                </button>
+            </div>
+        </div>
+    @endif
+
     <x-organism.card :title="__('Penjualan Transaksi')">
 
         <div class="row">
@@ -8,7 +20,7 @@
                         <label class="col-2 col-form-label">Customer</label>
                         <div class="col-4">
                             <div class="input-group">
-                                <x-atom.input-form wire:model.defer="customer_nama"/>
+                                <x-atom.input-form :name="__('customer_id')" wire:model.defer="customer_nama"/>
                                 <button type="button" class="btn btn-primary" wire:click="showCustomer">Get</button>
                                 <x-atom.input-message :name="__('$customer_id')" />
                             </div>
@@ -16,6 +28,7 @@
                         <label class="col-2 col-form-label">Jenis Bayar</label>
                         <div class="col-4">
                             <select name="jenisBayar" id="jenisBayar" class="form-control" wire:model.defer="jenis_bayar">
+                                <option>Dipilih</option>
                                 <option value="cash">Cash</option>
                                 <option value="tempo">Tempo</option>
                             </select>
@@ -36,7 +49,14 @@
                     <div class="row mb-4">
                         <label class="col-2 col-form-label">Gudang</label>
                         <div class="col-4">
-                            <select class="form-control" wire:model.defer="gudang_id"></select>
+                            <select class="form-control @error('gudang_id') is-invalid @enderror " name="gudang" wire:model.defer="gudang_id">
+                                <option>Dipilih</option>
+                                @forelse($gudangData as $row)
+                                    <option value="{{$row->id}}">{{$row->nama}}</option>
+                                @empty
+                                    <option>Tidak Ada Data</option>
+                                @endforelse
+                            </select>
                             <x-atom.input-message :name="__('gudang_id')" />
                         </div>
                         <label class="col-2 col-form-label">Keterangan</label>
@@ -170,7 +190,7 @@
 
         <x-slot name="footer">
             <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
             </div>
         </x-slot>
 

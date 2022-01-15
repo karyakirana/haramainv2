@@ -33,21 +33,21 @@ class Penjualan extends Model
     ];
 
     // get lastnum of kode
-    public function getLastNumAttributes(): int
+    public function getLastNumAttribute(): int
     {
         return (int) substr($this->kode, '0', '4');
     }
 
     // set date tgl_nota
-    public function setTglNotaAttributes($value)
+    public function setTglNotaAttribute($value)
     {
-        return tanggalan_database_format($value, 'd-M-Y');
+        $this->attributes['tgl_nota'] = tanggalan_database_format($value, 'd-M-Y');
     }
 
     // set date tgl_tempo
     public function setTglTempoAttributes($value)
     {
-        return tanggalan_database_format($value, 'd-M-Y');
+        $this->attributes['tgl_tempo'] = tanggalan_database_format($value, 'd-M-Y');
     }
 
     /**
@@ -76,6 +76,6 @@ class Penjualan extends Model
     // polimorphism
     public function stockKeluar()
     {
-        return $this->morphOne(StockKeluar::class,'stockable_keluar_type', 'stockable_keluar_id');
+        return $this->morphOne(StockKeluar::class,'stockable_keluar', 'stockable_keluar_type', 'stockable_keluar_id');
     }
 }

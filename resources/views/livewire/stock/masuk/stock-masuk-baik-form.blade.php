@@ -1,5 +1,5 @@
 <div>
-    <x-organism.card :title="__('Retur Baik Transaksi')">
+    <x-organism.card :title="__('Stock Masuk Baik Transaksi')">
 
         <div class="row">
             <div class="col-8">
@@ -43,10 +43,7 @@
                         <tr class="text-start text-black-50 fw-bolder fs-7 text-uppercase gs-0 border-1">
                             <th class="text-center" width="10%">ID</th>
                             <th class="text-center" width="25%">Item</th>
-                            <th class="text-center" width="15%">Harga</th>
                             <th class="text-center" width="10%">Jumlah</th>
-                            <th class="text-center" width="10%">Diskon</th>
-                            <th class="text-center" width="15%">Sub Total</th>
                             <th class="text-center" width="10%"></th>
                         </tr>
                     </x-slot>
@@ -59,45 +56,17 @@
                     {{--                        </tr>--}}
                     {{--                    @endforelse--}}
                     </tbody>
-                    <tfoot>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td colspan="2">Total</td>
-                        <td colspan="2">
-                            <x-atom.input-form wire:model="total" class="text-end" />
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td colspan="2">Biaya Lain</td>
-                        <td colspan="2">
-                            <x-atom.input-form wire:model="biaya_lain" class="text-end" />
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td colspan="2">PPN</td>
-                        <td colspan="2">
-                            <x-atom.input-form wire:model="ppn" class="text-end" />
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td colspan="2">Total Bayar</td>
-                        <td colspan="2">
-                            <x-atom.input-form wire:model="total_bayar_rupiah" class="text-end" />
-                        </td>
-                        <td></td>
-                    </tr>
-                    </tfoot>
-
                 </x-molecules.table-datatable>
             </div>
             <div class="col-4 border">
                 <form id="detailForm" class="pt-5">
+                    <div class="row pb-5">
+                        <label class="col-4 col-form-label">ID Produk</label>
+                        <div class="col-8">
+                            <x-atom.input-form readonly/>
+                            <x-atom.input-message :name="__('idProduk')" />
+                        </div>
+                    </div>
                     <div class="row pb-5">
                         <label class="col-4 col-form-label">Produk</label>
                         <div class="col-8">
@@ -105,11 +74,10 @@
                             <x-atom.input-message :name="__('idProduk')" />
                         </div>
                     </div>
-
                     <div class="row pb-5">
                         <label class="col-4 col-form-label">Jumlah</label>
                         <div class="col-8">
-                            <x-atom.input-form wire:model.defer="jumlahProduk" wire:keyup="hitungSubTotal"/>
+                            <x-atom.input-form wire:model.defer="jumlahProduk"/>
                         </div>
                     </div>
                 </form>

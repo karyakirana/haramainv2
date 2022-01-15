@@ -24,15 +24,15 @@ class StockKeluar extends Model
     ];
 
     // get lastnum of kode
-    public function getLastNumAttributes(): int
+    public function getLastNumAttribute(): int
     {
         return (int) substr($this->kode, '0', '4');
     }
 
     // set date tgl_nota
-    public function setTglKeluarAttributes($value)
+    public function setTglKeluarAttribute($value)
     {
-        return tanggalan_database_format($value, 'd-M-Y');
+        $this->attributes['tgl_keluar'] = tanggalan_database_format($value, 'd-M-Y');
     }
 
     public function gudang()

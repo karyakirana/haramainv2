@@ -2,7 +2,7 @@
 
     <x-organism.card :title="__('Penjualan')">
         <x-slot name="header">
-            <button type="button" class="btn btn-primary align-self-center" onclick="penjualanAdd()">New Data</button>
+            <button type="button" class="btn btn-primary align-self-center" onclick="returbaikAdd()">New Data</button>
         </x-slot>
 
         <x-molecules.table-datatable id="penjualanDatatables">
@@ -10,11 +10,13 @@
                 <tr class="text-start text-black-50 fw-bolder fs-7 text-uppercase gs-0 border-1">
                     <th class="text-center" width="10%">ID</th>
                     <th class="text-center">Customer</th>
+                    <th class="text-center none">Jenis Retur</th>
                     <th class="text-center">Gudang</th>
-                    <th class="text-center">Pembuat</th>
+                    <th class="text-center none">Pembuat</th>
                     <th class="text-center">Tgl Nota</th>
                     <th class="text-center none">Tgl Tempo</th>
-                    <th class="text-center">Jenis Bayar</th>
+                    <th class="text-center none">Status Bayar</th>
+                    <th class="text-center">Total Bayar</th>
                     <th class="text-center none">PPN</th>
                     <th class="text-center none">Biaya Lain</th>
                     <th class="text-center none">Total Bayar</th>
@@ -83,13 +85,14 @@
                         columns : [
                             {data:'kode'},
                             {data:'customer_id'},
+                            {data:'jenis_retur'},
                             {data:'gudang_id'},
                             {data:'user_id'},
                             {data:'tgl_nota'},
                             {data:'tgl_tempo'},
-                            {data:'jenis_bayar'},
+                            {data:'status_bayar'},
                             {data:'ppn'},
-                            {data:'biaya Lain'},
+                            {data:'biaya_lain'},
                             {data:'total_bayar'},
                             {data:'keterangan'},
                             {data:'actions'},
@@ -139,14 +142,14 @@
 
             Livewire.emit('customerEdit');
 
-            function penjualanAdd()
+            function returbaikAdd()
             {
-                window.location.href = "{{route('penjualan.create')}}";
+                window.location.href = "{{route('returbaik.create')}}";
             }
 
             function edit(id)
             {
-                windows.location.href = "{{url('/').'penjualan/edit/'}}"+id;
+                windows.location.href = "{{url('/').'retur/baik/edit/'}}"+id;
             }
 
             function destroy(id)

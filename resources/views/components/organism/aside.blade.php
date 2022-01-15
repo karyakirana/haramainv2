@@ -345,7 +345,7 @@
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                             <div class="menu-item">
-                                <a class="menu-link" href="/sales/penjualan">
+                                <a class="menu-link" href="{{ route('penjualan') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -353,7 +353,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="/sales/penjualan/trans">
+                                <a class="menu-link" href="{{ route('penjualan.create') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -376,7 +376,7 @@
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                             <div class="menu-item">
-                                <a class="menu-link" href="/sales/retur/baik">
+                                <a class="menu-link" href="{{ route('returbaik') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -384,7 +384,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="/sales/retur/baik/trans">
+                                <a class="menu-link" href="{{ route('returbaik.create') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -392,7 +392,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="/sales/retur/rusak">
+                                <a class="menu-link" href="{{ route('returrusak') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -400,7 +400,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="/sales/retur/rusak/trans">
+                                <a class="menu-link" href="{{ route('returrusak.create') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -423,12 +423,12 @@
 
                                             <!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">Data Stock Baik</span>
+										<span class="menu-title">Stock Masuk</span>
 										<span class="menu-arrow"></span>
 									</span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link" href="/stock/baik/masuk">
+                            <a class="menu-link" href="{{ route('stockmasuk.index') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -436,27 +436,35 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="/stock/baik/masuk/trans">
+                            <a class="menu-link" href="{{ route('stockmasuk.baik') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Masuk Baru</span>
+                                <span class="menu-title">Stock Baik List</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="/stock/baik/keluar">
+                            <a class="menu-link" href="{{ route('stockmasuk.baik.trans') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Keluar List</span>
+                                <span class="menu-title">Stock Baik Baru</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="/stock/baik/keluar/trans">
+                            <a class="menu-link" href="{{ route('stockmasuk.rusak') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Keluar Baru</span>
+                                <span class="menu-title">Stock Rusak List</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('stockmasuk.rusak.trans') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">Stock Rusak Baru</span>
                             </a>
                         </div>
                     </div>
@@ -469,40 +477,48 @@
                                             <!--end::Svg Icon-->
 										</span>
                                             <!--end::Svg Icon-->
-										<span class="menu-title">Data Stock Rusak</span>
+										<span class="menu-title">Stock Keluar</span>
 										<span class="menu-arrow"></span>
 									</span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link" href="/stock/rusak/masuk">
+                            <a class="menu-link" href="{{ route('stockkeluar.index') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Rusak Masuk List</span>
+                                <span class="menu-title">Stock Keluar List</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="/stock/rusak/masuk/trans">
+                            <a class="menu-link" href="{{ route('stockkeluar.baik') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Rusak Masuk Baru</span>
+                                <span class="menu-title">Stock Baik List</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="/stock/rusak/keluar">
+                            <a class="menu-link" href="{{ route('stockkeluar.baik.trans') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Rusak Keluar List</span>
+                                <span class="menu-title">Stock Baik Baru</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="/stock/rusak/keluar/trans">
+                            <a class="menu-link" href="{{ route('stockkeluar.rusak') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Stock Rusak Keluar Baru</span>
+                                <span class="menu-title">Stock Rusak List</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('stockkeluar.rusak.trans') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">Stock Rusak Baru</span>
                             </a>
                         </div>
                     </div>
@@ -543,7 +559,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-linkoc">
+                            <a class="menu-link">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>

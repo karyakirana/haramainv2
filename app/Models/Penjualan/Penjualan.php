@@ -4,6 +4,7 @@ namespace App\Models\Penjualan;
 
 use App\Models\Master\Customer;
 use App\Models\Master\Gudang;
+use App\Models\Stock\StockKeluar;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +32,24 @@ class Penjualan extends Model
         'print',
     ];
 
+    // get lastnum of kode
+    public function getLastNumAttributes(): int
+    {
+        return (int) substr($this->kode, '0', '4');
+    }
+
+    // set date tgl_nota
+    public function setTglNotaAttributes($value)
+    {
+        return tanggalan_database_format($value, 'd-M-Y');
+    }
+
+    // set date tgl_tempo
+    public function setTglTempoAttributes($value)
+    {
+        return tanggalan_database_format($value, 'd-M-Y');
+    }
+
     /**
      * Relational
      */
@@ -52,5 +71,11 @@ class Penjualan extends Model
     public function penjualanDetail()
     {
         return $this->hasMany(PenjualanDetail::class, 'penjualan_id');
+    }
+
+    // polimorphism
+    public function stockKeluar()
+    {
+        return $this->morphOne(StockKeluar::class,'stockable_keluar_type', 'stockable_keluar_id');
     }
 }

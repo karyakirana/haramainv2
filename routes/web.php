@@ -58,3 +58,21 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 //require __DIR__.'/auth.php';
 require __DIR__.'/penjualanRoute.php';
+
+// stock masuk
+    Route::get('stock/masuk',[\App\Http\Controllers\Stock\StockMasukController::class, 'index'])->name('stockmasuk.index');
+    Route::get('stock/masuk/baik', [\App\Http\Controllers\Stock\StockMasukController::class, 'indexBaik'])->name('stockmasuk.baik');
+    Route::get('stock/masuk/rusak', [\App\Http\Controllers\Stock\StockMasukController::class, 'indexRusak'])->name('stockmasuk.rusak');
+
+    // transaksi stock masuk
+        Route::get('stock/masuk/baik/trans', [\App\Http\Controllers\Stock\StockMasukController::class, 'createBaik'])->name('stockmasuk.baik.trans');
+        Route::get('stock/masuk/keluar/trans', [\App\Http\Controllers\Stock\StockMasukController::class, 'createRusak'])->name('stockmasuk.rusak.trans');
+
+// stock keluar
+    Route::get('stock/keluar', [\App\Http\Controllers\Stock\StockKeluarController::class, 'index'])->name('stockkeluar.index');
+    Route::get('stock/keluar/baik', [\App\Http\Controllers\Stock\StockKeluarController::class, 'indexBaik'])->name('stockkeluar.baik');
+    Route::get('stock/keluar/rusak', [\App\Http\Controllers\Stock\StockKeluarController::class, 'indexRusak'])->name('stockkeluar.rusak');
+
+    //transaksi stock keluar
+        Route::get('stock/keluar/baik/trans', [\App\Http\Controllers\Stock\StockKeluarController::class, 'createBaik'])->name('stockkeluar.baik.trans');
+        Route::get('stock/keluar/rusak/trans', [\App\Http\Controllers\Stock\StockKeluarController::class, 'createRusak'])->name('stockkeluar.rusak.trans');

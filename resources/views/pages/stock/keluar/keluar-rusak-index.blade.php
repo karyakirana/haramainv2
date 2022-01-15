@@ -1,23 +1,19 @@
 <x-metronics-layout>
 
-    <x-organism.card :title="__('Penjualan')">
+    <x-organism.card :title="__('Stock Keluar Rusak')">
         <x-slot name="header">
-            <button type="button" class="btn btn-primary align-self-center" onclick="penjualanAdd()">New Data</button>
+            <button type="button" class="btn btn-primary align-self-center" onclick="">New Data</button>
         </x-slot>
 
         <x-molecules.table-datatable id="penjualanDatatables">
             <x-slot name="thead">
                 <tr class="text-start text-black-50 fw-bolder fs-7 text-uppercase gs-0 border-1">
                     <th class="text-center" width="10%">ID</th>
-                    <th class="text-center">Customer</th>
+                    <th class="text-center">Produk</th>
                     <th class="text-center">Gudang</th>
-                    <th class="text-center">Pembuat</th>
-                    <th class="text-center">Tgl Nota</th>
-                    <th class="text-center none">Tgl Tempo</th>
-                    <th class="text-center">Jenis Bayar</th>
-                    <th class="text-center none">PPN</th>
-                    <th class="text-center none">Biaya Lain</th>
-                    <th class="text-center none">Total Bayar</th>
+                    <th class="text-center none">Pembuat</th>
+                    <th class="text-center">Nomor PO</th>
+                    <th class="text-center">Tgl Masuk</th>
                     <th class="none">Keterangan</th>
                     <th class="text-center" width="15%">Actions</th>
                 </tr>
@@ -87,10 +83,6 @@
                             {data:'user_id'},
                             {data:'tgl_nota'},
                             {data:'tgl_tempo'},
-                            {data:'jenis_bayar'},
-                            {data:'ppn'},
-                            {data:'biaya Lain'},
-                            {data:'total_bayar'},
                             {data:'keterangan'},
                             {data:'actions'},
                         ],
@@ -158,3 +150,4 @@
     @endpush
 
 </x-metronics-layout>
+

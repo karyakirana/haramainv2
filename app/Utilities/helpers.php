@@ -13,3 +13,17 @@ if (!function_exists('diskon_format')){
         return number_format($value, $angkaBelakangKoma,",", ".");
     }
 }
+
+if (!function_exists('tanggalan_database_format')){
+    function tanggalan_database_format($tanggal, $format): string
+    {
+        return \Carbon\Carbon::createFromFormat($format, $tanggal)->format('Y-m-d');
+    }
+}
+
+if (!function_exists('tanggalan_format')){
+    function tanggalan_format($tanggal)
+    {
+        return \Carbon\Carbon::parse($tanggal)->format('d-M-Y');
+    }
+}

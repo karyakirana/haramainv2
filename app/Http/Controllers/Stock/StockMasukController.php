@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Stock;
 
 use App\Http\Controllers\Controller;
+use App\Models\Stock\StockMasuk;
 use Illuminate\Http\Request;
 
 class StockMasukController extends Controller
@@ -26,7 +27,9 @@ class StockMasukController extends Controller
 
     public function datatablesIndexBaik()
     {
-        //
+        // datatables stock masuk baik
+        $data = StockMasuk::latest('kode')->get();
+        return $this->datatablesAll($data);
     }
 
     public function indexRusak()

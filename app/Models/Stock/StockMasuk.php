@@ -24,6 +24,18 @@ class StockMasuk extends Model
         'keterangan',
     ];
 
+    // get lastnum of kode
+    public function getLastNumAttribute(): int
+    {
+        return (int) substr($this->kode, '0', '4');
+    }
+
+    // set date tgl_masuk
+    public function setTglMasukAttribute($value)
+    {
+        $this->attributes['tgl_masuk'] = tanggalan_database_format($value, 'd-M-Y');
+    }
+
     public function stockableMasuk()
     {
         return $this->morphTo();
@@ -37,5 +49,10 @@ class StockMasuk extends Model
     public function users()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function stockMasukDetail()
+    {
+        return $this->hasMany(StockMasukDetail::class, 'stock_masuk_id');
     }
 }

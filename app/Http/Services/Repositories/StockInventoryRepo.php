@@ -23,6 +23,11 @@ class StockInventoryRepo
         return $data->latest('produk_id')->get();
     }
 
+    protected function fieldStockOpname($query)
+    {
+        //
+    }
+
     public function updateOrCreateStockInventory($data, $jenis, $gudang, $field)
     {
         // check by active_cash, produk_id, jenis, gudang
@@ -33,15 +38,19 @@ class StockInventoryRepo
 
         if ($query->get()->count() > 0)
         {
-            return StockInventory::create([
+            return $query->update([
                 'produk_id'=>$data['produk_id'],
-                $field=>$data['jumlah'],
+                $field=>DB::raw($field.' +'.$data['jumlah'])
             ]);
+
         }
 
-        return $query->update([
+        return StockInventory::create([
+            'active_cash'=>session('ClosedCash'),
+            'jenis'=>$jenis,
+            'gudang_id'=>$gudang,
             'produk_id'=>$data['produk_id'],
-            $field=>DB::raw($field.' +'.$data['jumlah'])
+            $field=>$data['jumlah'],
         ]);
     }
 
@@ -53,7 +62,7 @@ class StockInventoryRepo
             ->where('gudang_id', $data->gudang)
             ->update([
                 'produk_id'=>$data->produk_id,
-                $field=>DB::raw($field.' +'.$data->jumlah)
+                $field=>DB::raw($field.' -'.$data->jumlah)
             ]);
     }
 }

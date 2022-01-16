@@ -22,6 +22,18 @@ class StockOpname extends Model
         'keterangan',
     ];
 
+    // get lastnum of kode
+    public function getLastNumAttribute(): int
+    {
+        return (int) substr($this->kode, '0', '4');
+    }
+
+    // set date tgl_masuk
+    public function setTglInputAttribute($value)
+    {
+        $this->attributes['tgl_input'] = tanggalan_database_format($value, 'd-M-Y');
+    }
+
     public function gudang()
     {
         return $this->belongsTo(Gudang::class);

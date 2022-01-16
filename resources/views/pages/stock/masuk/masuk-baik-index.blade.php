@@ -37,14 +37,14 @@
             "use strict";
 
             // class definition
-            var dataCustomer = function (){
+            var dataStockMasuk = function (){
                 // shared variables
                 var table;
                 var dt;
 
                 // private functions
                 var initDatatable = function(){
-                    dt = $("#penjualanDatatables").DataTable({
+                    dt = $("#stockMasukDatatables").DataTable({
                         language : {
                             "lengthMenu": "Show _MENU_",
                         },
@@ -73,12 +73,13 @@
                             className: 'row-selected'
                         },
                         ajax : {
-                            url : "{{route('datatables.penjualan')}}",
+                            url : "{{route('datatables.stockmasuk.baik')}}",
                             method : 'PATCH',
                         },
                         columns : [
                             {data:'kode'},
-                            {data:'customer_id'},
+                            {data:'idProduk'},
+                            {data:'user_id'},
                             {data:'gudang_id'},
                             {data:'user_id'},
                             {data:'tgl_nota'},
@@ -116,13 +117,13 @@
 
             // on document ready
             KTUtil.onDOMContentLoaded(function () {
-                dataCustomer.init();
+                dataStockMasuk.init();
             });
 
             // reload table
             function reloadTable()
             {
-                $('#customerDatatables').DataTable().ajax.reload();
+                $('#stockMasukDatatables').DataTable().ajax.reload();
             }
 
             Livewire.on('storeCustomer', ()=>{

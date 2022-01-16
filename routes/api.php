@@ -35,3 +35,9 @@ Route::patch('gudang', [\App\Http\Controllers\Master\GudangController::class, 'd
  * Datatables Penjualan and retur Penjualan
  */
 Route::patch('penjualan', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'datatables'])->name('datatables.penjualan');
+
+
+/**
+ * Datatables Stock Masuk
+ */
+Route::patch('stock/masuk/baik', [\App\Http\Controllers\Stock\StockMasukController::class, 'datatablesIndexBaik'])->name('datatables.stockmasuk.baik');

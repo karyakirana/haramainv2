@@ -22,6 +22,18 @@ class StockMutasi extends Model
         'keterangan',
     ];
 
+    // get lastnum of kode
+    public function getLastNumAttribute(): int
+    {
+        return (int) substr($this->kode, '0', '4');
+    }
+
+    // set date tgl_masuk
+    public function setTglMutasiAttribute($value)
+    {
+        $this->attributes['tgl_mutasi'] = tanggalan_database_format($value, 'd-M-Y');
+    }
+
     public function gudangAsal()
     {
         return $this->belongsTo(Gudang::class, 'gudang_asal_id');

@@ -1,40 +1,58 @@
 <div>
+    @if(session()->has('message'))
+        <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
+            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+            <div class="alert-text">{{session('message')}}</div>
+            <div class="alert-close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                </button>
+            </div>
+        </div>
+    @endif
+
     <x-organism.card :title="__('Stock Masuk Baik Transaksi')">
 
         <div class="row">
             <div class="col-8">
                 <form id="formMaster">
                     <div class="row mb-4">
-                        <label class="col-2 col-form-label">Customer</label>
+                        <label class="col-2 col-form-label">Pembuat</label>
                         <div class="col-4">
                             <div class="input-group">
-                                <x-atom.input-form wire:model.defer="customer_nama" readonly/>
-                                <button type="button" class="btn btn-primary" wire:click="showCustomer">Get</button>
-                                <x-atom.input-message :name="__('$customer_id')" />
+                                <x-atom.input-form :name="__('user_id')" wire:model.defer="user_id" readonly/>
+                                <button type="button" class="btn btn-primary" wire:click="showUser">Get</button>
+                                <x-atom.input-message :name="__('$user_id')" />
                             </div>
                         </div>
-                        <label class="col-2 col-form-label">Gudang</label>
-                        <div class="col-4">
-                            <select class="form-control" wire:model.defer="gudang_id"></select>
-                            <x-atom.input-message :name="__('gudang_id')" />
-                        </div>
-                    </div>
-                    <div class="row mb-4">
                         <label class="col-2 col-form-label">Tgl Nota</label>
                         <div class="col-4">
-                            <x-atom.input-singledaterange wire:model.defer="tgl_nota" readonly />
-                            <x-atom.input-message :name="__('tgl_nota')" />
-                        </div>
-                        <label class="col-2 col-form-label">Nomor PO</label>
-                        <div class="col-4">
-                            <x-atom.input-form wire:model.defer="" />
-                            <x-atom.input-message :name="__('tgl_tempo')" />
+                            <x-atom.input-singledaterange id="tgl_masuk" wire:model.defer="tgl_masuk" readonly />
+                            <x-atom.input-message :name="__('tgl_masuk')" />
                         </div>
                     </div>
                     <div class="row mb-4">
+                        <label class="col-2 col-form-label">Gudang</label>
+                        <div class="col-4">
+                            <select class="form-control @error('gudang_id') is-invalid @enderror " name="gudang" wire:model.defer="gudang_id">
+                                <option>Dipilih</option>
+                                @forelse($gudangData as $row)
+                                    <option value="{{$row->id}}">{{$row->nama}}</option>
+                                @empty
+                                    <option>Tidak Ada Data</option>
+                                @endforelse
+                            </select>
+                            <x-atom.input-message :name="__('gudang_id')" />
+                        </div>
                         <label class="col-2 col-form-label">Keterangan</label>
                         <div class="col-4">
                             <x-atom.input-form wire:model.defer="keterangan" />
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <label class="col-2 col-form-label">Nomor Pre Order</label>
+                        <div class="col-4">
+                            <x-atom.input-form wire:model.defer="nomor_po"/>
                         </div>
                     </div>
                 </form>
@@ -49,12 +67,21 @@
                     </x-slot>
 
                     <tbody class="text-gray-600 fw-bold border">
-                    {{--                    @forelse($dataDetail as $row)--}}
-                    {{--                    @empty--}}
-                    {{--                        <tr>--}}
-                    {{--                            <td colspan="7" class="text-center">Tidak Ada Data</td>--}}
-                    {{--                        </tr>--}}
-                    {{--                    @endforelse--}}
+                    @forelse($dataDetail as $index => $row)
+                        <tr>
+                            <td class="text-center">{{$row['kode_lokal']}}</td>
+                            <td>{{$row['nama_produk']}}</td>
+                            <td class="text-center">{{$row['jumlah']}}</td>
+                            <td>
+                                <button type="button" class="btn btn-flush btn-active-color-info btn-icon" wire:click="editLine({{$index}})"><i class="la la-edit fs-2"></i></button>
+                                <button type="button" class="btn btn-flush btn-active-color-info btn-icon" wire:click="removeLine({{$index}})"><i class="la la-trash fs-2"></i></button>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center">Tidak Ada Data</td>
+                        </tr>
+                    @endforelse
                     </tbody>
                 </x-molecules.table-datatable>
             </div>
@@ -63,8 +90,7 @@
                     <div class="row pb-5">
                         <label class="col-4 col-form-label">ID Produk</label>
                         <div class="col-8">
-                            <x-atom.input-form readonly/>
-                            <x-atom.input-message :name="__('idProduk')" />
+                            <x-atom.input-form wire:model.defer="idProduk" readonly/>
                         </div>
                     </div>
                     <div class="row pb-5">
@@ -83,16 +109,31 @@
                 </form>
                 <div class="text-center pb-4">
                     <button type="button" class="btn btn-info" wire:click="showProduk">Add Produk</button>
-                    <button type="button" class="btn btn-primary">Add Data</button>
+                    @if($update)
+                        <button type="button" class="btn btn-primary" wire:click="updateLine">update Data</button>
+                    @else
+                        <button type="button" class="btn btn-primary" wire:click="addLine">Save Data</button>
+                    @endif
                 </div>
             </div>
         </div>
 
         <x-slot name="footer">
             <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
             </div>
         </x-slot>
 
     </x-organism.card>
+
+    @push('custom-scripts')
+        <script>
+            $('#tglMasuk').on('change', function (e) {
+                let date = $(this).data("#tglMasuk");
+                // eval(date).set('tglLahir', $('#tglLahir').val())
+                console.log(e.target.value);
+            @this.tgl_masuk = e.target.value;
+            })
+        </script>
+    @endpush
 </div>

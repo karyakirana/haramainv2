@@ -16,7 +16,13 @@ class StockMasukController extends Controller
 
     public function datatablesIndex()
     {
-        //
+        // datatables stock masuk baik
+        $data = StockMasuk::query()
+            ->with([ 'gudang', 'users'])
+            ->where('active_cash', $this->getSessionForApi())
+            ->latest('kode')
+            ->get();
+        return $this->datatablesAll($data);
     }
 
     public function indexBaik()
@@ -28,8 +34,23 @@ class StockMasukController extends Controller
     public function datatablesIndexBaik()
     {
         // datatables stock masuk baik
-        $data = StockMasuk::latest('kode')->get();
+        $data = StockMasuk::query()
+            ->with([ 'gudang', 'users'])
+            ->where('active_cash', $this->getSessionForApi())
+            ->where('kondisi', 'baik')
+            ->latest('kode')
+            ->get();
         return $this->datatablesAll($data);
+    }
+
+
+    public function editBaik($id)
+    {
+        // edit transaksi stock masuk baik
+        // load data edit
+        return view('pages.stock.masuk.masuk-baik-trans',[
+            'id'=>$id
+        ]);
     }
 
     public function indexRusak()
@@ -38,9 +59,25 @@ class StockMasukController extends Controller
         return view('pages.stock.masuk.masuk-rusak-index');
     }
 
-    public function datatablesRusak()
+    public function datatablesIndexRusak()
     {
-        //
+        // datatables stock masuk baik
+        $data = StockMasuk::query()
+            ->with([ 'gudang', 'users'])
+            ->where('active_cash', $this->getSessionForApi())
+            ->where('kondisi', 'rusak')
+            ->latest('kode')
+            ->get();
+        return $this->datatablesAll($data);
+    }
+
+    public function editRusak($id)
+    {
+        // edit transaksi stock masuk rusak
+        // load data edit
+        return view('pages.stock.masuk.masuk-rusak-trans',[
+            'id'=>$id
+        ]);
     }
 
     public function createBaik()

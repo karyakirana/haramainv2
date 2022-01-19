@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Stock;
 
 use App\Http\Controllers\Controller;
 use App\Models\Stock\StockInventory;
-use App\Services\Repositories\StockInventoryRepo;
+use App\Http\Services\Repositories\StockInventoryRepo;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -20,12 +20,14 @@ class StockInventoryController extends Controller
     public function index()
     {
         // view index
+        return view('pages.stock.inventory-index');
     }
 
     public function datatablesIndex()
     {
         $data = StockInventory::query()
-            ->where('active_cash', session('CLosedCash'))
+            ->with([ 'gudang', 'produk'])
+            ->where('active_cash', $this->getSessionForApi())
             ->latest('produk_id')
             ->get();
         return DataTables::of($data)

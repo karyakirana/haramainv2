@@ -18,11 +18,11 @@ class StockKeluarDetail extends Model
 
     public function stockKeluar()
     {
-        $this->belongsTo(StockKeluar::class, 'stock_keluar_id');
+        return $this->belongsTo(StockKeluar::class, 'stock_keluar_id');
     }
 
     public function produk()
     {
-        $this->belongsTo(Produk::class);
+        return $this->belongsTo(Produk::class);
     }
 }

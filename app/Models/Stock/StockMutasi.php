@@ -48,4 +48,20 @@ class StockMutasi extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function stockMutasiDetail()
+    {
+        return $this->hasMany(StockMutasiDetail::class, 'stock_mutasi_id');
+    }
+
+    // polimorphism
+    public function stockKeluar()
+    {
+        return $this->morphOne(StockKeluar::class,'stockable_keluar', 'stockable_keluar_type', 'stockable_keluar_id');
+    }
+
+    public function stockMasuk()
+    {
+        return $this->morphOne(StockMasuk::class, 'stockable_masuk', 'stockable_masuk_type', 'stockable_masuk_id');
+    }
 }

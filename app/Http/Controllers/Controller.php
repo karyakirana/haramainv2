@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClosedCash;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -39,5 +40,13 @@ class Controller extends BaseController
             })
             ->rawColumns(['actions'])
             ->make(true);
+    }
+
+    public function getSessionForApi()
+    {
+        return ClosedCash::query()
+            ->whereNull('closed')
+            ->latest()
+            ->first()->active;
     }
 }

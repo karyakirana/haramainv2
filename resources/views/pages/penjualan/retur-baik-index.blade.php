@@ -1,6 +1,6 @@
 <x-metronics-layout>
 
-    <x-organism.card :title="__('Penjualan')">
+    <x-organism.card :title="__('Retur Baik')">
         <x-slot name="header">
             <button type="button" class="btn btn-primary align-self-center" onclick="returbaikAdd()">New Data</button>
         </x-slot>
@@ -13,10 +13,9 @@
                     <th class="text-center none">Jenis Retur</th>
                     <th class="text-center">Gudang</th>
                     <th class="text-center none">Pembuat</th>
-                    <th class="text-center">Tgl Nota</th>
-                    <th class="text-center none">Tgl Tempo</th>
+                    <th class="text-center">Tgl Retur</th>
                     <th class="text-center none">Status Bayar</th>
-                    <th class="text-center">Total Bayar</th>
+                    <th class="text-center none">Tgl Tempo</th>
                     <th class="text-center none">PPN</th>
                     <th class="text-center none">Biaya Lain</th>
                     <th class="text-center none">Total Bayar</th>
@@ -29,13 +28,6 @@
             </tbody>
 
         </x-molecules.table-datatable>
-
-        <x-slot name="footer">
-            <div class="d-flex justify-content-end">
-                <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-            </div>
-        </x-slot>
     </x-organism.card>
 
     @push('custom-scripts')
@@ -79,18 +71,18 @@
                             className: 'row-selected'
                         },
                         ajax : {
-                            url : "{{route('datatables.penjualan')}}",
+                            url : "{{route('datatables.penjualan.retur.baik')}}",
                             method : 'PATCH',
                         },
                         columns : [
                             {data:'kode'},
-                            {data:'customer_id'},
+                            {data:'customer.nama'},
                             {data:'jenis_retur'},
-                            {data:'gudang_id'},
-                            {data:'user_id'},
+                            {data:'gudang.nama'},
+                            {data:'users_id'},
                             {data:'tgl_nota'},
-                            {data:'tgl_tempo'},
                             {data:'status_bayar'},
+                            {data:'tgl_tempo'},
                             {data:'ppn'},
                             {data:'biaya_lain'},
                             {data:'total_bayar'},

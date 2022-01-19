@@ -12,6 +12,10 @@ Route::get('penjualan/edit/{id}', [\App\Http\Controllers\Penjualan\PenjualanCont
 
 Route::get('penjualan/new', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'create'])->name('penjualan.create');
 
+Route::get('penjualan/biaya', [\App\Http\Controllers\Penjualan\PenjualanBiayaController::class, 'index'])->name('penjualan.biaya');
+Route::get('penjualan/biaya/new', [\App\Http\Controllers\Penjualan\PenjualanBiayaController::class, 'create'])->name('penjualan.biaya.new');
+Route::get('penjualan/biaya/edit/{id}', [\App\Http\Controllers\Penjualan\PenjualanBiayaController::class, 'edit']);
+
 
 
 /**

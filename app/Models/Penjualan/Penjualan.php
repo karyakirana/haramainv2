@@ -73,6 +73,11 @@ class Penjualan extends Model
         return $this->hasMany(PenjualanDetail::class, 'penjualan_id');
     }
 
+    public function penjualanBiaya()
+    {
+        return $this->hasMany(PenjualanBiaya::class, 'penjualan_id');
+    }
+
     // polimorphism
     public function stockKeluar()
     {

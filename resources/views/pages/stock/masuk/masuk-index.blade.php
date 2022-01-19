@@ -1,23 +1,20 @@
 <x-metronics-layout>
 
     <x-organism.card :title="__('Stock Masuk')">
-        <x-molecules.table-datatable id="penjualanDatatables">
+        <x-molecules.table-datatable id="stockMasukDatatables">
             <x-slot name="thead">
                 <tr class="text-start text-black-50 fw-bolder fs-7 text-uppercase gs-0 border-1">
                     <th class="text-center" width="10%">ID</th>
-                    <th class="text-center">Produk</th>
                     <th class="text-center">Gudang</th>
                     <th class="text-center none">Pembuat</th>
-                    <th class="text-center">Nomor PO</th>
-                    <th class="text-center">Tgl Masuk</th>
+                    <th class="text-center" width="17%">Nomor PO</th>
+                    <th class="text-center" width="17%">Tgl Masuk</th>
                     <th class="none">Keterangan</th>
                     <th class="text-center" width="15%">Actions</th>
                 </tr>
             </x-slot>
-
             <tbody class="text-gray-600 fw-bold border">
             </tbody>
-
         </x-molecules.table-datatable>
 
         <x-slot name="footer">
@@ -33,14 +30,14 @@
             "use strict";
 
             // class definition
-            var dataCustomer = function (){
+            var dataStockMasuk = function (){
                 // shared variables
                 var table;
                 var dt;
 
                 // private functions
                 var initDatatable = function(){
-                    dt = $("#penjualanDatatables").DataTable({
+                    dt = $("#stockMasukDatatables").DataTable({
                         language : {
                             "lengthMenu": "Show _MENU_",
                         },
@@ -69,16 +66,15 @@
                             className: 'row-selected'
                         },
                         ajax : {
-                            url : "{{route('datatables.penjualan')}}",
+                            url : "{{route('datatables.stockmasuk')}}",
                             method : 'PATCH',
                         },
                         columns : [
                             {data:'kode'},
-                            {data:'customer_id'},
-                            {data:'gudang_id'},
+                            {data:'gudang.nama'},
                             {data:'user_id'},
-                            {data:'tgl_nota'},
-                            {data:'tgl_tempo'},
+                            {data:'nomor_po'},
+                            {data:'tgl_masuk'},
                             {data:'keterangan'},
                             {data:'actions'},
                         ],
@@ -112,13 +108,13 @@
 
             // on document ready
             KTUtil.onDOMContentLoaded(function () {
-                dataCustomer.init();
+                dataStockMasuk.init();
             });
 
             // reload table
             function reloadTable()
             {
-                $('#customerDatatables').DataTable().ajax.reload();
+                $('#stockMasukDatatables').DataTable().ajax.reload();
             }
 
             Livewire.on('storeCustomer', ()=>{

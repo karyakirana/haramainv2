@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    <x-organism.card :title="__('Stock Masuk Baik Transaksi')">
+    <x-organism.card :title="__('Stock Masuk Baik Transaksi'.$idStockMasuk)">
 
         <div class="row">
             <div class="col-8">
@@ -119,9 +119,15 @@
         </div>
 
         <x-slot name="footer">
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
-            </div>
+            @if($mode =='update')
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" wire:click="update">Update All</button>
+                </div>
+            @else
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
+                </div>
+            @endif
         </x-slot>
 
     </x-organism.card>

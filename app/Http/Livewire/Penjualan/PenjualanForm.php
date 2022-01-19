@@ -6,6 +6,7 @@ use App\Models\Master\Customer;
 use App\Models\Master\Gudang;
 use App\Models\Master\Produk;
 use App\Http\Services\Repositories\PenjualanRepository;
+use App\Models\Penjualan\Penjualan;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -21,6 +22,8 @@ class PenjualanForm extends Component
     public $update =false;
     public $gudangData;
     public $indexDetail;
+    public $mode = 'create';
+    public $idPenjualan;
 
     // properti master
     public $kode, $customer_id, $customer_nama, $customer_diskon, $gudang_id, $user_id;
@@ -32,12 +35,46 @@ class PenjualanForm extends Component
     public $idDetail, $idProduk, $namaProduk, $kodeLokalProduk, $coverProduk, $halProduk, $hargaProduk, $diskonProduk, $jumlahProduk, $subTotalProduk;
     public $detailProduk, $detailHarga, $detailDiskon, $detailDiskonHarga, $detailSubTotal;
 
-    public function mount()
+    public function mount($penjualan = null)
     {
         $this->tgl_nota = tanggalan_format(now('ASIA/JAKARTA'));
         $this->tgl_tempo = tanggalan_format(now('ASIA/JAKARTA')->addMonth(2));
-
         $this->gudangData = Gudang::all();
+
+        // set edit
+        if ($penjualan){
+            $this->mode = 'update';
+            $penjualan = Penjualan::query()->with(['customer', 'gudang', 'users', 'penjualanDetail'])->find($penjualan);
+            $this->idPenjualan = $penjualan->id;
+            $this->customer_id = $penjualan->customer_id;
+            $this->customer_nama = $penjualan->customer->nama;
+            $this->customer_diskon = $penjualan->customer->diskon;
+            $this->jenis_bayar = $penjualan->jenis_bayar;
+            $this->tgl_nota = tanggalan_format($penjualan->tgl_nota);
+            $this->tgl_tempo = $penjualan->tgl_tempo ? tanggalan_format($penjualan->tgl_tempo) : tanggalan_format(strtotime("+2 months", strtotime($penjualan->tgl_nota)));
+            $this->gudang_id = $penjualan->gudang_id;
+            $this->user_id = $penjualan->user_id;
+            $this->ppn = $penjualan->ppn;
+            $this->biaya_lain = $penjualan->biaya_lain;
+            $this->keterangan = $penjualan->keterangan;
+
+            foreach ($penjualan->penjualanDetail as $row)
+            {
+                $this->dataDetail [] = [
+                    'produk_id'=>$row->produk_id,
+                    'kode_lokal'=>$row->produk->kode_lokal,
+                    'nama_produk'=>$row->produk->nama."\n".$row->produk->cover."\n".$row->produk->hal,
+                    'harga'=>$row->harga,
+                    'jumlah'=>$row->jumlah,
+                    'diskon'=>$row->diskon,
+                    'sub_total'=>$row->sub_total
+                ];
+            }
+            $this->hitungTotal();
+            $this->hitungTotalBayar();
+        }
+
+
     }
 
     public function showCustomer()
@@ -174,7 +211,7 @@ class PenjualanForm extends Component
         $this->dataDetail = array_values($this->dataDetail);
     }
 
-    public function store()
+    protected function setDataPenjualan()
     {
         // validation
         $this->validate([
@@ -197,7 +234,8 @@ class PenjualanForm extends Component
             ];
         }
         // set data
-        $dataPenjualan = (object)[
+        return (object)[
+            'id_penjualan'=>$this->idPenjualan,
             'customer_id'=>$this->customer_id,
             'gudang_id'=>$this->gudang_id,
             'tgl_nota'=>$this->tgl_nota,
@@ -210,7 +248,11 @@ class PenjualanForm extends Component
             'keterangan'=>$this->keterangan,
             'detail'=>$dataDetail
         ];
-//        dd($dataPenjualan);
+    }
+
+    public function store()
+    {
+        $dataPenjualan = $this->setDataPenjualan();
 
         DB::beginTransaction();
         try {
@@ -220,6 +262,24 @@ class PenjualanForm extends Component
             DB::rollBack();
             session()->flash('message', $e);
         }
+        return redirect()->to('penjualan');
+
+    }
+
+    public function update()
+    {
+        // set data
+        $dataPenjualan = $this->setDataPenjualan();
+
+        DB::beginTransaction();
+        try {
+            (new PenjualanRepository())->update($dataPenjualan);
+            DB::commit();
+        } catch (ModelNotFoundException $e) {
+            DB::rollBack();
+            session()->flash('message', $e);
+        }
+        return redirect()->to('penjualan');
     }
 
     public function render()

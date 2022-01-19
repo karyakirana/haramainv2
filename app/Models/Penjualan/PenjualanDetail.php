@@ -26,6 +26,6 @@ class PenjualanDetail extends Model
 
     public function produk()
     {
-        $this->belongsTo(Produk::class, 'produk_id');
+        return $this->belongsTo(Produk::class, 'produk_id');
     }
 }

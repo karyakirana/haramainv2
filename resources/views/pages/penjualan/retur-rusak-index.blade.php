@@ -16,7 +16,6 @@
                     <th class="text-center">Tgl Nota</th>
                     <th class="text-center none">Tgl Tempo</th>
                     <th class="text-center none">Status Bayar</th>
-                    <th class="text-center">Total Bayar</th>
                     <th class="text-center none">PPN</th>
                     <th class="text-center none">Biaya Lain</th>
                     <th class="text-center none">Total Bayar</th>
@@ -79,7 +78,7 @@
                             className: 'row-selected'
                         },
                         ajax : {
-                            url : "{{route('datatables.penjualan')}}",
+                            url : "{{route('datatables.penjualan.retur.rusak')}}",
                             method : 'PATCH',
                         },
                         columns : [

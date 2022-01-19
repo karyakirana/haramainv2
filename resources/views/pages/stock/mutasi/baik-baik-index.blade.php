@@ -2,14 +2,13 @@
 
     <x-organism.card :title="__('Mutasi Stock Baik ke Baik')">
         <x-slot name="header">
-            <button type="button" class="btn btn-primary align-self-center" onclick="">New Data</button>
+            <button type="button" class="btn btn-primary align-self-center" onclick="mutasiAdd()">New Data</button>
         </x-slot>
 
-        <x-molecules.table-datatable id="penjualanDatatables">
+        <x-molecules.table-datatable id="stockMutasiDatatables">
             <x-slot name="thead">
                 <tr class="text-start text-black-50 fw-bolder fs-7 text-uppercase gs-0 border-1">
                     <th class="text-center" width="10%">ID</th>
-                    <th class="text-center none">Produk</th>
                     <th class="text-center">Gudang Asal</th>
                     <th class="text-center">Gudang Tujuan</th>
                     <th class="text-center none">Pembuat</th>
@@ -44,7 +43,7 @@
 
                 // private functions
                 var initDatatable = function(){
-                    dt = $("#penjualanDatatables").DataTable({
+                    dt = $("#stockMutasiDatatables").DataTable({
                         language : {
                             "lengthMenu": "Show _MENU_",
                         },
@@ -73,14 +72,13 @@
                             className: 'row-selected'
                         },
                         ajax : {
-                            url : "{{route('datatables.penjualan')}}",
+                            url : "{{route('datatables.mutasi.baik.baik')}}",
                             method : 'PATCH',
                         },
                         columns : [
                             {data:'kode'},
-                            {data:'produk'},
-                            {data:'gudang_id'},
-                            {data:'gudang_id'},
+                            {data:'gudang_asal.nama'},
+                            {data:'gudang_tujuan.nama'},
                             {data:'user_id'},
                             {data:'tgl_mutasi'},
                             {data:'keterangan'},
@@ -93,7 +91,15 @@
                                 className: "text-center"
                             },
                             {
+                                targets : 1,
+                                className: "text-center"
+                            },
+                            {
                                 targets : 2,
+                                className: "text-center"
+                            },
+                            {
+                                targets : 4,
                                 className: "text-center"
                             }
                         ],
@@ -122,7 +128,7 @@
             // reload table
             function reloadTable()
             {
-                $('#customerDatatables').DataTable().ajax.reload();
+                $('#stockMutasiDatatables').DataTable().ajax.reload();
             }
 
             Livewire.on('storeCustomer', ()=>{
@@ -131,14 +137,14 @@
 
             Livewire.emit('customerEdit');
 
-            function penjualanAdd()
+            function mutasiAdd()
             {
-                window.location.href = "{{route('penjualan.create')}}";
+                window.location.href = "{{route('mutasibaik.baik.trans')}}";
             }
 
             function edit(id)
             {
-                windows.location.href = "{{url('/').'penjualan/edit/'}}"+id;
+                window.location.href = "{{url('/').'/stock/mutasi/baik/baik/edit/'}}"+id;
             }
 
             function destroy(id)

@@ -34,4 +34,10 @@ class SupplierController extends Controller
         $data = SupplierJenis::latest('id')->get();
         return $this->datatablesAll($data);
     }
+
+    public function componentDatatables()
+    {
+        $data = Supplier::latest('supplier_jenis_id')->get();
+        return $this->datatablesForSet($data, 'setSupplier');
+    }
 }

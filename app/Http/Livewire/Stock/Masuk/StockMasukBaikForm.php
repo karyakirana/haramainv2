@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Stock\Masuk;
 
+use App\Models\Stock\StockMasuk;
 use App\Models\User;
 use App\Models\Master\Gudang;
 use App\Models\Master\Produk;
@@ -13,13 +14,16 @@ use Livewire\Component;
 class StockMasukBaikForm extends Component
 {
     protected $listeners = [
-        'setProduk'=>'setProduk'
+        'setProduk'=>'setProduk',
+        'setUser'=>'setUser'
     ];
 
     public $dataDetail =[];
     public $update =false;
     public $gudangData;
     public $indexDetail;
+    public $mode = 'create';
+    public $idStockMasuk;
 
     // properti master
     public $kode, $stockable_masuk_id, $stockable_masuk_type, $kondisi;
@@ -27,12 +31,36 @@ class StockMasukBaikForm extends Component
 
     // properti detail
     public $idDetail, $idProduk, $namaProduk, $kodeLokalProduk, $coverProduk, $halProduk;
-    public $jumlahProduk;
+    public $detailProduk, $jumlahProduk;
 
-    public function mount()
+    public function mount($stockMasuk = null)
     {
         $this->tgl_masuk = tanggalan_format(now('ASIA/JAKARTA'));
         $this->gudangData = Gudang::all();
+
+        if ($stockMasuk){
+            $this->mode = 'update';
+            $stockMasuk = StockMasuk::query()->with(['gudang', 'users', 'stockMasukDetail'])->find($stockMasuk);
+            $this->idStockMasuk = $stockMasuk ->id;
+            $this->stockable_masuk_id = $stockMasuk ->stockable_masuk_id;
+            $this->stockable_masuk_type = $stockMasuk ->stockable_masuk_type;
+            $this->kondisi = $stockMasuk ->kondisi;
+            $this->gudang_id = $stockMasuk->gudang_id;
+            $this->user_id = $stockMasuk->user_id;
+            $this->tgl_masuk = tanggalan_format($stockMasuk->tgl_masuk);
+            $this->nomor_po = $stockMasuk->nomor_po;
+            $this->keterangan = $stockMasuk->keterangan;
+
+            foreach ($stockMasuk->stockMasukDetail as $row)
+            {
+                $this->dataDetail [] = [
+                    'produk_id'=>$row->produk_id,
+                    'kode_lokal'=>$row->produk->kode_lokal,
+                    'nama_produk'=>$row->produk->nama."\n".$row->produk->cover."\n".$row->produk->hal,
+                    'jumlah'=>$row->jumlah,
+                ];
+            }
+        }
     }
 
     public function showUser()
@@ -108,8 +136,7 @@ class StockMasukBaikForm extends Component
         $index = $this->indexDetail;
         $this->dataDetail[$index]['produk_id'] = $this->idProduk;
         $this->dataDetail[$index]['nama_produk'] = $this->namaProduk;
-        $this->dataDetail[$index]['kondisi'] = 'baik';
-        $this->dataDetail[$index]['jumlah'] = $this->jumlahProduk;
+         $this->dataDetail[$index]['jumlah'] = $this->jumlahProduk;
         $this->resetForm();
         $this->update = false;
     }
@@ -122,37 +149,41 @@ class StockMasukBaikForm extends Component
     }
 
 
-    public function store()
+    public function setDataStockMasuk()
     {
         // validation
         $this->validate([
-            'gudang_id'=>'required',
-            'tgl_masuk'=>'required|date_format:d-M-Y',
+            'gudang_id' => 'required',
+            'tgl_masuk' => 'required|date_format:d-M-Y',
         ]);
 
         $dataDetail = [];
         // set data stock masuk detail
-        foreach ($this->dataDetail as $index=>$row)
-        {
-            $dataDetail []= [
-                'produk_id'=>$row['produk_id'],
-                'jumlah'=>$row['jumlah'],
+        foreach ($this->dataDetail as $index => $row) {
+            $dataDetail [] = [
+                'produk_id' => $row['produk_id'],
+                'nama_produk'=> $row['nama_produk'],
+                'jumlah' => $row['jumlah'],
             ];
         }
         // set data
-        $dataStockMasuk = (object)[
-            'active_cash'=>session('ClosedCash'),
-            'gudang_id'=>$this->gudang_id,
-            'stockable_masuk_id'=>$this->stockable_masuk_id ?? null,
-            'stockable_masuk_type'=>$this->stockable_masuk_type ?? null,
-            'nomor_po'=>$this->nomor_po ?? null,
-            'tgl_masuk'=>$this->tgl_masuk,
-            'kondisi'=>'baik',
-            'keterangan'=>$this->keterangan,
-            'detail'=>$dataDetail
+        return (object)[
+            'active_cash' => session('ClosedCash'),
+            'id_stock_masuk' => $this->idStockMasuk,
+            'gudang_id' => $this->gudang_id,
+            'stockable_masuk_id' => $this->stockable_masuk_id ?? null,
+            'stockable_masuk_type' => $this->stockable_masuk_type ?? null,
+            'nomor_po' => $this->nomor_po ,
+            'tgl_masuk' => $this->tgl_masuk,
+            'kondisi' => 'baik',
+            'keterangan' => $this->keterangan,
+            'detail' => $dataDetail
         ];
+    }
 //        dd($dataStockMasuk);
-
+    public function store()
+    {
+        $dataStockMasuk = $this->setDataStockMasuk();
         DB::beginTransaction();
         try {
             (new StockMasukRepository())->store($dataStockMasuk);
@@ -161,6 +192,23 @@ class StockMasukBaikForm extends Component
             DB::rollBack();
             session()->flash('message', $e);
         }
+        return redirect()->to('stock/masuk/baik');
+
+    }
+
+    public function update()
+    {
+        $dataStockMasuk = $this->setDataStockMasuk();
+        DB::beginTransaction();
+        try {
+            (new StockMasukRepository())->update($dataStockMasuk);
+            DB::commit();
+        } catch (ModelNotFoundException $e) {
+            DB::rollBack();
+            session()->flash('message', $e);
+        }
+        return redirect()->to('stock/masuk/baik');
+
     }
 
 

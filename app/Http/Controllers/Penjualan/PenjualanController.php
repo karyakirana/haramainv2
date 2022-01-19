@@ -19,7 +19,7 @@ class PenjualanController extends Controller
         // json datatables
         $data = Penjualan::query()
             ->with(['customer', 'gudang', 'users'])
-//            ->where('active_cash', session('ClosedCash'))
+            ->where('active_cash', $this->getSessionForApi())
             ->latest('kode')
             ->get();
         return $this->datatablesAll($data);
@@ -31,15 +31,13 @@ class PenjualanController extends Controller
         return view('pages.penjualan.penjualan-transaksi');
     }
 
-    public function store(Request $request)
-    {
-        // store transaksi penjualan
-    }
-
     public function edit($id)
     {
         // edit transaksi penjualan
         // load data edit
+        return view('pages.penjualan.penjualan-transaksi',[
+            'id'=>$id
+        ]);
     }
 
     public function update(Request $request)

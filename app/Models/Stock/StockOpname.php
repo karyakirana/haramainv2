@@ -3,6 +3,7 @@
 namespace App\Models\Stock;
 
 use App\Models\Master\Gudang;
+use App\Models\Master\Pegawai;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,5 +43,15 @@ class StockOpname extends Model
     public function users()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class, 'pegawai_id');
+    }
+
+    public function stockOpnameDetail()
+    {
+        return $this->hasMany(StockOpnameDetail::class, 'stock_opname_id');
     }
 }

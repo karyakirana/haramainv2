@@ -3,6 +3,7 @@
 namespace App\Models\Stock;
 
 use App\Models\Master\Gudang;
+use App\Models\Master\Supplier;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,7 @@ class StockKeluar extends Model
     protected $table = 'stock_keluar';
     protected $fillable = [
         'kode',
+        'supplier_id',
         'active_cash',
         'stockable_keluar_id',
         'stockable_keluar_type',
@@ -48,6 +50,11 @@ class StockKeluar extends Model
     public function stockKeluarDetail()
     {
         return $this->hasMany(StockKeluarDetail::class, 'stock_keluar_id');
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 
     // morph to

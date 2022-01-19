@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Stock;
 
 use App\Http\Controllers\Controller;
+use App\Models\Stock\StockKeluar;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class StockKeluarController extends Controller
 {
@@ -15,7 +17,18 @@ class StockKeluarController extends Controller
 
     public function datatablesIndex()
     {
-        //
+        $data = StockKeluar::with(['gudang', 'users', 'stockableKeluar', 'supplier'])
+            ->where('active_cash', $this->getSessionForApi())
+            ->latest()->get();
+        return DataTables::of($data)
+            ->addColumn('actions', function ($row){
+                if (is_null($row->stockable_keluar_id)){
+                    return $this->buttonMaster($row->id);
+                }
+                return null;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
     }
 
     public function indexBaik()
@@ -26,7 +39,20 @@ class StockKeluarController extends Controller
 
     public function datatablesIndexBaik()
     {
-        //
+        // datatables stock keluar baik
+        $data = StockKeluar::with(['gudang', 'users', 'stockableKeluar', 'supplier'])
+            ->where('active_cash', $this->getSessionForApi())
+            ->where('kondisi', 'baik')
+            ->latest()->get();
+        return DataTables::of($data)
+            ->addColumn('actions', function ($row){
+                if (is_null($row->stockable_keluar_id)){
+                    return $this->buttonMaster($row->id);
+                }
+                return null;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
     }
 
     public function indexRusak()
@@ -35,9 +61,22 @@ class StockKeluarController extends Controller
         return view('pages.stock.keluar.keluar-rusak-index');
     }
 
-    public function datatablesRusak()
+    public function datatablesIndexRusak()
     {
-        //
+        // datatables stock keluar baik
+        $data = StockKeluar::with(['gudang', 'users', 'stockableKeluar', 'supplier'])
+            ->where('active_cash', $this->getSessionForApi())
+            ->where('kondisi', 'rusak')
+            ->latest()->get();
+        return DataTables::of($data)
+            ->addColumn('actions', function ($row){
+                if (is_null($row->stockable_keluar_id)){
+                    return $this->buttonMaster($row->id);
+                }
+                return null;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
     }
 
     public function createBaik()
@@ -50,5 +89,19 @@ class StockKeluarController extends Controller
     {
         // transaksi stock keluar
         return view('pages.stock.keluar.keluar-rusak-trans');
+    }
+
+    public function editBaik($id)
+    {
+        return view('pages.stock.keluar.keluar-baik-trans', [
+            'id'=>$id
+        ]);
+    }
+
+    public function editRusak($id)
+    {
+        return view('pages.stock.keluar.keluar-rusak-trans', [
+            'id'=>$id
+        ]);
     }
 }

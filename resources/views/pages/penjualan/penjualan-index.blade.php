@@ -146,7 +146,7 @@
 
             function edit(id)
             {
-                windows.location.href = "{{url('/').'penjualan/edit/'}}"+id;
+                window.location.href = "{{url('/').'/penjualan/edit/'}}"+id;
             }
 
             function destroy(id)

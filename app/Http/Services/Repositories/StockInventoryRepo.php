@@ -54,12 +54,12 @@ class StockInventoryRepo
         ]);
     }
 
-    public function rollback($data, $field)
+    public function rollback($data, $jenis, $gudang, $field)
     {
         return StockInventory::query()
             ->where('active_cash', session('ClosedCash'))
-            ->where('jenis', $data->jenis)
-            ->where('gudang_id', $data->gudang)
+            ->where('jenis', $jenis)
+            ->where('gudang_id', $gudang)
             ->update([
                 'produk_id'=>$data->produk_id,
                 $field=>DB::raw($field.' -'.$data->jumlah)

@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    <x-organism.card :title="__('Penjualan Transaksi')">
+    <x-organism.card :title="__('Penjualan Transaksi'.$idPenjualan)">
 
         <div class="row">
             <div class="col-8">
@@ -22,7 +22,7 @@
                             <div class="input-group">
                                 <x-atom.input-form :name="__('customer_id')" wire:model.defer="customer_nama"/>
                                 <button type="button" class="btn btn-primary" wire:click="showCustomer">Get</button>
-                                <x-atom.input-message :name="__('$customer_id')" />
+                                <x-atom.input-message :name="__('customer_id')" />
                             </div>
                         </div>
                         <label class="col-2 col-form-label">Jenis Bayar</label>
@@ -189,9 +189,15 @@
         </div>
 
         <x-slot name="footer">
+            @if($mode =='update')
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" wire:click="update">Update All</button>
+                </div>
+            @else
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
             </div>
+            @endif
         </x-slot>
 
     </x-organism.card>

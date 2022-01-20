@@ -23,9 +23,10 @@ class NeracaSaldoController extends Controller
     public function datatablesNeracaSaldoAwal()
     {
         $data = AkunSaldoAwal::query()
-            ->where('activew_cash', $this->getSessionForApi())
+            ->where('active_cash', $this->getSessionForApi())
             ->oldest('kode')
             ->get();
+        return $this->datatablesAll($data);
     }
 
     public function neracaSaldoAkhir()

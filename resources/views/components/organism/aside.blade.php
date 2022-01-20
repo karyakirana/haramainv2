@@ -746,15 +746,15 @@
 									</span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('neraca.index') }}">
+                            <a class="menu-link" href="{{ route('penerimaan.cash.index') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Pembayaran Cash</span>
+                                <span class="menu-title">Penerimaan Cash</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('neraca.index') }}">
+                            <a class="menu-link" href="{{ route('set.piutang.index') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -762,11 +762,19 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('neraca.index') }}">
+                            <a class="menu-link" href="{{ route('pembayaran.piutang.index') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                 <span class="menu-title">Pembayaran Piutang</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('piutang.pegawai.index') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">Piutang Pegawai</span>
                             </a>
                         </div>
                     </div>
@@ -783,7 +791,7 @@
 									</span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('neraca.index') }}">
+                            <a class="menu-link" href="{{ route('jurnal.penerimaan.index') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -791,7 +799,15 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('neraca.saldo.awal') }}">
+                            <a class="menu-link" href="{{ route('jurnal.penerimaan.trans') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">Jurnal Penerimaan Baru</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('jurnal.pengeluaran.index') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -799,7 +815,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('neraca.saldo.awal') }}">
+                            <a class="menu-link" href="{{ route('jurnal.mutasi.index') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>

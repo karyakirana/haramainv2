@@ -63,6 +63,22 @@ Route::middleware(['auth'])->group(function(){
     Route::get('keuangan/neraca/awal', [\App\Http\Controllers\Keuangan\NeracaSaldoController::class, 'neracaSaldoAwal'])->name('neraca.saldo.awal');
     Route::get('keuangan/neraca/akhir', [\App\Http\Controllers\Keuangan\NeracaSaldoController::class, 'neracaSaldoAkhir'])->name('neraca.saldo.akhir');
 
+    Route::get('keuangan/jurnal/penerimaan', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'index'])->name('jurnal.penerimaan.index');
+    Route::get('keuangan/jurnal/pengeluaran', [\App\Http\Controllers\Keuangan\JurnalPengeluaranController::class, 'index'])->name('jurnal.pengeluaran.index');
+    Route::get('keuangan/jurnal/mutasi', [\App\Http\Controllers\Keuangan\JurnalMutasiController::class, 'index'])->name('jurnal.mutasi.index');
+
+    Route::get('keuangan/jurnal/penerimaan/trans', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'create'])->name('jurnal.penerimaan.trans');
+    // dipakai untuk penerimaan
+//    Route::get('keuangan/kasir/pembayaran/cash', [\App\Http\Controllers\Kasir\PembayaranCashController::class, 'index'])->name('pembayaran.cash.index');
+
+    Route::get('keuangan/kasir/penerimaan/cash', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'index'])->name('penerimaan.cash.index');
+    Route::get('keuangan/kasir/pembayaran/piutang', [\App\Http\Controllers\Kasir\PembayaranPiutangController::class, 'index'])->name('pembayaran.piutang.index');
+    Route::get('keuangan/kasir/piutang/pegawai', [\App\Http\Controllers\Keuangan\PiutangPegawaiController::class, 'index'])->name('piutang.pegawai.index');
+
+    Route::get('keuangan/kasir/set/piutang', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'indexSet'])->name('set.piutang.index');
+
+    Route::get('keuangan/kasir/penerimaan/cash/transaksi', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'create'])->name('pemabayaran.cash.transaksi');
+
 });
 
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])

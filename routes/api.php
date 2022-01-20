@@ -77,3 +77,16 @@ Route::patch('stock/mutasi/rusak/rusak', [\App\Http\Controllers\Stock\StockMutas
 Route::patch('stock/opname', [\App\Http\Controllers\Stock\StockOpnameController::class, 'datatablesIndex'])->name('datatables.stockopname');
 Route::patch('stock/opname/baik', [\App\Http\Controllers\Stock\StockOpnameController::class, 'datatablesBaik'])->name('datatables.stockopname.baik');
 Route::patch('stock/opname/rusak', [\App\Http\Controllers\Stock\StockOpnameController::class, 'datatablesRusak'])->name('datatables.stockopname.rusak');
+
+
+/**
+ * Datatables Keuangan
+ */
+Route::patch('keuangan/neraca/awal', [\App\Http\Controllers\Keuangan\NeracaSaldoController::class, 'datatablesNeracaSaldoAwal'])->name('datatables.neraca.saldo.awal');
+
+Route::patch('keuangan/jurnal/penerimaan', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'datatablesPenerimaan'])->name('datatables.jurnal.penerimaan');
+Route::patch('keuangan/jurnal/pengeluaran', [\App\Http\Controllers\Keuangan\JurnalPengeluaranController::class, 'datatablesPengeluaran'])->name('datatables.jurnal.pengeluaran');
+
+Route::patch('keuangan/kasir/penerimaan/cash', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'datatablesPenerimaanCash'])->name('datatables.penerimaan.cash');
+
+Route::patch('keuangan/kasir/set/piutang', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'datatablesSetPiutang'])->name('datatables.set.piutang');

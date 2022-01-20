@@ -148,4 +148,14 @@ class PenjualanRepository
     // update status penjualan (disable edit penjualan)
     // print penjualan (query)
     // delete penjualan (urgensi)
+
+    // daftar penjualan by cash
+    public function getBy($param, $search, $paginate)
+    {
+        return Penjualan::query()
+            ->where($param->column, $param->condition)
+            ->where('active_cash', session('ClosedCash'))
+            ->latest('kode')
+            ->paginate($paginate);
+    }
 }

@@ -25,6 +25,7 @@ class JurnalPenjualanController extends Controller
     public function create()
     {
         // transaksi input penjualan to piutang per customer
+        return view('pages.Keuangan.kasir-set-piutang-trans');
     }
 
     public function edit($id)

@@ -45,6 +45,8 @@ Route::patch('penjualan', [\App\Http\Controllers\Penjualan\PenjualanController::
 Route::patch('retur/baik', [\App\Http\Controllers\Penjualan\ReturBaikController::class, 'datatables'])->name('datatables.penjualan.retur.baik');
 Route::patch('retur/rusak', [\App\Http\Controllers\Penjualan\ReturRusakController::class, 'datatables'])->name('datatables.penjualan.retur.rusak');
 
+Route::patch('penjualan/set', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'datatablesPenjualan'])->name('datatables.penjualan.set');
+
 Route::patch('penjualan/biaya', [\App\Http\Controllers\Penjualan\PenjualanBiayaController::class, 'datatables'])->name('datatables.penjualan.biaya');
 
 

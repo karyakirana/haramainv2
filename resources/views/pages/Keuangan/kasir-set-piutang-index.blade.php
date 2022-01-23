@@ -121,7 +121,7 @@
 
             function add()
             {
-                Livewire.emit('add');
+                window.location.href = "{{route('set.piutang.transaksi')}}";
             }
 
             function edit(id)

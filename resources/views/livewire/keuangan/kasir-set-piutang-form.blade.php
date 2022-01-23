@@ -1,16 +1,4 @@
 <div>
-    @if($notification)
-    <x-molecules.alert>
-        {{$notificationMessage}}
-    </x-molecules.alert>
-    @endif
-
-    @if(session()->has('message'))
-        <x-molecules.alert>
-            {{$notificationMessage}}
-        </x-molecules.alert>
-    @endif
-
     @if(session()->has('message'))
         <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
             <div class="alert-icon"><i class="flaticon-warning"></i></div>
@@ -54,49 +42,47 @@
         </form>
         <table class="table gs-3 border-1 pt-5">
             <thead>
-                <tr class="border">
-                    <x-atom.table-th>ID</x-atom.table-th>
-                    <x-atom.table-th>Penjualan ID</x-atom.table-th>
-                    <x-atom.table-th>Customer</x-atom.table-th>
-                    <x-atom.table-th>Total Bayar</x-atom.table-th>
-                    <th></th>
-                </tr>
+            <tr class="border">
+                <th>ID</th>
+                <th>Penjualan ID</th>
+                <th>Customer</th>
+                <th>Total Bayar</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody class="border">
-                @forelse($daftarNota as $index=>$item)
-                    <tr>
-                        <x-atom.table-td class="text-center">{{$loop->iteration}}</x-atom.table-td>
-                        <x-atom.table-td class="text-center">{{$item['penjualan_kode']}}</x-atom.table-td>
-                        <x-atom.table-td>{{$item['penjualan_customer']}}</x-atom.table-td>
-                        <x-atom.table-td class="text-end">{{rupiah_format($item['penjualan_total_bayar'])}}</x-atom.table-td>
-                        <x-atom.table-td class="text-center">
-                            <button type="button" class="btn btn-flush btn-active-color-info btn-sm btn-icon" wire:click="destroyLine({{$index}})"><i class="fas fa-pen-nib fs-2"></i></button>
-                        </x-atom.table-td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="4" class="text-center">Tidak ada Data</td>
-                    </tr>
-                @endforelse
-            </tbody>
-            <tfoot class="border">
+            @forelse($daftarPiutang as $index=>$item)
                 <tr>
-                    <td colspan="2" ></td>
-                    <td>Total bayar</td>
-                    <td class="text-end">{{$total_bayar_rupiah}}</td>
+                    <td>{{$index}}</td>
+                    <td>{{$item['penjualan_kode']}}</td>
+                    <td>{{$item['penjualan_customer']}}</td>
+                    <td>{{$item['penjualan_total_bayar']}}</td>
                     <td></td>
                 </tr>
+            @empty
+                <tr>
+                    <td colspan="4" class="text-center">Tidak ada Data</td>
+                </tr>
+            @endforelse
+            </tbody>
+            <tfoot class="border">
+            <tr>
+                <td colspan="2" ></td>
+                <td>Total bayar</td>
+                <td>{{$total_bayar_rupiah}}</td>
+                <td></td>
+            </tr>
             </tfoot>
         </table>
         <x-slot name="footer">
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
-                </div>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
+            </div>
         </x-slot>
     </x-organism.card>
 
     <x-organism.modal :tipe="__('xl')" id="penjualanModal" wire:ignore.self>
-        <livewire:datatables.penjualan-by-cash />
+        <livewire:datatables.penjualan-by-tempo/>
     </x-organism.modal>
 
     @push('custom-scripts')
@@ -111,10 +97,6 @@
 
             window.livewire.on('hidePenjualanModal', ()=>{
                 penjualanModal.hide();
-            })
-
-            window.livewire.on('showNotificationModal', ()=>{
-                //
             })
         </script>
     @endpush

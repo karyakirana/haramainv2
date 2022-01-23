@@ -25,6 +25,16 @@ class PenjualanController extends Controller
         return $this->datatablesAll($data);
     }
 
+    public function datatablesPenjualan()
+    {
+        $data = Penjualan::query()
+            ->with(['customer', 'gudang', 'users'])
+            ->where('active_cash', $this->getSessionForApi())
+            ->latest('kode')
+            ->get();
+        return $this->datatablesForSet($data, 'setPenjualan');
+    }
+
     public function create()
     {
         // transaksi penjualan view

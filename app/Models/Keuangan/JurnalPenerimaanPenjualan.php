@@ -12,12 +12,25 @@ class JurnalPenerimaanPenjualan extends Model
     protected $table = 'jurnal_penerimaan_penjualan';
     protected $fillable = [
         'kode',
+        'tgl',
         'active_cash',
         'customer_id',
         'user_id',
         'total_bayar',
         'keterangan',
     ];
+
+    // get lastnum of kode
+    public function getLastNumAttribute(): int
+    {
+        return (int) before_string($this->kode, '/');
+    }
+
+    // set date tgl_nota
+    public function setTglPenerimaanAttribute($value)
+    {
+        $this->attributes['tgl_penerimaan'] = tanggalan_database_format($value, 'd-M-Y');
+    }
 
     public function customer()
     {
@@ -27,6 +40,11 @@ class JurnalPenerimaanPenjualan extends Model
     public function users()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function jurnalPenerimaanDetail()
+    {
+        return $this->hasMany(JurnalPenerimaanPenjualanDetail::class, 'jurnal_penerimaan_penjualan_id');
     }
 
     // morph

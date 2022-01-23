@@ -27,3 +27,10 @@ if (!function_exists('tanggalan_format')){
         return \Carbon\Carbon::parse($tanggal)->format('d-M-Y');
     }
 }
+
+if (!function_exists('before_string')){
+    function before_string ($that, $inthat)
+    {
+        return substr($inthat, 0, strpos($inthat, $that));
+    };
+}

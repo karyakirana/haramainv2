@@ -117,7 +117,7 @@
 
             function add()
             {
-                window.location.href = "{{route('kasir.penerimaan.cash.transaksi')}}";
+                window.location.href = "{{route('kasir.pengeluaran.trans')}}";
             }
 
             function edit(id)

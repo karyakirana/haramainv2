@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class PenjualanByCash extends DataTableComponent
+class PenjualanByTempo extends DataTableComponent
 {
+
     protected string $pageName = 'penjualan';
-    protected string $tableName = 'penjualanByCash';
+    protected string $tableName = 'penjualanByTempo';
+
 
     public function columns(): array
     {
@@ -38,12 +40,12 @@ class PenjualanByCash extends DataTableComponent
     public function query(): Builder
     {
         return Penjualan::query()
-            ->where('jenis_bayar', 'Tunai')
-            ->orWhere('jenis_bayar', 'cash');
+            ->where('jenis_bayar', 'Tempo')
+            ->orWhere('jenis_bayar', 'tempo');
     }
 
     public function rowView(): string
     {
-        return 'livewire-tables.rows.penjualan_by_cash';
+        return 'livewire-tables.rows.penjualan_by_tempo';
     }
 }

@@ -1,3 +1,3 @@
 <x-metronics-layout>
-    <livewire:keuangan.jurnal-penerimaan-form />
+    <livewire:keuangan.kasir-penerimaan-cash-form/>
 </x-metronics-layout>

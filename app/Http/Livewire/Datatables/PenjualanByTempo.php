@@ -13,6 +13,16 @@ class PenjualanByTempo extends DataTableComponent
     protected string $pageName = 'penjualan';
     protected string $tableName = 'penjualanByTempo';
 
+    public $customerId;
+
+    protected $listeners = [
+        'showPenjualanModal'=>'setCustomerId'
+    ];
+
+    public function setCustomerId($id)
+    {
+        $this->customerId = $id;
+    }
 
     public function columns(): array
     {
@@ -39,9 +49,22 @@ class PenjualanByTempo extends DataTableComponent
 
     public function query(): Builder
     {
+        if ($this->customerId)
+        {
+            return Penjualan::query()
+                ->where('customer_id', $this->customerId)
+                ->where('status_bayar', 'belum')
+                ->where(function ($query){
+                    $query->where('jenis_bayar', 'Tempo')
+                        ->orWhere('jenis_bayar', 'tempo');
+                })->latest();
+        }
         return Penjualan::query()
-            ->where('jenis_bayar', 'Tempo')
-            ->orWhere('jenis_bayar', 'tempo');
+            ->where('status_bayar', 'belum')
+            ->where(function ($query){
+                $query->where('jenis_bayar', 'Tempo')
+                    ->orWhere('jenis_bayar', 'tempo');
+            })->latest();
     }
 
     public function rowView(): string

@@ -12,6 +12,17 @@ class PenjualanByCash extends DataTableComponent
     protected string $pageName = 'penjualan';
     protected string $tableName = 'penjualanByCash';
 
+    public $customerId;
+
+    protected $listeners = [
+        'showPenjualanModal'=>'setCustomerId'
+    ];
+
+    public function setCustomerId($id)
+    {
+        $this->customerId = $id;
+    }
+
     public function columns(): array
     {
         return [
@@ -37,9 +48,22 @@ class PenjualanByCash extends DataTableComponent
 
     public function query(): Builder
     {
+        if ($this->customerId)
+        {
+            return Penjualan::query()
+                ->where('customer_id', $this->customerId)
+                ->where('status_bayar', 'belum')
+                ->where(function ($query){
+                    $query->where('jenis_bayar', 'Tunai')
+                        ->orWhere('jenis_bayar', 'cash');
+                })->latest();
+        }
         return Penjualan::query()
-            ->where('jenis_bayar', 'Tunai')
-            ->orWhere('jenis_bayar', 'cash');
+            ->where('status_bayar', 'belum')
+            ->where(function ($query){
+                $query->where('jenis_bayar', 'Tunai')
+                    ->orWhere('jenis_bayar', 'cash');
+            })->latest();
     }
 
     public function rowView(): string

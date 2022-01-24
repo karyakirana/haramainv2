@@ -54,6 +54,9 @@ class JurnalPenerimaanForm extends Component
             ->whereRelation('akunTipe', 'kode','6')
             ->where('kode', '601');
 
+        // tgl_penerimaan
+        $this->tgl_penerimaan = tanggalan_format(strtotime(now()));
+
         // check akun penjualan sudah ada atau belum
         if ($akunPenjualan->doesntExist()){
             $this->notification = true;
@@ -82,7 +85,10 @@ class JurnalPenerimaanForm extends Component
 
     public function showPenjualan()
     {
-        $this->emit('showPenjualanModal');
+        $this->validate([
+            'customer_id'=>'required'
+        ]);
+        $this->emit('showPenjualanModal', $this->customer_id);
     }
 
     public function setPenjualan($id)
@@ -102,6 +108,7 @@ class JurnalPenerimaanForm extends Component
     {
         $this->validate([
             'penerimaan'=>'required',
+            'customer_id'=>'required',
             'tgl_penerimaan'=>'required'
         ]);
 
@@ -121,11 +128,16 @@ class JurnalPenerimaanForm extends Component
         try {
             $this->jurnalPenerimaanRepo->store($data);
             DB::commit();
-        } catch (ModelNotFoundException $e){
+            return redirect()->to('/keuangan/jurnal/penerimaan/');
+        } catch (\Exception $e){
             DB::rollBack();
             session()->flash('message', $e);
         }
-        return view('pages.Keuangan.kasir-penerimaan-cash-index');
+    }
+
+    public function update()
+    {
+        return redirect()->to('/keuangan/jurnal/penerimaan/');
     }
 
     public function destroyLine($index)
@@ -133,6 +145,7 @@ class JurnalPenerimaanForm extends Component
         // update line
         unset($this->daftarNota[$index]);
         $this->daftarNota = array_values($this->daftarNota);
+        $this->hitung_total();
     }
 
     public function hitung_total()

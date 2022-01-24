@@ -1,5 +1,5 @@
 <x-metronics-layout>
-    <x-organism.card :title="__('Penerimaan Cash')">
+    <x-organism.card :title="__('Penerimaan Lain')">
         <x-slot name="header">
             <button type="button" class="btn btn-primary align-self-center" onclick="add()">New Data</button>
         </x-slot>
@@ -8,8 +8,9 @@
             <x-slot name="thead">
                 <tr class="text-start text-black-50 fw-bolder fs-7 text-uppercase gs-0 border-1">
                     <th class="text-center" width="10%">Kode</th>
-                    <th class="text-center">Jenis</th>
-                    <th class="text-center">Sumber</th>
+                    <th class="text-center">Tgl Penerimaan</th>
+                    <th class="text-center">Pembuat</th>
+                    <th class="text-center">Nominal</th>
                     <th class="text-center">keterangan</th>
                     <th class="text-center" width="15%">Actions</th>
                 </tr>
@@ -69,8 +70,9 @@
                         },
                         columns : [
                             {data:'kode'},
-                            {data:'jenis'},
-                            {data:'sumber'},
+                            {data:'tgl_penerimaan'},
+                            {data:'users.name'},
+                            {data:'nominal'},
                             {data:'keterangan'},
                             {data:'actions'},
                         ],
@@ -80,6 +82,21 @@
                                 orderable : false,
                                 className: "text-center"
                             },
+                            {
+                                targets : 1,
+                                orderable : false,
+                                className: "text-center"
+                            },
+                            {
+                                targets : 2,
+                                orderable : false,
+                                className: "text-center"
+                            },
+                            {
+                                targets : 3,
+                                orderable : false,
+                                className: "text-end"
+                            }
                         ],
                     });
 

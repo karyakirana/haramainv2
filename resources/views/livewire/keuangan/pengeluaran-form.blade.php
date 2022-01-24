@@ -11,115 +11,124 @@
         </div>
     @endif
 
-    <x-organism.card :title="__('Penerimaan Cash')">
-        <div class="row">
-            <div class="col-8">
-                <form id="penerimaanForm">
-                    <div class="row mb-4">
-                        <label class="col-2 col-form-label">Akun Penerimaan</label>
-                        <div class="col-4">
-                            <select name="selectPenerimaan" id="selectPenerimaan" class="form-control" wire:model.defer="penerimaan">
-                                <option>Data diisi</option>
-                                @forelse($akunPenerimaan as $row)
-                                    <option value="{{$row->id}}">{{$row->deskripsi}}</option>
-                                @empty
-                                @endforelse
-                            </select>
+        <x-organism.card :title="__('Pengeluaran')">
+            <div class="row">
+                <div class="col-8">
+                    <form id="pengeluaranForm">
+                        <div class="row mb-4">
+                            <label class="col-2 col-form-label">Akun Pengeluaran</label>
+                            <div class="col-4">
+                                <select name="selectPengeluaran" id="selectPengeluaran" class="form-control @error('pengeluaran') is-invalid @enderror " wire:model.defer="pengeluaran">
+                                    <option>Data diisi</option>
+                                    @forelse($akunPengeluaran as $row)
+                                        <option value="{{$row->id}}">{{$row->deskripsi}}</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                                <x-atom.input-message :name="__('pengeluaran')" />
+                            </div>
+                            <label class="col-2 col-form-label">Tgl Pengeluaran</label>
+                            <div class="col-4">
+                                <x-atom.input-singledaterange id="tgl_pengeluaran" wire:model.defer="tgl_pengeluaran" :name="__('tgl_pengeluaran')" readonly />
+                            </div>
                         </div>
-                        <label class="col-2 col-form-label">Tgl Penerimaan</label>
-                        <div class="col-4">
-                            <x-atom.input-singledaterange id="tglNota" wire:model.defer="" readonly />
-                            <x-atom.input-message :name="__('tgl_nota')" />
+                        <div class="row mb-4">
+                            <label class="col-2 col-form-label">Keterangan</label>
+                            <div class="col-4">
+                                <x-atom.input-form wire:model.defer="keterangan" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label class="col-2 col-form-label">Keterangan</label>
-                        <div class="col-4">
-                            <x-atom.input-form wire:model.defer="keterangan" />
-                        </div>
-                    </div>
-                </form>
-                <table class="table gs-3 border-1 pt-5">
-                    <thead>
-                    <tr class="border">
-                        <th class="text-center" width="20%">Kategori</th>
-                        <th class="text-center" width="15%">Kode</th>
-                        <th class="text-center" width="20%">Deskripsi</th>
-                        <th class="text-center" width="20%">Nominal</th>
-                    </tr>
-                    </thead>
-                    <tbody class="border">
-                    @forelse($daftarAkun as $index=>$item)
-                        <tr>
-                            <td>{{$item['akun_kategori_nama']}}</td>
-                            <td>{{$item['kode']}}</td>
-                            <td>{{$item['deskripsi']}}</td>
-                            <td>{{$item['nominal']}}</td>
+                    </form>
+                    <table class="table gs-3 border-1 pt-5">
+                        <thead>
+                        <tr class="border">
+                            <th class="text-center" width="20%">Kategori</th>
+                            <th class="text-center" width="15%">Kode</th>
+                            <th class="text-center" width="20%">Deskripsi</th>
+                            <th class="text-center" width="20%">Nominal</th>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="text-center">Tidak ada Data</td>
-                        </tr>
-                    @endforelse
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-4 border">
-                <form id="detailForm" class="pt-5">
-                    <div class="row pb-5">
-                        <label class="col-4 col-form-label">Kode</label>
-                        <div class="col-8">
-                            <x-atom.input-form :name="__('kode')" wire:model="kode" class="text-end" readonly/>
-                            <x-atom.input-message :name="__('kode')" />
+                        </thead>
+                        <tbody class="border">
+                        @forelse($daftarAkun as $index=>$item)
+                            <tr>
+                                <td>{{$item['akun_kategori_nama']}}</td>
+                                <td>{{$item['kode']}}</td>
+                                <td>{{$item['deskripsi']}}</td>
+                                <td>{{$item['nominal']}}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center">Tidak ada Data</td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-4 border">
+                    <form id="detailForm" class="pt-5">
+                        <div class="row pb-5">
+                            <label class="col-4 col-form-label">Kode</label>
+                            <div class="col-8">
+                                <x-atom.input-form :name="__('kode')" wire:model="kode" class="text-end" readonly/>
+                                <x-atom.input-message :name="__('kode')" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row pb-5">
-                        <label class="col-4 col-form-label">Deskripsi</label>
-                        <div class="col-8">
-                            <textarea name="produk" id="produk" wire:model="deskripsi" rows="3" class="form-control" readonly></textarea>
-                            <x-atom.input-message :name="__('idProduk')" />
+                        <div class="row pb-5">
+                            <label class="col-4 col-form-label">Deskripsi</label>
+                            <div class="col-8">
+                                <textarea name="deskripsi" id="deskripsi" wire:model="deskripsi" rows="3" class="form-control" readonly></textarea>
+                                <x-atom.input-message :name="__('deskripsi')" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row pb-5">
-                        <label class="col-4 col-form-label">Nominal</label>
-                        <div class="col-8">
-                            <x-atom.input-form wire:model.defer="nominal"/>
+                        <div class="row pb-5">
+                            <label class="col-4 col-form-label">Nominal</label>
+                            <div class="col-8">
+                                <x-atom.input-form wire:model.defer="nominal" :name="__('nominal')"/>
+                                <x-atom.input-message :name="__('nominal')" />
+                            </div>
                         </div>
-                    </div>
-                </form>
-                <div class="text-center pb-4">
-                    <button type="button" class="btn btn-info" wire:click="showAkun">Add Akun</button>
+                    </form>
+                    <div class="text-center pb-4">
+                        <button type="button" class="btn btn-info" wire:click="showAkun">Add Akun</button>
 
-                    <button type="button" class="btn btn-info" wire:click="addLine">Save Data</button>
+                        <button type="button" class="btn btn-info" wire:click="addLine">Save Data</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <x-slot name="footer">
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
-            </div>
-        </x-slot>
-    </x-organism.card>
+            <x-slot name="footer">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
+                </div>
+            </x-slot>
+        </x-organism.card>
 
-    <x-organism.modal :tipe="__('xl')" id="akunModal" wire:ignore.self>
-        <livewire:datatables.daftar-akun-penerimaan />
-    </x-organism.modal>
+        <x-organism.modal :tipe="__('xl')" id="akunModal" wire:ignore.self>
+            <livewire:datatables.daftar-akun-penerimaan />
+        </x-organism.modal>
 
 
-    @push('custom-scripts')
-        <script>
-            var akunModal = new bootstrap.Modal(document.getElementById('akunModal'), {
-                keyboard: false
-            })
+        @push('custom-scripts')
+            <script>
+                var akunModal = new bootstrap.Modal(document.getElementById('akunModal'), {
+                    keyboard: false
+                })
 
-            window.livewire.on('showAkunModal', ()=>{
-                akunModal.show();
-            })
+                window.livewire.on('showAkunModal', ()=>{
+                    akunModal.show();
+                })
 
-            window.livewire.on('hideAkunModal', ()=>{
-                akunModal.hide();
-            })
-        </script>
-    @endpush
+                window.livewire.on('hideAkunModal', ()=>{
+                    akunModal.hide();
+                })
+                $('#tgl_pengeluaran').on('change', function (e) {
+                    let date = $(this).data("#tgl_pengeluaran");
+                    // eval(date).set('tglLahir', $('#tglLahir').val())
+                    console.log(e.target.value);
+                @this.tgl_pengeluaran = e.target.value;
+                })
+
+            </script>
+        @endpush
+
 
 </div>

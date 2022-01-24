@@ -21,6 +21,18 @@ class JurnalPenjualan extends Model
         'keterangan',
     ];
 
+    // get lastnum of kode
+    public function getLastNumAttribute(): int
+    {
+        return (int) before_string_me('/', $this->kode );
+    }
+
+    // set date tgl_nota
+    public function setTglJurnalAttribute($value)
+    {
+        $this->attributes['tgl_jurnal'] = tanggalan_database_format($value, 'd-M-Y');
+    }
+
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
@@ -29,6 +41,11 @@ class JurnalPenjualan extends Model
     public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function jurnalPenjualanDetail()
+    {
+        return $this->hasMany(JurnalPenjualanDetail::class, 'jurnal_penjualan_id');
     }
 
     // morph

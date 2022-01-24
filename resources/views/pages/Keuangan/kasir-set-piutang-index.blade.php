@@ -8,8 +8,8 @@
             <x-slot name="thead">
                 <tr class="text-start text-black-50 fw-bolder fs-7 text-uppercase gs-0 border-1">
                     <th class="text-center" width="10%">Kode</th>
-                    <th class="text-center">Tgl Jurnal</th>
                     <th class="text-center">Customer</th>
+                    <th class="text-center">Tgl Jurnal</th>
                     <th class="text-center">Pembuat</th>
                     <th class="text-center">Total Bayar</th>
                     <th class="text-center">keterangan</th>
@@ -71,10 +71,10 @@
                         },
                         columns : [
                             {data:'kode'},
+                            {data:'customer.nama'},
                             {data:'tgl_jurnal'},
-                            {data:'customer_id'},
+                            {data:'users.name'},
                             {data:'total_bayar'},
-                            {data:'user_id'},
                             {data:'keterangan'},
                             {data:'actions'},
                         ],
@@ -83,6 +83,21 @@
                                 targets : -1,
                                 orderable : false,
                                 className: "text-center"
+                            },
+                            {
+                                targets : 2,
+                                orderable : false,
+                                className: "text-center"
+                            },
+                            {
+                                targets : 3,
+                                orderable : false,
+                                className: "text-center"
+                            },
+                            {
+                                targets : 4,
+                                orderable : false,
+                                className: "text-end"
                             },
                         ],
                     });

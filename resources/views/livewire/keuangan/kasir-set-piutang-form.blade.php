@@ -1,20 +1,15 @@
 <div>
+
     @if(session()->has('message'))
-        <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
-            <div class="alert-icon"><i class="flaticon-warning"></i></div>
-            <div class="alert-text">{{session('message')}}</div>
-            <div class="alert-close">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true"><i class="ki ki-close"></i></span>
-                </button>
-            </div>
-        </div>
+        <x-molecules.alert>
+            {{$notificationMessage}}
+        </x-molecules.alert>
     @endif
 
-    <x-organism.card :title="__('Penerimaan Penjualan')">
+    <x-organism.card :title="__('Set Piutang')">
         <form id="penerimaanForm">
             <div class="row mb-4">
-                <label class="col-2 col-form-label">Akun Penerimaan</label>
+                <label class="col-2 col-form-label">Akun Piutang</label>
                 <div class="col-4">
                     <select name="selectPenerimaan" id="selectPenerimaan" class="form-control" wire:model.defer="penerimaan">
                         <option>Data diisi</option>
@@ -24,10 +19,11 @@
                         @endforelse
                     </select>
                 </div>
-                <label class="col-2 col-form-label">Tambahkan Data</label>
+                <label class="col-2 col-form-label">Tgl Penerimaan</label>
                 <div class="col-4">
-                    <button type="button" class="btn btn-primary" wire:click="showPenjualan">Pilih Nota</button>
+                    <x-atom.input-singledaterange wire:model.defer="tgl_jurnal" :name="__('tgl_jurnal')" id="tgl_jurnal" />
                 </div>
+
             </div>
             <div class="row mb-4">
                 <label class="col-2 col-form-label">Customer</label>
@@ -37,6 +33,16 @@
                         <button type="button" class="btn btn-primary" wire:click="showCustomer">Get</button>
                         <x-atom.input-message :name="__('customer_id')" />
                     </div>
+                </div>
+                <label class="col-2 col-form-label">Tambahkan Data</label>
+                <div class="col-4">
+                    <button type="button" class="btn btn-primary" wire:click="showPenjualan">Pilih Nota</button>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label class="col-2 col-form-label">Keterangan</label>
+                <div class="col-4">
+                    <x-atom.input-form :name="__('keterangan')" wire:model.defer="keterangan"/>
                 </div>
             </div>
         </form>
@@ -53,11 +59,13 @@
             <tbody class="border">
             @forelse($daftarPiutang as $index=>$item)
                 <tr>
-                    <td>{{$index}}</td>
-                    <td>{{$item['penjualan_kode']}}</td>
-                    <td>{{$item['penjualan_customer']}}</td>
-                    <td>{{$item['penjualan_total_bayar']}}</td>
-                    <td></td>
+                    <x-atom.table-td class="text-center">{{$loop->iteration}}</x-atom.table-td>
+                    <x-atom.table-td class="text-center">{{$item['penjualan_kode']}}</x-atom.table-td>
+                    <x-atom.table-td>{{$item['penjualan_customer']}}</x-atom.table-td>
+                    <x-atom.table-td class="text-end">{{rupiah_format($item['penjualan_total_bayar'])}}</x-atom.table-td>
+                    <x-atom.table-td class="text-center">
+                        <button type="button" class="btn btn-flush btn-active-color-info btn-sm btn-icon" wire:click="destroyLine({{$index}})"><i class="la la-trash fs-2"></i></button>
+                    </x-atom.table-td>
                 </tr>
             @empty
                 <tr>
@@ -69,7 +77,7 @@
             <tr>
                 <td colspan="2" ></td>
                 <td>Total bayar</td>
-                <td>{{$total_bayar_rupiah}}</td>
+                <td class="text-end">{{$total_bayar_rupiah}}</td>
                 <td></td>
             </tr>
             </tfoot>
@@ -97,6 +105,13 @@
 
             window.livewire.on('hidePenjualanModal', ()=>{
                 penjualanModal.hide();
+            })
+
+            $('#tgl_jurnal').on('change', function (e) {
+                let date = $(this).data("#tgl_jurnal");
+                // eval(date).set('tglLahir', $('#tglLahir').val())
+                console.log(e.target.value);
+            @this.tgl_jurnal = e.target.value;
             })
         </script>
     @endpush

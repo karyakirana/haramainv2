@@ -90,5 +90,7 @@ Route::patch('keuangan/jurnal/penerimaan', [\App\Http\Controllers\Keuangan\Jurna
 Route::patch('keuangan/jurnal/pengeluaran', [\App\Http\Controllers\Keuangan\JurnalPengeluaranController::class, 'datatablesPengeluaran'])->name('datatables.jurnal.pengeluaran');
 
 Route::patch('keuangan/kasir/penerimaan/cash', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'datatablesPenerimaanCash'])->name('datatables.penerimaan.cash');
+Route::patch('keuangan/kasir/pengeluaran', [\App\Http\Controllers\Kasir\PengeluaranController::class, 'datatablesPengeluaran'])->name('datatables.pengeluaran');
+
 
 Route::patch('keuangan/kasir/set/piutang', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'datatablesSetPiutang'])->name('datatables.set.piutang');

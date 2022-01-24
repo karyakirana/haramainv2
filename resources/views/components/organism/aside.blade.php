@@ -750,7 +750,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Penerimaan Cash</span>
+                                <span class="menu-title">Penerimaan Lain</span>
                             </a>
                         </div>
                         <div class="menu-item">
@@ -758,7 +758,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Penerimaan Cash Baru</span>
+                                <span class="menu-title">Penerimaan Lain Baru</span>
                             </a>
                         </div>
                         <div class="menu-item">
@@ -783,6 +783,14 @@
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                 <span class="menu-title">Set Piutang</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('set.piutang.transaksi') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">Set Piutang Baru</span>
                             </a>
                         </div>
                         <div class="menu-item">

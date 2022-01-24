@@ -9,6 +9,8 @@ Route::get('penjualan', [\App\Http\Controllers\Penjualan\PenjualanController::cl
 Route::post('penjualan', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'store']);
 Route::put('penjualan', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'update']);
 Route::get('penjualan/edit/{id}', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'edit']);
+Route::get('penjualan/print/{id}', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'print']);
+
 
 Route::get('penjualan/new', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'create'])->name('penjualan.create');
 
@@ -24,6 +26,7 @@ Route::get('penjualan/biaya/edit/{id}', [\App\Http\Controllers\Penjualan\Penjual
 Route::get('retur/baik', [\App\Http\Controllers\Penjualan\ReturBaikController::class, 'index'])->name('returbaik');
 
 Route::get('retur/baik/transaksi', [\App\Http\Controllers\Penjualan\ReturBaikController::class, 'create'])->name('returbaik.create');
+Route::get('retur/baik/print/{id}', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'print']);
 
 
 /**

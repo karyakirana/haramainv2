@@ -28,9 +28,9 @@ if (!function_exists('tanggalan_format')){
     }
 }
 
-if (!function_exists('before_string')){
-    function before_string ($that, $inthat)
+if (!function_exists('before_string_me')){
+    function before_string_me ($char, $data)
     {
-        return substr($inthat, 0, strpos($inthat, $that));
+        return substr($data, 0, strpos($data, $char));
     };
 }

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class JurnalPenerimaanPenjualanDetail extends Model
 {
     use HasFactory;
-    protected $table = 'jurnal_penerimaan_detail';
+    protected $table = 'jurnal_penerimaan_penjualan_detail';
     protected $fillable = [
         'jurnal_penerimaan_penjualan_id',
         'penjualan_id',

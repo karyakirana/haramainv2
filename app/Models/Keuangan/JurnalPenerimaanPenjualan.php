@@ -12,7 +12,7 @@ class JurnalPenerimaanPenjualan extends Model
     protected $table = 'jurnal_penerimaan_penjualan';
     protected $fillable = [
         'kode',
-        'tgl',
+        'tgl_penerimaan',
         'active_cash',
         'customer_id',
         'user_id',
@@ -23,7 +23,7 @@ class JurnalPenerimaanPenjualan extends Model
     // get lastnum of kode
     public function getLastNumAttribute(): int
     {
-        return (int) before_string($this->kode, '/');
+        return (int) before_string_me('/', $this->kode );
     }
 
     // set date tgl_nota

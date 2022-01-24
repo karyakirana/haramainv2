@@ -6,15 +6,15 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JurnalPenerimaan extends Model
+class JurnalPengeluaran extends Model
 {
     use HasFactory;
-    protected $table = 'jurnal_penerimaan';
+    protected $table = 'jurnal_pengeluaran';
     protected $fillable = [
         'kode',
         'active_cash',
-        'tgl_penerimaan',
         'user_id',
+        'tgl_pengeluaran',
         'nominal',
         'keterangan',
     ];
@@ -26,9 +26,9 @@ class JurnalPenerimaan extends Model
     }
 
     // set date tgl_nota
-    public function setTglPenerimaanAttribute($value)
+    public function setTglPengeluaranAttribute($value)
     {
-        $this->attributes['tgl_penerimaan'] = tanggalan_database_format($value, 'd-M-Y');
+        $this->attributes['tgl_pengeluaran'] = tanggalan_database_format($value, 'd-M-Y');
     }
 
     public function users()

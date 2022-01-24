@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Kasir;
 
 use App\Http\Controllers\Controller;
+use App\Models\Keuangan\JurnalPenerimaan;
 use App\Models\Keuangan\JurnalPenerimaanPenjualan;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,8 @@ class PenerimaanCashController extends Controller
 
     public function datatablesPenerimaanCash()
     {
-        $data = JurnalPenerimaanPenjualan::query()
+        $data = JurnalPenerimaan::query()
+            ->with('users')
             ->where('active_cash', $this->getSessionForApi())
             ->oldest('kode')
             ->get();

@@ -56,9 +56,11 @@ class PenjualanController extends Controller
         // update transaksi penjualan
     }
 
-    public function print(Penjualan $penjualan)
+    public function print($penjualanId)
     {
-        $penjualan = $penjualan->with(['customer', 'penjualanDetail'])->first();
+        $penjualan = Penjualan::query()
+            ->with(['customer', 'penjualanDetail', 'penjualanDetail.produk'])
+            ->find($penjualanId);
         $dataPenjualan = [
             'penjualanId' => $penjualan->kode,
             'namaCustomer' => $penjualan->customer->nama,

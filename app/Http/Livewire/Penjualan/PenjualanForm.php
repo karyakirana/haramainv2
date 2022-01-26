@@ -216,6 +216,7 @@ class PenjualanForm extends Component
         // validation
         $this->validate([
             'customer_id'=>'required',
+            'jenis_bayar'=>'required',
             'gudang_id'=>'required',
             'tgl_nota'=>'required|date_format:d-M-Y',
             'tgl_tempo'=>'date_format:d-M-Y',

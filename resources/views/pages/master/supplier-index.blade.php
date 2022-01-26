@@ -81,7 +81,7 @@
                         },
                         columns : [
                             {data:'DT_RowIndex'},
-                            {data:'supplier_jenis_id'},
+                            {data:'supplierJenis.jenis'},
                             {data:'nama'},
                             {data:'alamat'},
                             {data:'telepon'},

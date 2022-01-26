@@ -71,7 +71,7 @@
                             className: 'row-selected'
                         },
                         ajax : {
-                            url : "{{route('datatables.supplier.jenis')}}",
+                            url : "{{route('datatables.supplier')}}",
                             method : 'PATCH',
                         },
                         columns : [

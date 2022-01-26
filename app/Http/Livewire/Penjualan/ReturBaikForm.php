@@ -49,7 +49,8 @@ class ReturBaikForm extends Component
         // set edit
         if ($retur){
             $this->mode = 'update';
-            $retur = PenjualanRetur::query()->with(['customer', 'gudang', 'users', 'penjualanDetail'])->find($retur);
+            $retur = PenjualanRetur::query()->with(['customer', 'gudang', 'users', 'returDetail'])->find($retur);
+            //dd($retur);
             $this->idRetur = $retur->id;
             $this->customer_id = $retur->customer_id;
             $this->customer_nama = $retur->customer->nama;

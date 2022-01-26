@@ -27,11 +27,12 @@
                         </div>
                         <label class="col-2 col-form-label">Jenis Bayar</label>
                         <div class="col-4">
-                            <select name="jenisBayar" id="jenisBayar" class="form-control" wire:model.defer="jenis_bayar">
+                            <select name="jenisBayar" id="jenisBayar" class="form-control @error('jenis_bayar') is-invalid @enderror" wire:model.defer="jenis_bayar">
                                 <option>Dipilih</option>
                                 <option value="cash">Cash</option>
                                 <option value="tempo">Tempo</option>
                             </select>
+                            <x-atom.input-message :name="__('jenis_bayar')"/>
                         </div>
                     </div>
                     <div class="row mb-4">

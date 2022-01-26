@@ -39,6 +39,9 @@ class ReturBaikController extends Controller
     public function edit($id)
     {
         // edit transaksi data (view)
+        return view('pages.penjualan.retur-baik-transaksi', [
+           'id'=>$id
+        ]);
     }
 
     public function update(Request $request)

@@ -20,7 +20,7 @@ class StockMutasiController extends Controller
         $data = StockMutasi::query()
             ->with([ 'gudangAsal', 'gudangTujuan', 'users'])
             ->where('active_cash', $this->getSessionForApi())
-            ->where('jenis_mutasi', 'baik')
+            ->where('jenis_mutasi', 'baik_baik')
             ->latest('kode')
             ->get();
         return $this->datatablesAll($data);
@@ -37,7 +37,7 @@ class StockMutasiController extends Controller
         $data = StockMutasi::query()
             ->with([ 'gudangAsal', 'gudangTujuan', 'users'])
             ->where('active_cash', $this->getSessionForApi())
-            ->where('jenis_mutasi', 'br')
+            ->where('jenis_mutasi', 'baik_rusak')
             ->latest('kode')
             ->get();
         return $this->datatablesAll($data);
@@ -55,7 +55,7 @@ class StockMutasiController extends Controller
         $data = StockMutasi::query()
             ->with([ 'gudangAsal', 'gudangTujuan', 'users'])
             ->where('active_cash', $this->getSessionForApi())
-            ->where('jenis_mutasi', 'rusak')
+            ->where('jenis_mutasi', 'rusak_rusak')
             ->latest('kode')
             ->get();
         return $this->datatablesAll($data);

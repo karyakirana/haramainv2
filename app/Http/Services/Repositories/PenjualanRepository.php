@@ -67,7 +67,7 @@ class PenjualanRepository
         ]);
 
         $this->storeDetail($data, $penjualan, $stockKeluar);
-
+        return $penjualan->id;
     }
 
     // rollback penjualan
@@ -117,6 +117,7 @@ class PenjualanRepository
 
         $stockKeluar = $penjualan->stockKeluar()->first();
         $this->storeDetail($data, $penjualan, $stockKeluar);
+        return $penjualan->id;
     }
 
     /**

@@ -83,4 +83,9 @@ class PenjualanController extends Controller
             'dataDetail' => $dataPenjualanDetail->with('produk')->get()
         ]);
     }
+
+    public function detail()
+    {
+        return view('livewire.detail.penjualan-detail-view');
+    }
 }

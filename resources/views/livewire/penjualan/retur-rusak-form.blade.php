@@ -15,10 +15,19 @@
                         </div>
                         <label class="col-2 col-form-label">Jenis Retur</label>
                         <div class="col-4">
-                            <select name="jenisBayar" id="jenisBayar" class="form-control" wire:model.defer="jenis_bayar">
-                                <option value="cash">Cash</option>
-                                <option value="tempo">Tempo</option>
-                            </select>
+                            @if($idRetur)
+                                <select name="jenisBayar" id="jenisBayar" class="form-control" wire:model.defer="jenis_retur" disabled>
+                                    <option>Dipilih</option>
+                                    <option value="baik">Retur Baik</option>
+                                    <option value="rusak">Retur Rusak</option>
+                                </select>
+                            @else
+                                <select name="jenisBayar" id="jenisBayar" class="form-control" wire:model.defer="jenis_retur">
+                                    <option>Dipilih</option>
+                                    <option value="baik">Retur Baik</option>
+                                    <option value="rusak">Retur Rusak</option>
+                                </select>
+                            @endif
                         </div>
                     </div>
                     <div class="row mb-4">
@@ -27,18 +36,20 @@
                             <x-atom.input-singledaterange wire:model.defer="tgl_nota" readonly />
                             <x-atom.input-message :name="__('tgl_nota')" />
                         </div>
-                        <label class="col-2 col-form-label">Tgl Tempo</label>
+                        <label class="col-2 col-form-label">Gudang</label>
                         <div class="col-4">
-                            <x-atom.input-singledaterange wire:model.defer="tgl_tempo" readonly />
-                            <x-atom.input-message :name="__('tgl_tempo')" />
+                            <select class="form-control @error('gudang_id') is-invalid @enderror " name="gudang" wire:model.defer="gudang_id">
+                                <option>Dipilih</option>
+                                @forelse($gudangData as $row)
+                                    <option value="{{$row->id}}">{{$row->nama}}</option>
+                                @empty
+                                    <option>Tidak Ada Data</option>
+                                @endforelse
+                            </select>
+                            <x-atom.input-message :name="__('gudang_id')" />
                         </div>
                     </div>
                     <div class="row mb-4">
-                        <label class="col-2 col-form-label">Gudang</label>
-                        <div class="col-4">
-                            <select class="form-control" wire:model.defer="gudang_id"></select>
-                            <x-atom.input-message :name="__('gudang_id')" />
-                        </div>
                         <label class="col-2 col-form-label">Keterangan</label>
                         <div class="col-4">
                             <x-atom.input-form wire:model.defer="keterangan" />
@@ -59,12 +70,12 @@
                     </x-slot>
 
                     <tbody class="text-gray-600 fw-bold border">
-                    {{--                    @forelse($dataDetail as $row)--}}
-                    {{--                    @empty--}}
-                    {{--                        <tr>--}}
-                    {{--                            <td colspan="7" class="text-center">Tidak Ada Data</td>--}}
-                    {{--                        </tr>--}}
-                    {{--                    @endforelse--}}
+                                        @forelse($dataDetail as $row)
+                                        @empty
+                                            <tr>
+                                                <td colspan="7" class="text-center">Tidak Ada Data</td>
+                                            </tr>
+                                        @endforelse
                     </tbody>
                     <tfoot>
                     <tr>

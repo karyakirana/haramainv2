@@ -44,11 +44,11 @@ class Penjualan extends Model
         $this->attributes['tgl_nota'] = tanggalan_database_format($value, 'd-M-Y');
     }
 
-    // set date tgl_tempo
-    public function setTglTempoAttribute($value)
-    {
-        $this->attributes['tgl_tempo'] = tanggalan_database_format($value, 'd-M-Y');
-    }
+//    // set date tgl_tempo
+//    public function setTglTempoAttribute($value)
+//    {
+//        $this->attributes['tgl_tempo'] = tanggalan_database_format($value, 'd-M-Y');
+//    }
 
     /**
      * Relational

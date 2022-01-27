@@ -46,7 +46,7 @@ class PenjualanRepository
                 'gudang_id'=>$data->gudang_id,
                 'user_id'=>Auth::id(),
                 'tgl_nota'=>$data->tgl_nota,
-                'tgl_tempo'=> ($data->jenis_bayar == 'tempo') ?  $data->tgl_tempo : null,
+                'tgl_tempo'=> ($data->jenis_bayar == 'tempo') ?  tanggalan_database_format($data->tgl_tempo, 'd-MMM-Y') : null,
                 'jenis_bayar'=>$data->jenis_bayar,
                 'status_bayar'=>'belum',
                 'total_barang'=>$data->total_barang,

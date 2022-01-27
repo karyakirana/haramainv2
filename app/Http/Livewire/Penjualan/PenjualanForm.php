@@ -51,7 +51,7 @@ class PenjualanForm extends Component
             $this->customer_diskon = $penjualan->customer->diskon;
             $this->jenis_bayar = $penjualan->jenis_bayar;
             $this->tgl_nota = tanggalan_format($penjualan->tgl_nota);
-            $this->tgl_tempo = ($penjualan->jenis_bayar == 'tempo') ? $penjualan->tgl_tempo : null ;
+            $this->tgl_tempo = ($penjualan->jenis_bayar == 'tempo') ? tanggalan_format($penjualan->tgl_tempo) : null ;
             $this->gudang_id = $penjualan->gudang_id;
             $this->user_id = $penjualan->user_id;
             $this->ppn = $penjualan->ppn;
@@ -242,7 +242,7 @@ class PenjualanForm extends Component
             'customer_id'=>$this->customer_id,
             'gudang_id'=>$this->gudang_id,
             'tgl_nota'=>$this->tgl_nota,
-            'tgl_tempo'=>($this->jenis_bayar == 'tempo') ? tanggalan_database_format($this->tgl_tempo, 'd-M-Y') : null,
+            'tgl_tempo'=>($this->jenis_bayar == 'tempo') ? $this->tgl_tempo : null,
             'jenis_bayar'=>$this->jenis_bayar,
             'total_barang'=>array_sum(array_column($this->dataDetail, 'jumlah')),
             'ppn'=>$this->ppn,

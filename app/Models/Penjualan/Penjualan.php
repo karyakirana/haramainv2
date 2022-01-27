@@ -45,7 +45,7 @@ class Penjualan extends Model
     }
 
     // set date tgl_tempo
-    public function setTglTempoAttributes($value)
+    public function setTglTempoAttribute($value)
     {
         $this->attributes['tgl_tempo'] = tanggalan_database_format($value, 'd-M-Y');
     }

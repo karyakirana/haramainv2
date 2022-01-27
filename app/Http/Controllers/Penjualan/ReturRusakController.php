@@ -39,6 +39,9 @@ class ReturRusakController extends Controller
     public function edit($id)
     {
         // edit transaksi data (view)
+        return view('pages.penjualan.retur-rusak-transaksi', [
+           'id'=>$id
+        ]);
     }
 
     public function update(Request $request)

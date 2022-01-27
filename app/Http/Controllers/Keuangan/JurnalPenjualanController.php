@@ -17,6 +17,7 @@ class JurnalPenjualanController extends Controller
     public function datatablesSetPiutang()
     {
         $data = JurnalPenjualan::query()
+            ->with(['customer', 'users'])
             ->where('active_cash', $this->getSessionForApi())
             ->oldest('kode')
             ->get();
@@ -25,6 +26,7 @@ class JurnalPenjualanController extends Controller
     public function create()
     {
         // transaksi input penjualan to piutang per customer
+        return view('pages.Keuangan.kasir-set-piutang-trans');
     }
 
     public function edit($id)

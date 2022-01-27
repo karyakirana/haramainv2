@@ -20,7 +20,10 @@ class ProdukController extends Controller
     public function datatablesProduk()
     {
         // datatables produk
-        $data = Produk::latest('kode')->get();
+        $data = Produk::query()
+        ->with(['kategori', 'kategoriHarga'])
+        ->latest('kode')
+        ->get();
         return $this->datatablesAll($data);
     }
 

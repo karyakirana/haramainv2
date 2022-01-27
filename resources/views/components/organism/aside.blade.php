@@ -467,6 +467,29 @@
                                 <span class="menu-title">Stock Inventory List</span>
                             </a>
                         </div>
+                        @php
+                        $gudang = \App\Models\Master\Gudang::all();
+                        @endphp
+                        @forelse($gudang as $item)
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ url('stock/inventory/gudang/'.$item->id) }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Stock {{$item->nama}}</span>
+                                </a>
+                            </div>
+                        @empty
+                        @endforelse
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ url('stock/inventory/rusak') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">Stock Inventory Rusak</span>
+                            </a>
+                        </div>
+
                 </div>
                 </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
@@ -750,7 +773,31 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                <span class="menu-title">Penerimaan Cash</span>
+                                <span class="menu-title">Penerimaan Lain</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('kasir.penerimaan.cash.transaksi') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">Penerimaan Lain Baru</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('kasir.pengeluaran.index') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">Pengeluaran</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('kasir.pengeluaran.trans') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">Pengeluaran Baru</span>
                             </a>
                         </div>
                         <div class="menu-item">
@@ -759,6 +806,14 @@
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                 <span class="menu-title">Set Piutang</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('set.piutang.transaksi') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">Set Piutang Baru</span>
                             </a>
                         </div>
                         <div class="menu-item">

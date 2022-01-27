@@ -3,6 +3,7 @@
 namespace App\Models\Stock;
 
 use App\Models\Master\Gudang;
+use App\Models\Master\Supplier;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,7 @@ class StockMasuk extends Model
         'stockable_masuk_type',
         'kondisi',
         'gudang_id',
+        'supplier_id',
         'tgl_masuk',
         'user_id',
         'nomor_po',
@@ -41,14 +43,19 @@ class StockMasuk extends Model
         return $this->morphTo();
     }
 
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
+
     public function gudang()
     {
-        return $this->belongsTo(Gudang::class);
+        return $this->belongsTo(Gudang::class, 'gudang_id');
     }
 
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function stockMasukDetail()

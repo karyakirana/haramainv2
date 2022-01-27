@@ -15,7 +15,7 @@ class PenjualanForm extends Component
 {
     protected $listeners = [
         'setCustomer'=>'setCustomer',
-        'setProduk'=>'setProduk'
+        'setProduk'=>'setProduk',
     ];
 
     public $dataDetail =[];
@@ -209,6 +209,8 @@ class PenjualanForm extends Component
         // remove line transaksi
         unset($this->dataDetail[$index]);
         $this->dataDetail = array_values($this->dataDetail);
+        $this->hitungTotal();
+        $this->hitungTotalBayar();
     }
 
     protected function setDataPenjualan()
@@ -216,6 +218,7 @@ class PenjualanForm extends Component
         // validation
         $this->validate([
             'customer_id'=>'required',
+            'jenis_bayar'=>'required',
             'gudang_id'=>'required',
             'tgl_nota'=>'required|date_format:d-M-Y',
             'tgl_tempo'=>'date_format:d-M-Y',
@@ -256,13 +259,13 @@ class PenjualanForm extends Component
 
         DB::beginTransaction();
         try {
-            (new PenjualanRepository())->store($dataPenjualan);
+            $idPenjualan = (new PenjualanRepository())->store($dataPenjualan);
             DB::commit();
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->to('penjualan');
+        return redirect()->to('/penjualan/print/'.$idPenjualan);
 
     }
 
@@ -273,13 +276,13 @@ class PenjualanForm extends Component
 
         DB::beginTransaction();
         try {
-            (new PenjualanRepository())->update($dataPenjualan);
+            $idPenjualan = (new PenjualanRepository())->update($dataPenjualan);
             DB::commit();
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->to('penjualan');
+        return redirect()->to('/penjualan/print/'.$idPenjualan);
     }
 
     public function render()

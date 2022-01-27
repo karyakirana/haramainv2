@@ -18,7 +18,10 @@ class SupplierController extends Controller
     public function datatablesSupplier()
     {
         // datatables supplier
-        $data = Supplier::latest('id')->get();
+        $data = Supplier::query()
+        ->with('supplierJenis')
+        ->latest('id')
+        ->get();
         return $this->datatablesAll($data);
     }
 

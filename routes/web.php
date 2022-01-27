@@ -64,31 +64,27 @@ Route::middleware(['auth'])->group(function(){
     Route::get('keuangan/neraca/akhir', [\App\Http\Controllers\Keuangan\NeracaSaldoController::class, 'neracaSaldoAkhir'])->name('neraca.saldo.akhir');
 
     Route::get('keuangan/jurnal/penerimaan', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'index'])->name('jurnal.penerimaan.index');
+    Route::get('keuangan/jurnal/penerimaan/trans', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'create'])->name('jurnal.penerimaan.trans');
+
     Route::get('keuangan/jurnal/pengeluaran', [\App\Http\Controllers\Keuangan\JurnalPengeluaranController::class, 'index'])->name('jurnal.pengeluaran.index');
     Route::get('keuangan/jurnal/mutasi', [\App\Http\Controllers\Keuangan\JurnalMutasiController::class, 'index'])->name('jurnal.mutasi.index');
 
-    Route::get('keuangan/jurnal/penerimaan/trans', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'create'])->name('jurnal.penerimaan.trans');
     // dipakai untuk penerimaan
 //    Route::get('keuangan/kasir/pembayaran/cash', [\App\Http\Controllers\Kasir\PembayaranCashController::class, 'index'])->name('pembayaran.cash.index');
 
-    Route::get('keuangan/kasir/penerimaan/cash', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'index'])->name('penerimaan.cash.index');
+    Route::get('keuangan/kasir/penerimaan/lain', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'index'])->name('penerimaan.cash.index');
+    Route::get('keuangan/kasir/penerimaan/lain/transaksi', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'create'])->name('kasir.penerimaan.cash.transaksi');
+
     Route::get('keuangan/kasir/pembayaran/piutang', [\App\Http\Controllers\Kasir\PembayaranPiutangController::class, 'index'])->name('pembayaran.piutang.index');
     Route::get('keuangan/kasir/piutang/pegawai', [\App\Http\Controllers\Keuangan\PiutangPegawaiController::class, 'index'])->name('piutang.pegawai.index');
+    Route::get('keuangan/kasir/pengeluaran', [\App\Http\Controllers\Kasir\PengeluaranController::class, 'index'])->name('kasir.pengeluaran.index');
 
     Route::get('keuangan/kasir/set/piutang', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'indexSet'])->name('set.piutang.index');
+    Route::get('keuangan/kasir/set/piutang/transaksi', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'create'])->name('set.piutang.transaksi');
 
-    Route::get('keuangan/kasir/penerimaan/cash/transaksi', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'create'])->name('pemabayaran.cash.transaksi');
+    Route::get('keuangan/kasir/pengeluaran/trans', [\App\Http\Controllers\Kasir\PengeluaranController::class, 'create'])->name('kasir.pengeluaran.trans');
 
-});
-
-Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->middleware('auth')
-    ->name('logout');
-
-//require __DIR__.'/auth.php';
-require __DIR__.'/penjualanRoute.php';
-
-// stock masuk
+    // stock masuk
     Route::get('stock/masuk',[\App\Http\Controllers\Stock\StockMasukController::class, 'index'])->name('stockmasuk.index');
     Route::get('stock/masuk/baik', [\App\Http\Controllers\Stock\StockMasukController::class, 'indexBaik'])->name('stockmasuk.baik');
     Route::get('stock/masuk/baik/edit/{id}', [\App\Http\Controllers\Stock\StockMasukController::class, 'editBaik']);
@@ -138,3 +134,14 @@ require __DIR__.'/penjualanRoute.php';
 
 // stock Inventory
     Route::get('stock/inventory', [\App\Http\Controllers\Stock\StockInventoryController::class, 'index'])->name('stock.inventory.index');
+    Route::get('stock/inventory/gudang/{id}', [\App\Http\Controllers\Stock\StockInventoryController::class, 'indexBaik']);
+    Route::get('stock/inventory/rusak', [\App\Http\Controllers\Stock\StockInventoryController::class, 'indexRusak']);
+
+});
+
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
+
+//require __DIR__.'/auth.php';
+require __DIR__.'/penjualanRoute.php';

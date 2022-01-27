@@ -20,5 +20,5 @@
     {{rupiah_format($row->total_bayar)}}
 </x-livewire-tables::bs5.table.cell>
 <x-livewire-tables::bs5.table.cell class="text-center">
-    <button type="button" class="btn btn-flush btn-active-color-info btn-icon" onclick="edit('{{$row->id}}')"><i class="fas fa-pen-nib fs-2"></i></button>
+    <button type="button" class="btn btn-flush btn-active-color-info" wire:click="$emit('setPenjualan',{{$row->id}})">set</button>
 </x-livewire-tables::bs5.table.cell>

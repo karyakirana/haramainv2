@@ -34,12 +34,12 @@ class StockInventoryRepo
         $query = StockInventory::query()
             ->where('active_cash', session('ClosedCash'))
             ->where('jenis', $jenis)
-            ->where('gudang_id', $gudang);
+            ->where('gudang_id', $gudang)
+            ->where('produk_id', $data['produk_id']);
 
         if ($query->get()->count() > 0)
         {
             return $query->update([
-                'produk_id'=>$data['produk_id'],
                 $field=>DB::raw($field.' +'.$data['jumlah'])
             ]);
 
@@ -60,8 +60,8 @@ class StockInventoryRepo
             ->where('active_cash', session('ClosedCash'))
             ->where('jenis', $jenis)
             ->where('gudang_id', $gudang)
+            ->where('produk_id', $data->produk_id)
             ->update([
-                'produk_id'=>$data->produk_id,
                 $field=>DB::raw($field.' -'.$data->jumlah)
             ]);
     }

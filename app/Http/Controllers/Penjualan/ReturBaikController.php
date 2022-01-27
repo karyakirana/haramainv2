@@ -39,10 +39,41 @@ class ReturBaikController extends Controller
     public function edit($id)
     {
         // edit transaksi data (view)
+        return view('pages.penjualan.retur-baik-transaksi', [
+           'id'=>$id
+        ]);
     }
 
     public function update(Request $request)
     {
         // update data
+    }
+
+    public function print($idRetur)
+    {
+        $penjualan = PenjualanRetur::query()->with(['customer', 'returDetail'])->find($idRetur);
+        $dataPenjualan = [
+            'penjualanId' => $penjualan->kode,
+            'namaCustomer' => $penjualan->customer->nama,
+            'addr_cust' => $penjualan->customer->alamat,
+            'tgl_nota' => tanggalan_format($penjualan->tgl_nota),
+            'tgl_tempo' => ( strtotime($penjualan->tgl_tempo) > 0) ? tanggalan_format($penjualan->tgl_tempo) : '',
+            'status_bayar' => $penjualan->jenis_bayar,
+            'sudahBayar' => $penjualan->status_bayar,
+            'total_jumlah' => $penjualan->total_jumlah,
+            'ppn' => $penjualan->ppn,
+            'biaya_lain' => $penjualan->biaya_lain,
+            'total_bayar' => $penjualan->total_bayar,
+            'penket' => $penjualan->keterangan,
+            'print' => $penjualan->print,
+        ];
+        // update print
+        $updatePrint = $penjualan->update(['print' => $penjualan->print + 1]);
+        $dataPenjualanDetail = $penjualan->returDetail();
+
+        return view('pages.print.sales-receipt', [
+            'dataUtama' => json_encode($dataPenjualan),
+            'dataDetail' => $dataPenjualanDetail->with('produk')->get()
+        ]);
     }
 }

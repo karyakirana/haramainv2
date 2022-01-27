@@ -1,5 +1,5 @@
 <x-metronics-layout>
-    <x-organism.card :title="__('Saldo Awal')">
+    <x-organism.card :title="__('Jurnal Penerimaan')">
         <x-slot name="header">
             <button type="button" class="btn btn-primary align-self-center" onclick="add()">New Data</button>
         </x-slot>

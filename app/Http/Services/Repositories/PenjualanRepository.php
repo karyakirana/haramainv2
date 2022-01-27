@@ -67,7 +67,7 @@ class PenjualanRepository
         ]);
 
         $this->storeDetail($data, $penjualan, $stockKeluar);
-
+        return $penjualan->id;
     }
 
     // rollback penjualan
@@ -89,7 +89,7 @@ class PenjualanRepository
         $penjualan->penjualanDetail()->delete();
 
         // delete stock keluar detail
-        $stockKeluar = $penjualan->stockKeluar()->first()->stockKeluarDetail()->delete();
+        $stockKeluar = $penjualan->stockKeluar->stockKeluarDetail()->delete();
 
         // update penjualan
         $penjualan->update([
@@ -117,6 +117,7 @@ class PenjualanRepository
 
         $stockKeluar = $penjualan->stockKeluar()->first();
         $this->storeDetail($data, $penjualan, $stockKeluar);
+        return $penjualan->id;
     }
 
     /**
@@ -157,5 +158,31 @@ class PenjualanRepository
             ->where('active_cash', session('ClosedCash'))
             ->latest('kode')
             ->paginate($paginate);
+    }
+
+    public function destroy($id)
+    {
+        $penjualan = Penjualan::query()->find($id);
+
+        // get stock keluar
+        $stockKeluar = $penjualan->stockKeluar;
+
+        // rollback inventory
+        foreach ($penjualan->penjualanDetail as $row)
+        {
+            $this->stockInventoryRepo->rollback($row, 'baik', $penjualan->gudang_id, 'stock_keluar');
+        }
+
+        // delete stockkeluar detail
+        $stockKeluar->stockKeluarDetail()->delete();
+
+        // delete stock_keluar
+        $stockKeluar->delete();
+
+        // delete penjualan_detail
+        $penjualan->penjualanDetail()->delete();
+
+        // delete penjualan
+        $penjualan->delete();
     }
 }

@@ -45,6 +45,8 @@ Route::patch('penjualan', [\App\Http\Controllers\Penjualan\PenjualanController::
 Route::patch('retur/baik', [\App\Http\Controllers\Penjualan\ReturBaikController::class, 'datatables'])->name('datatables.penjualan.retur.baik');
 Route::patch('retur/rusak', [\App\Http\Controllers\Penjualan\ReturRusakController::class, 'datatables'])->name('datatables.penjualan.retur.rusak');
 
+Route::patch('penjualan/set', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'datatablesPenjualan'])->name('datatables.penjualan.set');
+
 Route::patch('penjualan/biaya', [\App\Http\Controllers\Penjualan\PenjualanBiayaController::class, 'datatables'])->name('datatables.penjualan.biaya');
 
 
@@ -88,5 +90,7 @@ Route::patch('keuangan/jurnal/penerimaan', [\App\Http\Controllers\Keuangan\Jurna
 Route::patch('keuangan/jurnal/pengeluaran', [\App\Http\Controllers\Keuangan\JurnalPengeluaranController::class, 'datatablesPengeluaran'])->name('datatables.jurnal.pengeluaran');
 
 Route::patch('keuangan/kasir/penerimaan/cash', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'datatablesPenerimaanCash'])->name('datatables.penerimaan.cash');
+Route::patch('keuangan/kasir/pengeluaran', [\App\Http\Controllers\Kasir\PengeluaranController::class, 'datatablesPengeluaran'])->name('datatables.pengeluaran');
+
 
 Route::patch('keuangan/kasir/set/piutang', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'datatablesSetPiutang'])->name('datatables.set.piutang');

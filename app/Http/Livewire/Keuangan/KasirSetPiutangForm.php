@@ -42,7 +42,7 @@ class KasirSetPiutangForm extends Component
     public function mount()
     {
         $akunPenjualan = Akun::query()
-            ->where('kode', '411');
+            ->where('kode', '41100');
 
         // tgl_penerimaan
         $this->tgl_jurnal = tanggalan_format(strtotime(now()));

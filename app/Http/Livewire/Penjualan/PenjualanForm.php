@@ -242,7 +242,7 @@ class PenjualanForm extends Component
             'customer_id'=>$this->customer_id,
             'gudang_id'=>$this->gudang_id,
             'tgl_nota'=>$this->tgl_nota,
-            'tgl_tempo'=>($this->jenis_bayar == 'tempo') ? $this->tgl_tempo : null,
+            'tgl_tempo'=>($this->jenis_bayar == 'tempo') ? tanggalan_database_format($this->tgl_tempo, 'd-M-Y') : null,
             'jenis_bayar'=>$this->jenis_bayar,
             'total_barang'=>array_sum(array_column($this->dataDetail, 'jumlah')),
             'ppn'=>$this->ppn,

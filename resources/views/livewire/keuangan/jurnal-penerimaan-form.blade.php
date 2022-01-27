@@ -54,6 +54,12 @@
         <livewire:datatables.penjualan-by-cash />
     </x-organism.modal>
 
+    <x-organism.modal id="customerModal" >
+        <livewire:datatables.customer-for-set />
+    </x-organism.modal>
+
+    <x-organism.customer-datatables />
+
     @push('custom-scripts')
         <script>
             var penjualanModal = new bootstrap.Modal(document.getElementById('penjualanModal'), {
@@ -67,6 +73,30 @@
             window.livewire.on('hidePenjualanModal', ()=>{
                 penjualanModal.hide();
             })
+
+            var customerModal = new bootstrap.Modal(document.getElementById('customerModal'), {
+                keyboard:false
+            })
+
+            window.livewire.on('showCustomerModal', ()=>{
+                customerModal.show()
+            })
+
+            window.livewire.on('hideCustomerModal', ()=>{
+                customerModal.hide()
+            })
+
+            // set customer
+            function setCustomer(id)
+            {
+                Livewire.emit(id);
+            }
+
+            // set penjualan
+            function setPenjualan(id)
+            {
+                Livewire.emit(id)
+            }
         </script>
     @endpush
 </div>

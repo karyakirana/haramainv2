@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Keuangan;
 
+use App\Models\Master\Customer;
 use App\Models\Penjualan\Penjualan;
 use Livewire\Component;
 
@@ -11,6 +12,8 @@ class JurnalPenerimaanForm extends Component
     public $daftarNota = [];
     public $total_bayar;
     public $total_bayar_rupiah;
+
+    public $customer_nama, $customer_id;
 
     public function render()
     {
@@ -22,10 +25,11 @@ class JurnalPenerimaanForm extends Component
         $this->emit('showCustomerModal');
     }
 
-    public function setCustomer()
+    public function setCustomer(Customer $customer)
     {
-        //
-        $this->emit('');
+        $this->customer_id = $customer->id;
+        $this->customer_nama = $customer->nama;
+        $this->emit('hideCustomerModal');
     }
 
     public function showPenjualan()

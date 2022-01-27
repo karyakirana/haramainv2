@@ -1,0 +1,15 @@
+<x-livewire-tables::bs4.table.cell>
+    {{$row->kode}}
+</x-livewire-tables::bs4.table.cell>
+<x-livewire-tables::bs4.table.cell>
+    {{$row->nama}}
+</x-livewire-tables::bs4.table.cell>
+<x-livewire-tables::bs4.table.cell>
+    {{$row->telepon}}
+</x-livewire-tables::bs4.table.cell>
+<x-livewire-tables::bs4.table.cell>
+    {{$row->diskon}}
+</x-livewire-tables::bs4.table.cell>
+<x-livewire-tables::bs4.table.cell>
+    {{$row->id}}
+</x-livewire-tables::bs4.table.cell>

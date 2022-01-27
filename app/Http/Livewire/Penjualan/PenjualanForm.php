@@ -15,7 +15,7 @@ class PenjualanForm extends Component
 {
     protected $listeners = [
         'setCustomer'=>'setCustomer',
-        'setProduk'=>'setProduk',
+        'setProduk'=>'setProduk'
     ];
 
     public $dataDetail =[];
@@ -51,7 +51,8 @@ class PenjualanForm extends Component
             $this->customer_diskon = $penjualan->customer->diskon;
             $this->jenis_bayar = $penjualan->jenis_bayar;
             $this->tgl_nota = tanggalan_format($penjualan->tgl_nota);
-            $this->tgl_tempo = ($penjualan->jenis_bayar == 'tempo') ? tanggalan_format($penjualan->tgl_tempo) : null ;
+            $this->tgl_tempo = ($penjualan->jenis_bayar == 'tempo') ? tanggalan_format($penjualan->tgl_tempo) : tanggalan_format($penjualan->tgl_nota);
+
             $this->gudang_id = $penjualan->gudang_id;
             $this->user_id = $penjualan->user_id;
             $this->ppn = $penjualan->ppn;
@@ -209,8 +210,6 @@ class PenjualanForm extends Component
         // remove line transaksi
         unset($this->dataDetail[$index]);
         $this->dataDetail = array_values($this->dataDetail);
-        $this->hitungTotal();
-        $this->hitungTotalBayar();
     }
 
     protected function setDataPenjualan()
@@ -218,7 +217,6 @@ class PenjualanForm extends Component
         // validation
         $this->validate([
             'customer_id'=>'required',
-            'jenis_bayar'=>'required',
             'gudang_id'=>'required',
             'tgl_nota'=>'required|date_format:d-M-Y',
             'tgl_tempo'=>'date_format:d-M-Y',
@@ -242,7 +240,7 @@ class PenjualanForm extends Component
             'customer_id'=>$this->customer_id,
             'gudang_id'=>$this->gudang_id,
             'tgl_nota'=>$this->tgl_nota,
-            'tgl_tempo'=>($this->jenis_bayar == 'tempo') ? tanggalan_format($this->tgl_tempo) : null ,
+            'tgl_tempo'=>($this->jenis_bayar == 'tempo') ? $this->tgl_tempo : null,
             'jenis_bayar'=>$this->jenis_bayar,
             'total_barang'=>array_sum(array_column($this->dataDetail, 'jumlah')),
             'ppn'=>$this->ppn,
@@ -259,13 +257,13 @@ class PenjualanForm extends Component
 
         DB::beginTransaction();
         try {
-            $idPenjualan = (new PenjualanRepository())->store($dataPenjualan);
+            (new PenjualanRepository())->store($dataPenjualan);
             DB::commit();
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->to('/penjualan/print/'.$idPenjualan);
+        return redirect()->to('penjualan');
 
     }
 
@@ -276,13 +274,13 @@ class PenjualanForm extends Component
 
         DB::beginTransaction();
         try {
-            $idPenjualan = (new PenjualanRepository())->update($dataPenjualan);
+            (new PenjualanRepository())->update($dataPenjualan);
             DB::commit();
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->to('/penjualan/print/'.$idPenjualan);
+        return redirect()->to('penjualan');
     }
 
     public function render()

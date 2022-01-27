@@ -38,7 +38,7 @@ class JurnalPenerimaanForm extends Component
     public function render()
     {
         return view('livewire.keuangan.jurnal-penerimaan-form',[
-            'akunPenerimaan'=>Akun::query()->whereRelation('akunTipe', 'kode', '=', '1')->get()
+            'akunPenerimaan'=>Akun::query()->whereRelation('akunTipe', 'kode', '=', '111')->get()
         ]);
     }
 
@@ -51,8 +51,7 @@ class JurnalPenerimaanForm extends Component
     public function mount()
     {
         $akunPenjualan = Akun::query()
-            ->whereRelation('akunTipe', 'kode','6')
-            ->where('kode', '601');
+            ->where('kode', '411');
 
         // tgl_penerimaan
         $this->tgl_penerimaan = tanggalan_format(strtotime(now()));
@@ -60,7 +59,7 @@ class JurnalPenerimaanForm extends Component
         // check akun penjualan sudah ada atau belum
         if ($akunPenjualan->doesntExist()){
             $this->notification = true;
-            $this->notificationMessage = 'Akun Penjualan Belum dibuat';
+            $this->notificationMessage = 'Akun Penjualan dengan kode 411 belum dibuat';
         } else {
             $this->akunKredit = $akunPenjualan->first()->id;
         }

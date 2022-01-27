@@ -84,16 +84,7 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('keuangan/kasir/pengeluaran/trans', [\App\Http\Controllers\Kasir\PengeluaranController::class, 'create'])->name('kasir.pengeluaran.trans');
 
-});
-
-Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->middleware('auth')
-    ->name('logout');
-
-//require __DIR__.'/auth.php';
-require __DIR__.'/penjualanRoute.php';
-
-// stock masuk
+    // stock masuk
     Route::get('stock/masuk',[\App\Http\Controllers\Stock\StockMasukController::class, 'index'])->name('stockmasuk.index');
     Route::get('stock/masuk/baik', [\App\Http\Controllers\Stock\StockMasukController::class, 'indexBaik'])->name('stockmasuk.baik');
     Route::get('stock/masuk/baik/edit/{id}', [\App\Http\Controllers\Stock\StockMasukController::class, 'editBaik']);
@@ -143,3 +134,14 @@ require __DIR__.'/penjualanRoute.php';
 
 // stock Inventory
     Route::get('stock/inventory', [\App\Http\Controllers\Stock\StockInventoryController::class, 'index'])->name('stock.inventory.index');
+    Route::get('stock/inventory/gudang/{id}', [\App\Http\Controllers\Stock\StockInventoryController::class, 'indexBaik']);
+    Route::get('stock/inventory/rusak', [\App\Http\Controllers\Stock\StockInventoryController::class, 'indexRusak']);
+
+});
+
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
+
+//require __DIR__.'/auth.php';
+require __DIR__.'/penjualanRoute.php';

@@ -1,4 +1,9 @@
 <div>
+    @if($notification)
+        <x-molecules.alert>
+            {{$notificationMessage}}
+        </x-molecules.alert>
+    @endif
 
     @if(session()->has('message'))
         <x-molecules.alert>
@@ -19,7 +24,7 @@
                         @endforelse
                     </select>
                 </div>
-                <label class="col-2 col-form-label">Tgl Penerimaan</label>
+                <label class="col-2 col-form-label">Tanggal</label>
                 <div class="col-4">
                     <x-atom.input-singledaterange wire:model.defer="tgl_jurnal" :name="__('tgl_jurnal')" id="tgl_jurnal" />
                 </div>

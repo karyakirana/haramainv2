@@ -28,7 +28,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('retur/baik', [\App\Http\Controllers\Penjualan\ReturBaikController::class, 'index'])->name('returbaik');
     Route::get('retur/baik/edit/{id}', [\App\Http\Controllers\Penjualan\ReturBaikController::class, 'edit'])->name('retur.baik.edit');
     Route::get('retur/baik/transaksi', [\App\Http\Controllers\Penjualan\ReturBaikController::class, 'create'])->name('returbaik.create');
-    Route::get('retur/baik/print/{id}', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'print']);
+
+
+    Route::get('retur/print/{id}', [\App\Http\Controllers\Penjualan\ReturBaikController::class, 'print']);
 
 
     /**

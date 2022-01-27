@@ -58,7 +58,7 @@ class PenjualanReturRusakTable extends DataTableComponent
 
     public function print($id)
     {
-        return redirect()->to(''.$id);
+        return redirect()->to('retur/print/'.$id);
     }
 
 

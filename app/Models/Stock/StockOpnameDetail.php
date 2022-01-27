@@ -23,6 +23,6 @@ class StockOpnameDetail extends Model
 
     public function stockOpname()
     {
-        return $this->hasMany(StockOpname::class, 'stock_opname_id');
+        return $this->belongsTo(StockOpname::class);
     }
 }

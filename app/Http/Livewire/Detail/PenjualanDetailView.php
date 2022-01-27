@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Detail;
 
+use App\Http\Services\Repositories\PenjualanRepository;
 use App\Models\Penjualan\Penjualan;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Component;
 
 class PenjualanDetailView extends Component
@@ -15,10 +17,19 @@ class PenjualanDetailView extends Component
     public $customer_id, $jenis_bayar, $tgl_nota, $tgl_tempo, $total_bayar;
     public $idPenjualan, $detailPenjualan, $penjualan;
 
+    protected $penjualanRepo;
+
     public function render()
     {
         return view('livewire.detail.penjualan-detail-view');
     }
+
+    public function __construct($id = null)
+    {
+        parent::__construct($id);
+        $this->penjualanRepo = new PenjualanRepository();
+    }
+
     public function showDetailInfo($id)
     {
         $this->penjualan = Penjualan::query()
@@ -48,4 +59,6 @@ class PenjualanDetailView extends Component
     {
         $this->emit('hideDetailModal');
     }
+
+
 }

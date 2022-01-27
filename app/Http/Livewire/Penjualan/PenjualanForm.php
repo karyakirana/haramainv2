@@ -15,7 +15,7 @@ class PenjualanForm extends Component
 {
     protected $listeners = [
         'setCustomer'=>'setCustomer',
-        'setProduk'=>'setProduk'
+        'setProduk'=>'setProduk',
     ];
 
     public $dataDetail =[];
@@ -209,6 +209,8 @@ class PenjualanForm extends Component
         // remove line transaksi
         unset($this->dataDetail[$index]);
         $this->dataDetail = array_values($this->dataDetail);
+        $this->hitungTotal();
+        $this->hitungTotalBayar();
     }
 
     protected function setDataPenjualan()

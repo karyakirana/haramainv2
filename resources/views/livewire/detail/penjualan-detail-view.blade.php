@@ -92,6 +92,7 @@
             </tfoot>
         </table>
     </x-organism.modal>
+
     @push('custom-scripts')
         <script>
             var detailModal = new bootstrap.Modal(document.getElementById('detailModal'), {

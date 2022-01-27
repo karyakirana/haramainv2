@@ -12,7 +12,7 @@ class PengeluaranForm extends Component
     public function render()
     {
         return view('livewire.keuangan.pengeluaran-form',[
-            'akunPengeluaran'=>Akun::query()->whereRelation('akunTipe', 'kode', '=', '1')->get()
+            'akunPengeluaran'=>Akun::query()->whereRelation('akunTipe', 'kode', '=', '111')->get()
         ]);
     }
     protected $listeners = [

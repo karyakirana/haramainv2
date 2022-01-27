@@ -57,7 +57,7 @@ class PenjualanReturBaikTable extends DataTableComponent
 
     public function print($id)
     {
-        return redirect()->to(''.$id);
+        return redirect()->to('retur/print/'.$id);
     }
 
     public function rowView(): string

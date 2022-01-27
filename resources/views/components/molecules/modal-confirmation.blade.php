@@ -17,7 +17,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" {{$attributes}}>Save changes</button>
+                <button type="button" class="btn btn-danger" {{$attributes}}>DELETE</button>
             </div>
         </div>
     </div>

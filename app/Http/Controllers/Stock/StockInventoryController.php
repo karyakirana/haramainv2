@@ -38,6 +38,10 @@ class StockInventoryController extends Controller
     public function indexBaik($gudangId = null)
     {
         // view daftar stock baik
+        return view('pages.stock.inventory-index', [
+            'gudangId'=>$gudangId,
+            'jenis'=>'baik'
+        ]);
     }
 
     public function datatablesIndexBaik($gudangId = null)
@@ -51,6 +55,10 @@ class StockInventoryController extends Controller
     public function indexRusak($gudangId = null)
     {
         // view daftar stock rusak
+        return view('pages.stock.inventory-index', [
+            'gudangId'=>$gudangId,
+            'jenis'=>'rusak'
+        ]);
     }
 
     public function datatablesIndexRusak($gudangId = null)

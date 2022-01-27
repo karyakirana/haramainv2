@@ -49,9 +49,9 @@ class ReturBaikController extends Controller
         // update data
     }
 
-    public function print(PenjualanRetur $penjualan)
+    public function print($idRetur)
     {
-        $penjualan = $penjualan->with(['customer', 'penjualanDetail'])->first();
+        $penjualan = PenjualanRetur::query()->with(['customer', 'returDetail'])->find($idRetur);
         $dataPenjualan = [
             'penjualanId' => $penjualan->kode,
             'namaCustomer' => $penjualan->customer->nama,
@@ -69,7 +69,7 @@ class ReturBaikController extends Controller
         ];
         // update print
         $updatePrint = $penjualan->update(['print' => $penjualan->print + 1]);
-        $dataPenjualanDetail = $penjualan->penjualanDetail();
+        $dataPenjualanDetail = $penjualan->returDetail();
 
         return view('pages.print.sales-receipt', [
             'dataUtama' => json_encode($dataPenjualan),

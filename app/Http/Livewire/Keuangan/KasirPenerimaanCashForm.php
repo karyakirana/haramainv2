@@ -28,7 +28,7 @@ class KasirPenerimaanCashForm extends Component
     public function render()
     {
         return view('livewire.keuangan.kasir-penerimaan-cash-form',[
-            'akunPenerimaan'=>Akun::query()->whereRelation('akunTipe', 'kode', '=', '1')->get()
+            'akunPenerimaan'=>Akun::query()->whereRelation('akunTipe', 'kode', '=', '111')->get()
         ]);
     }
 

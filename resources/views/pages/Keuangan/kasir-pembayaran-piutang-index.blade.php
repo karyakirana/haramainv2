@@ -1,137 +1,37 @@
 <x-metronics-layout>
     <x-organism.card :title="__('Pembayaran Piutang')">
-        <x-slot name="header">
-            <button type="button" class="btn btn-primary align-self-center" onclick="add()">New Data</button>
-        </x-slot>
-
-        <x-molecules.table-datatable id="datatables">
-            <x-slot name="thead">
-                <tr class="text-start text-black-50 fw-bolder fs-7 text-uppercase gs-0 border-1">
-                    <th class="text-center" width="10%">Kode</th>
-                    <th class="text-center">Tipe</th>
-                    <th class="text-center">Kategori</th>
-                    <th class="text-center">Akun</th>
-                    <th class="text-center">keterangan</th>
-                    <th class="text-center" width="15%">Actions</th>
-                </tr>
-            </x-slot>
-
-            <tbody class="text-gray-600 fw-bold border">
-            </tbody>
-
-        </x-molecules.table-datatable>
+        <form id="penerimaanForm">
+            <div class="row mb-4">
+                <label class="col-2 col-form-label">Akun Penerimaan</label>
+                <div class="col-4">
+                    <select name="selectPenerimaan" id="selectPenerimaan" class="form-control @error('penerimaan') is-invalid @enderror" wire:model.defer="penerimaan">
+                        <option>Data diisi</option>
+                        @forelse($akunPenerimaan as $row)
+                            <option value="{{$row->id}}">{{$row->deskripsi}}</option>
+                        @empty
+                        @endforelse
+                    </select>
+                    @error('penerimaan') <span class="invalid-feedback">{{$message}}</span> @enderror
+                </div>
+                <label class="col-2 col-form-label">Tgl Penerimaan</label>
+                <div class="col-4">
+                    <x-atom.input-singledaterange wire:model.defer="tgl_penerimaan" :name="__('tgl_penerimaan')" id="tgl_penerimaan" />
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label class="col-2 col-form-label">Customer</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <x-atom.input-form :name="__('customer_id')" wire:model.defer="customer_nama"/>
+                        <button type="button" class="btn btn-primary" wire:click="showCustomer">Get</button>
+                        <x-atom.input-message :name="__('customer_id')" />
+                    </div>
+                </div>
+                <label class="col-2 col-form-label">Tambahkan Data</label>
+                <div class="col-4">
+                    <button type="button" class="btn btn-primary" wire:click="showPenjualan">Pilih Nota</button>
+                </div>
+            </div>
+        </form>
     </x-organism.card>
-
-    <livewire:keuangan.akun-form />
-
-    @push('custom-scripts')
-        <script>
-            "use strict";
-
-            // class definition
-            var dataFromTables = function (){
-                // shared variables
-                var table;
-                var dt;
-
-                // private functions
-                var initDatatable = function(){
-                    dt = $("#datatables").DataTable({
-                        language : {
-                            "lengthMenu": "Show _MENU_",
-                        },
-                        dom :
-                            "<'row'" +
-                            "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
-                            "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
-                            ">" +
-
-                            "<'table-responsive'tr>" +
-
-                            "<'row'" +
-                            "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
-                            "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
-                            ">",
-                        searchDelay : 500,
-                        processing : true,
-                        serverSide : true,
-                        searching : true,
-                        order : [],
-                        responsive: true,
-                        stateSave: true,
-                        select: {
-                            style: 'os',
-                            selector: 'td:first-child',
-                            className: 'row-selected'
-                        },
-                        ajax : {
-                            url : "{{route('datatables.akun')}}",
-                            method : 'PATCH',
-                        },
-                        columns : [
-                            {data:'kode'},
-                            {data:'akun_tipe.deskripsi'},
-                            {data:'akun_kategori.deskripsi'},
-                            {data:'deskripsi'},
-                            {data:'keterangan'},
-                            {data:'actions'},
-                        ],
-                        columnDefs : [
-                            {
-                                targets : -1,
-                                orderable : false,
-                                className: "text-center"
-                            },
-                        ],
-                    });
-
-                    table = dt.$;
-
-                    dt.on('draw', function (){
-                        KTMenu.createInstances();
-                    });
-                }
-
-                // Public methods
-                return {
-                    init: function () {
-                        initDatatable();
-                    }
-                }
-            }();
-
-            // on document ready
-            KTUtil.onDOMContentLoaded(function () {
-                dataFromTables.init();
-            });
-
-            // reload table
-            function reloadTable()
-            {
-                $('#datatables').DataTable().ajax.reload();
-            }
-
-            Livewire.on('store', ()=>{
-                reloadTable();
-            });
-
-            Livewire.emit('edit');
-
-            function add()
-            {
-                Livewire.emit('add');
-            }
-
-            function edit(id)
-            {
-                Livewire.emit('edit', id);
-            }
-
-            function destroy(id)
-            {
-                Livewire.emit('destroy', id);
-            }
-
-        </script>
-    @endpush
 </x-metronics-layout>

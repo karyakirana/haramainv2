@@ -467,6 +467,29 @@
                                 <span class="menu-title">Stock Inventory List</span>
                             </a>
                         </div>
+                        @php
+                        $gudang = \App\Models\Master\Gudang::all();
+                        @endphp
+                        @forelse($gudang as $item)
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ url('stock/inventory/gudang/'.$item->id) }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Stock {{$item->nama}}</span>
+                                </a>
+                            </div>
+                        @empty
+                        @endforelse
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ url('stock/inventory/rusak') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">Stock Inventory Rusak</span>
+                            </a>
+                        </div>
+
                 </div>
                 </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">

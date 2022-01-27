@@ -2,15 +2,32 @@
 
 namespace App\Http\Livewire\Datatables;
 
+use App\Http\Services\Repositories\PenjualanRepository;
 use App\Models\Penjualan\Penjualan;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
 class PenjualanTable extends DataTableComponent
 {
+    protected $penjualanRepo;
+
     protected string $pageName = 'penjualan';
     protected string $tableName = 'penjualanList';
+
+    protected $listeners = [
+        'refreshPenjualanTable' => '$refresh',
+        'destroySure'=>'destroySure'
+    ];
+
+    public function __construct($id = null)
+    {
+        parent::__construct($id);
+        $this->penjualanRepo = new PenjualanRepository();
+    }
+
+    public $idPenjualan;
 
     public function columns(): array
     {
@@ -38,9 +55,7 @@ class PenjualanTable extends DataTableComponent
             Column::make('Total Bayar', 'total_bayar')
                 ->sortable()
                 ->searchable(),
-            Column::make('Action', 'actions')
-                ->sortable()
-                ->searchable(),
+            Column::make('Action', 'actions'),
         ];
     }
 
@@ -66,5 +81,25 @@ class PenjualanTable extends DataTableComponent
     public function rowView(): string
     {
         return 'livewire-tables.rows.penjualan_table';
+    }
+
+    public function destroy($id)
+    {
+        $this->idPenjualan = $id;
+        $this->emit('showConfirmModal');
+    }
+
+    public function destroySure()
+    {
+        \DB::beginTransaction();
+        try {
+            $this->penjualanRepo->destroy($this->idPenjualan);
+            \DB::commit();
+            $this->reset(['idPenjualan']);
+            $this->emit('hideConfirmModal');
+            $this->emit('refreshPenjualanTable');
+        } catch (ModelNotFoundException $e){
+            \DB::rollBack();
+        }
     }
 }

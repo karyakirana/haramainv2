@@ -35,15 +35,14 @@ class KasirSetPiutangForm extends Component
     public function render()
     {
         return view('livewire.keuangan.kasir-set-piutang-form',[
-            'akunPenerimaan'=>Akun::query()->whereRelation('akunTipe', 'kode', '=', '121')->get()
+            'akunPenerimaan'=>Akun::query()->whereRelation('akunTipe', 'kode', '=', '112')->get()
         ]);
     }
 
     public function mount()
     {
         $akunPenjualan = Akun::query()
-            ->whereRelation('akunTipe', 'kode','6')
-            ->where('kode', '601');
+            ->where('kode', '411');
 
         // tgl_penerimaan
         $this->tgl_jurnal = tanggalan_format(strtotime(now()));
@@ -51,7 +50,7 @@ class KasirSetPiutangForm extends Component
         // check akun penjualan sudah ada atau belum
         if ($akunPenjualan->doesntExist()){
             $this->notification = true;
-            $this->notificationMessage = 'Akun Penjualan Belum dibuat';
+            $this->notificationMessage = 'Akun Penjualan dengan kode 411 belum dibuat';
         } else {
             $this->akunKredit = $akunPenjualan->first()->id;
         }

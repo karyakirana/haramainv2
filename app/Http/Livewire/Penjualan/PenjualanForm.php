@@ -51,7 +51,7 @@ class PenjualanForm extends Component
             $this->customer_diskon = $penjualan->customer->diskon;
             $this->jenis_bayar = $penjualan->jenis_bayar;
             $this->tgl_nota = tanggalan_format($penjualan->tgl_nota);
-            $this->tgl_tempo = ($penjualan->jenis_bayar == 'tempo') ? tanggalan_format($penjualan->tgl_tempo) : tanggalan_format($penjualan->tgl_nota) or null;
+            $this->tgl_tempo = ($penjualan->jenis_bayar == 'tempo') ? tanggalan_format($penjualan->tgl_tempo) : tanggalan_format(strtotime($penjualan->tgl_nota)) or null ;
             $this->gudang_id = $penjualan->gudang_id;
             $this->user_id = $penjualan->user_id;
             $this->ppn = $penjualan->ppn;

@@ -3,6 +3,7 @@
     <x-organism.card :title="__('Stock Real Time')">
 
         <livewire:datatables.stock-inventory-table :jenis="$jenis ?? '' " :gudang_id="$gudangId ?? '' "/>
+{{--        <livewire:datatables.stock-inventory-def-table />--}}
         <x-slot name="footer">
             <div class="d-flex justify-content-end">
                 <livewire:stock.generate-inventory-form />

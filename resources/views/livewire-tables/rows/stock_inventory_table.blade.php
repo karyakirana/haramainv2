@@ -1,4 +1,3 @@
-
 <x-livewire-tables::bs5.table.cell width="10%" class="text-center hidden md:table-cell">
     {{$row->produk->kode_lokal}}
 </x-livewire-tables::bs5.table.cell>

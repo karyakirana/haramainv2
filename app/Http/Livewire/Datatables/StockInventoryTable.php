@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Datatables;
 
+use App\Models\Master\Produk;
 use App\Models\Stock\StockInventory;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -15,14 +16,16 @@ class StockInventoryTable extends DataTableComponent
         'refreshStockInventory'=>'$refresh'
     ];
 
+    public bool $columnSelect = true;
+
     public function columns(): array
     {
         return [
-            Column::make('ID', 'produk.kode')
-                ->sortable()
-                ->searchable()
-                ->addClass('hidden md:table-cell')
-                ->selected(),
+            Column::make('ID', 'produk.kode_lokal')
+                ->sortable(function (Builder $query, $direction){
+                    return $query->orderBy(Produk::query()->select('kode_lokal')->whereColumn('produk.id', 'stock_inventory.produk_id'), $direction);
+                })
+                ->searchable(),
             Column::make('Jenis', 'jenis')
                 ->sortable()
                 ->searchable(),
@@ -53,7 +56,8 @@ class StockInventoryTable extends DataTableComponent
 
     public function query(): Builder
     {
-        $stockInventory = StockInventory::query()->where('active_cash', session('ClosedCash'));
+        $stockInventory = StockInventory::query()
+            ->where('active_cash', session('ClosedCash'));
         if ($this->gudang_id){
             $stockInventory = $stockInventory->where('gudang_id', $this->gudang_id );
         }

@@ -16,15 +16,14 @@
                     <!--begin::Info-->
                     <div class="flex-grow-1 me-2">
                         <!--begin::Username-->
-                        <a href="#" class="text-white text-hover-primary fs-6 fw-bold">Paul Melone</a>
+                        @php
+                        $users = Auth::user();
+                        @endphp
+                        <a href="#" class="text-white text-hover-primary fs-6 fw-bold">{{$users->name}}</a>
                         <!--end::Username-->
                         <!--begin::Description-->
-                        <span class="text-gray-600 fw-bold d-block fs-8 mb-1">Python Dev</span>
+                        <span class="text-gray-600 fw-bold d-block fs-8 mb-1">{{$users->role}}</span>
                         <!--end::Description-->
-                        <!--begin::Label-->
-                        <div class="d-flex align-items-center text-success fs-9">
-                            <span class="bullet bullet-dot bg-success me-1"></span>online</div>
-                        <!--end::Label-->
                     </div>
                     <!--end::Info-->
                     <!--begin::User menu-->

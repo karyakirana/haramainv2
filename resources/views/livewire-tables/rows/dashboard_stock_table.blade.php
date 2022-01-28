@@ -1,0 +1,9 @@
+<x-livewire-tables::bs5.table.cell>
+    {{$row->produk->kode_lokal}}
+</x-livewire-tables::bs5.table.cell>
+<x-livewire-tables::bs5.table.cell>
+    {{$row->jumlah_stock_masuk}}
+</x-livewire-tables::bs5.table.cell>
+<x-livewire-tables::bs5.table.cell>
+    {{$row->jumlah_stock_keluar}}
+</x-livewire-tables::bs5.table.cell>

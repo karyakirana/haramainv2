@@ -2,7 +2,7 @@
 
     <!--begin::Row-->
     <x-organism.card :title="__('Dashboard')">
-
+        <livewire:datatables.stock-inventory-def-table />
     </x-organism.card>
     <!--end::Row-->
 

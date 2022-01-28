@@ -11,8 +11,6 @@ class DashboardController extends Controller
     public function index()
     {
         // view dashboard general (guest)
-        return view('pages.dashboard-index', [
-            'stockInventory'=>StockInventory::query()->with(['produk', 'gudang'])->limit(20)
-        ]);
+        return view('pages.dashboard-index');
     }
 }

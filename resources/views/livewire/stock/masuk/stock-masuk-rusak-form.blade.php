@@ -17,12 +17,12 @@
             <div class="col-8">
                 <form id="formMaster">
                     <div class="row mb-4">
-                        <label class="col-2 col-form-label">Pembuat</label>
+                        <label class="col-2 col-form-label">Supplier</label>
                         <div class="col-4">
                             <div class="input-group">
-                                <x-atom.input-form :name="__('user_id')" wire:model.defer="user_id" readonly/>
-                                <button type="button" class="btn btn-primary" wire:click="showUser">Get</button>
-                                <x-atom.input-message :name="__('$user_id')" />
+                            <x-atom.input-form wire:model.defer="supplier_nama" readonly/>
+                                <button type="button" class="btn btn-primary" wire:click="showSupplier">Get</button>
+                                <x-atom.input-message :name="__('$supplier_id')" />
                             </div>
                         </div>
                         <label class="col-2 col-form-label">Tgl Nota</label>

@@ -81,6 +81,7 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('keuangan/kasir/set/piutang', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'indexSet'])->name('set.piutang.index');
     Route::get('keuangan/kasir/set/piutang/transaksi', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'create'])->name('set.piutang.transaksi');
+    Route::get('keuangan/kasir/set/piutang/transaksi/{id}', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'edit']);
 
     Route::get('keuangan/kasir/pengeluaran/trans', [\App\Http\Controllers\Kasir\PengeluaranController::class, 'create'])->name('kasir.pengeluaran.trans');
 

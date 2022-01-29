@@ -32,5 +32,6 @@ class JurnalPenjualanController extends Controller
     public function edit($id)
     {
         // edit transaksi input penjualan to piutang per customer
+        return view('pages.Keuangan.kasir-set-piutang-trans', ['id'=>$id]);
     }
 }

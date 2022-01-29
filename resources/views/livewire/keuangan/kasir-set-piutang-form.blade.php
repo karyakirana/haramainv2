@@ -89,7 +89,11 @@
         </table>
         <x-slot name="footer">
             <div class="d-flex justify-content-end">
+                @if($update)
+                    <button type="button" class="btn btn-primary" wire:click="update">Update All</button>
+                @else
                 <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
+                @endif
             </div>
         </x-slot>
     </x-organism.card>

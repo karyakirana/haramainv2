@@ -1,0 +1,84 @@
+<div>
+    <x-organism.modal :title="__('Detail Set Penjualan')" :tipe="__('xl')" id="detailModal"  wire:ignore.self>
+        <form id="detailModal">
+            <div class="form-group row">
+                <label class="col-form-label col-3">Customer</label>
+                <div class="col-2">
+                    <p class="form-control-plaintext">{{$customer_id??''}}</p>
+                </div>
+                <label class="col-form-label col-3">Tgl Nota</label>
+                <div class="col-2">
+                    <p class="form-control-plaintext">{{  tanggalan_format($tgl_jurnal) ?? ''}}</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-3">Pembuat</label>
+                <div class="col-2">
+                    <p class="form-control-plaintext">{{$user_id??''}}</p>
+                </div>
+                <label class="col-form-label col-3">Keterangan</label>
+                <div class="col-2">
+                    <p class="form-control-plaintext">{{$keterangan??''}}</p>
+                </div>
+            </div>
+        </form>
+        <table class="table table-row-bordered table-bordered">
+            <thead>
+            <tr class="border">
+                <th class="text-center">Kode</th>
+                <th class="text-center">Item</th>
+                <th class="text-center">Harga</th>
+                <th class="text-center">Jumlah</th>
+                <th class="text-center">Diskon</th>
+                <th class="text-center">Sub Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            @isset($detailPenjualan)
+                @forelse($detailPenjualan as $row)
+                    <tr class="border">
+                        <td class="text-center">{{$row->produk->kode_lokal}}</td>
+                        <td class="text-left">{{$row->produk->nama}}</td>
+                        <td class="text-end">{{rupiah_format($row->produk->harga)}}</td>
+                        <td class="text-center">{{$row->jumlah}}</td>
+                        <td class="text-center">{{$row->diskon}}%</td>
+                        <td class="text-end">{{rupiah_format($row->sub_total)}}</td>
+                    </tr>
+                @empty
+                @endforelse
+            @endisset
+            </tbody>
+            <tfoot class="border">
+            <tr>
+                <td colspan="4"></td>
+                <td>Total Bayar</td>
+                <td class="text-end">
+                    {{isset($total_bayar) ? rupiah_format($total_bayar) : 0 }}
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </x-organism.modal>
+
+    @push('custom-scripts')
+        <script>
+            var detailModal = new bootstrap.Modal(document.getElementById('detailModal'), {
+                keyboard: false
+            })
+
+            // hidden and reset
+            document.getElementById('detailModal').addEventListener('hidden.bs.modal', ()=>{
+                Livewire.emit('resetForm');
+            })
+
+            window.livewire.on('showDetailModal', ()=>{
+                detailModal.show();
+            })
+
+            window.livewire.on('hideDetailModal', ()=>{
+                detailModal.hide();
+            })
+
+        </script>
+    @endpush
+</div>

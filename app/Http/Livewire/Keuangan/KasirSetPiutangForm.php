@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Keuangan;
 
 use App\Http\Services\Repositories\JurnalSetPiutangRepo;
 use App\Models\Keuangan\Akun;
+use App\Models\Keuangan\JurnalPenjualan;
 use App\Models\Master\Customer;
 use App\Models\Penjualan\Penjualan;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -31,6 +32,8 @@ class KasirSetPiutangForm extends Component
     public $tgl_jurnal, $customer_id, $customer_nama, $total_bayar, $user_id, $keterangan;
     public $total_bayar_rupiah;
 
+    public $jurnal_piutang_id;
+
 
     public function render()
     {
@@ -39,7 +42,7 @@ class KasirSetPiutangForm extends Component
         ]);
     }
 
-    public function mount()
+    public function mount($piutangId = null)
     {
         $akunPenjualan = Akun::query()
             ->where('kode', '41100');
@@ -53,6 +56,32 @@ class KasirSetPiutangForm extends Component
             $this->notificationMessage = 'Akun Penjualan dengan kode 411 belum dibuat';
         } else {
             $this->akunKredit = $akunPenjualan->first()->id;
+        }
+
+        // kepentingan edit
+        if ($piutangId){
+            $piutang = JurnalPenjualan::query()->find($piutangId);
+            $this->jurnal_piutang_id = $piutang->id;
+            $this->tgl_jurnal = tanggalan_format($piutang->tgl_jurnal);
+            $this->customer_id = $piutang->customer_id;
+            $this->customer_nama = $piutang->customer->nama;
+            $this->total_bayar = $piutang->total_bayar;
+            $this->keterangan = $piutang->keterangan;
+            foreach ($piutang->jurnalPenjualanDetail as $item){
+                $this->daftarPiutang [] = [
+                    'penjualan_id'=>$item->penjualan_id,
+                    'penjualan_kode'=>$item->penjualan->kode,
+                    'penjualan_customer'=>$item->penjualan->customer->nama,
+                    'penjualan_total_bayar'=>$item->penjualan->total_bayar
+                ];
+            }
+            foreach ($piutang->jurnalTransaksi as $item){
+                if ($item->nominal_debet > 0){
+                    $this->penerimaan = $item->akun_id;
+                }
+            }
+            // set update true
+            $this->update = true;
         }
     }
 
@@ -128,6 +157,32 @@ class KasirSetPiutangForm extends Component
         DB::beginTransaction();
         try {
             $this->jurnalSetPiutangRepo->store($data);
+            DB::commit();
+            return redirect()->to('/keuangan/kasir/set/piutang');
+        } catch (ModelNotFoundException $e){
+            DB::rollBack();
+            session()->flash('message', $e);
+        }
+    }
+
+    public function update()
+    {
+        $data = (object) [
+            'jurnal_penjualan_id'=>$this->jurnal_piutang_id,
+            'tgl_jurnal'=>$this->tgl_jurnal,
+            'customer_id'=>$this->customer_id,
+            'total_bayar'=>$this->total_bayar,
+            'keterangan'=>$this->keterangan,
+
+            'detail'=>$this->daftarPiutang,
+
+            'akunDebet'=>$this->penerimaan,
+            'akunKredit'=>$this->akunKredit
+
+        ];
+        DB::beginTransaction();
+        try {
+            $this->jurnalSetPiutangRepo->update($data);
             DB::commit();
             return redirect()->to('/keuangan/kasir/set/piutang');
         } catch (ModelNotFoundException $e){

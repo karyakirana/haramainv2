@@ -170,15 +170,21 @@
                 </form>
                 <div class="text-center pb-4">
                     <button type="button" class="btn btn-info" wire:click="showProduk">Add Produk</button>
-                    <button type="button" class="btn btn-primary">Add Data</button>
+                    <button type="button" class="btn btn-primary" wire:click="addLine">Add Data</button>
                 </div>
             </div>
         </div>
 
         <x-slot name="footer">
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
+        @if($mode =='update')
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" wire:click="update">Update All</button>
+                </div>
+            @else
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
+                </div>
+            @endif
         </x-slot>
 
     </x-organism.card>

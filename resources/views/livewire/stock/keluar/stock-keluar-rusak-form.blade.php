@@ -19,7 +19,7 @@
                         <label class="col-2 col-form-label">Supplier</label>
                         <div class="col-4">
                             <div class="input-group">
-                                <x-atom.input-form wire:model.defer="supplier_id" readonly/>
+                                <x-atom.input-form wire:model.defer="supplier_nama" readonly/>
                                 <button type="button" class="btn btn-primary" wire:click="showSupplier">Get</button>
                                 <x-atom.input-message :name="__('$supplier_id')" />
                             </div>

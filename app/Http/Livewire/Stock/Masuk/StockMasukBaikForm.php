@@ -6,6 +6,7 @@ use App\Models\Stock\StockMasuk;
 use App\Models\User;
 use App\Models\Master\Gudang;
 use App\Models\Master\Produk;
+use App\Models\Master\Supplier;
 use App\Http\Services\Repositories\StockMasukRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,8 @@ class StockMasukBaikForm extends Component
 {
     protected $listeners = [
         'setProduk'=>'setProduk',
-        'setUser'=>'setUser'
+        'setUser'=>'setUser',
+        'setSupplier'=>'setSupplier'
     ];
 
     public $dataDetail =[];
@@ -27,7 +29,7 @@ class StockMasukBaikForm extends Component
 
     // properti master
     public $kode, $stockable_masuk_id, $stockable_masuk_type, $kondisi;
-    public $gudang_id, $tgl_masuk, $user_id, $nomor_po, $keterangan;
+    public $gudang_id, $tgl_masuk, $user_id, $nomor_po, $keterangan, $supplier_id, $supplier_nama;
 
     // properti detail
     public $idDetail, $idProduk, $namaProduk, $kodeLokalProduk, $coverProduk, $halProduk;
@@ -45,6 +47,8 @@ class StockMasukBaikForm extends Component
             $this->stockable_masuk_id = $stockMasuk ->stockable_masuk_id;
             $this->stockable_masuk_type = $stockMasuk ->stockable_masuk_type;
             $this->kondisi = $stockMasuk ->kondisi;
+            $this->supplier_id = $stockMasuk ->supplier_id;
+            $this->supplier_nama = $stockMasuk ->supplier->nama;
             $this->gudang_id = $stockMasuk->gudang_id;
             $this->user_id = $stockMasuk->user_id;
             $this->tgl_masuk = tanggalan_format($stockMasuk->tgl_masuk);
@@ -61,6 +65,18 @@ class StockMasukBaikForm extends Component
                 ];
             }
         }
+    }
+
+    public function showSupplier()
+    {
+        $this->emit('showSupplier');
+    }
+
+    public function setSupplier(Supplier $supplier)
+    {
+        $this->supplier_id = $supplier ->id;
+        $this->supplier_nama = $supplier->nama;
+        $this->emit('hideSupplier');
     }
 
     public function showUser()
@@ -173,6 +189,7 @@ class StockMasukBaikForm extends Component
             'gudang_id' => $this->gudang_id,
             'stockable_masuk_id' => $this->stockable_masuk_id ?? null,
             'stockable_masuk_type' => $this->stockable_masuk_type ?? null,
+            'supplier_id'=>$this->supplier_id,
             'nomor_po' => $this->nomor_po ,
             'tgl_masuk' => $this->tgl_masuk,
             'kondisi' => 'baik',

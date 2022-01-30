@@ -20,8 +20,9 @@ class StockInventoryDefTable extends DataTableComponent
         return [
             Column::make('Gudang')
                 ->addClass('text-center'),
-            Column::make('produk')
+            Column::make('produk', 'produk.nama')
                 ->addClass('text-center')
+                ->searchable()
                 ->sortable(function (Builder $query, $direction){
                     return $query->orderBy(Produk::query()->select('nama')->whereColumn('produk.id', 'stock_inventory.produk_id'), $direction);
                 }),
@@ -42,15 +43,7 @@ class StockInventoryDefTable extends DataTableComponent
             ->where('active_cash', session('ClosedCash'))
             ->where('jenis', 'baik')
             ->select("*")
-            ->selectRaw('stock_opname + stock_masuk - stock_keluar as stock_sisa')
-            ->whereRaw('(stock_opname + stock_masuk - stock_keluar) < 50')
-            ->limit(20);
-        if ($this->gudang_id){
-            $stockInventory = $stockInventory->where('gudang_id', $this->gudang_id );
-        }
-        if ($this->jenis){
-            $stockInventory = $stockInventory->where('jenis', $this->jenis);
-        }
+            ->selectRaw('stock_opname + stock_masuk - stock_keluar as stock_sisa');
         return $stockInventory;
     }
 

@@ -67,7 +67,7 @@ class PenjualanReturRepo
         ]);
 
         $this->storeDetail($data, $retur, $data->jenis_retur, $stockMasuk);
-
+        return $retur->id;
     }
 
     // rollback penjualan
@@ -79,6 +79,8 @@ class PenjualanReturRepo
             ->with(['stockMasuk.stockMasukDetail'])
             ->find($data->id_retur);
 
+        dd($retur->stockMasuk());
+
         // rollback inventory
         foreach ($retur->returDetail as $row)
         {
@@ -89,7 +91,7 @@ class PenjualanReturRepo
         $retur->returDetail()->delete();
 
         // delete stock keluar detail
-        $stockMasuk = $retur->stockMasuk()->first()->stockMasukDetail()->delete();
+        $stockMasuk = $retur->stockMasuk->stockMasukDetail()->delete();
 
         // update penjualan
         $retur->update([
@@ -108,12 +110,13 @@ class PenjualanReturRepo
         // update stock masuk
         $stockMasuk = $retur->stockMasuk()->update([
             'gudang_id'=>$data->gudang_id,
-            'tgl_keluar'=>tanggalan_database_format($data->tgl_nota, 'd-M-Y'),
+            'tgl_masuk'=>tanggalan_database_format($data->tgl_nota, 'd-M-Y'),
             'user_id'=>Auth::id(),
         ]);
 
-        $stockMasuk = $retur->stockKeluar()->first();
+        $stockMasuk = $retur->stockMasuk()->first();
         $this->storeDetail($data, $retur, $data->jenis_retur, $stockMasuk);
+        return $data->id_retur;
     }
 
     /**

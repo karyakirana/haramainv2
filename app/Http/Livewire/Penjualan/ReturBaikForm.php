@@ -261,13 +261,13 @@ class ReturBaikForm extends Component
 
         DB::beginTransaction();
         try {
-            (new PenjualanReturRepo())->store($dataPenjualan);
+            $idretur = (new PenjualanReturRepo())->store($dataPenjualan);
             DB::commit();
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->to('retur/baik');
+        return redirect()->to('retur/print/'.$idretur);
 
     }
 
@@ -278,13 +278,13 @@ class ReturBaikForm extends Component
 
         DB::beginTransaction();
         try {
-            (new PenjualanReturRepo())->update($dataPenjualan);
+            $idretur = (new PenjualanReturRepo())->update($dataPenjualan);
             DB::commit();
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->to('retur/baik');
+        return redirect()->to('retur/print/'.$idretur);
 
     }
 }

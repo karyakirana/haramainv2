@@ -29,8 +29,8 @@
                         <div class="col-4">
                             <select name="jenisBayar" id="jenisBayar" class="form-control @error('jenis_bayar') is-invalid @enderror" wire:model.defer="jenis_bayar">
                                 <option>Dipilih</option>
-                                <option value="cash">Cash</option>
-                                <option value="tempo">Tempo</option>
+                                <option value="Tunai">Tunai</option>
+                                <option value="Tempo">Tempo</option>
                             </select>
                             <x-atom.input-message :name="__('jenis_bayar')"/>
                         </div>
@@ -38,13 +38,11 @@
                     <div class="row mb-4">
                         <label class="col-2 col-form-label">Tgl Nota</label>
                         <div class="col-4">
-                            <x-atom.input-singledaterange id="tglNota" wire:model.defer="tgl_nota" readonly />
-                            <x-atom.input-message :name="__('tgl_nota')" />
+                            <x-atom.input-singledaterange id="tglNota" wire:model.defer="tgl_nota" :name="__('tgl_nota')" readonly />
                         </div>
                         <label class="col-2 col-form-label">Tgl Tempo</label>
                         <div class="col-4">
-                            <x-atom.input-singledaterange id="tglTempo" wire:model.defer="tgl_tempo" readonly />
-                            <x-atom.input-message :name="__('tgl_tempo')" />
+                            <x-atom.input-singledaterange id="tglTempo" wire:model.defer="tgl_tempo" :name="__('tgl_tempo')" readonly />
                         </div>
                     </div>
                     <div class="row mb-4">

@@ -8,6 +8,7 @@ use App\Models\Master\Produk;
 use App\Http\Services\Repositories\PenjualanRepository;
 use App\Models\Penjualan\Penjualan;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -220,8 +221,8 @@ class PenjualanForm extends Component
         $this->validate([
             'customer_id'=>'required',
             'gudang_id'=>'required',
+            'jenis_bayar'=>'required',
             'tgl_nota'=>'required|date_format:d-M-Y',
-            'tgl_tempo'=>'date_format:d-M-Y',
         ]);
 
         $dataDetail = [];
@@ -259,13 +260,13 @@ class PenjualanForm extends Component
 
         DB::beginTransaction();
         try {
-            (new PenjualanRepository())->store($dataPenjualan);
+            $idPenjualan = (new PenjualanRepository())->store($dataPenjualan);
             DB::commit();
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->to('penjualan');
+        return redirect()->to('penjualan/print/'.$idPenjualan);
 
     }
 
@@ -276,13 +277,13 @@ class PenjualanForm extends Component
 
         DB::beginTransaction();
         try {
-            (new PenjualanRepository())->update($dataPenjualan);
+            $idPenjualan = (new PenjualanRepository())->update($dataPenjualan);
             DB::commit();
-        } catch (ModelNotFoundException $e) {
+        } catch (QueryException $e) {
             DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->to('penjualan');
+        return redirect()->to('penjualan/print/'.$idPenjualan);
     }
 
     public function render()

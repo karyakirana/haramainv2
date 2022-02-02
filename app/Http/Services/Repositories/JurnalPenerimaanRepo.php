@@ -54,4 +54,14 @@ class JurnalPenerimaanRepo
     {
         //
     }
+
+    public function destroy($id)
+    {
+        $penerimaanLain = JurnalPenerimaan::query()->find($id);
+
+        // delete jurnal transaksi
+        $penerimaanLain->jurnalTransaksi()->delete();
+
+        $penerimaanLain->delete();
+    }
 }

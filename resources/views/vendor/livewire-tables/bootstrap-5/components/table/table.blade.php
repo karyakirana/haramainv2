@@ -1,9 +1,9 @@
 @props(['customSecondaryHeader' => false, 'useHeaderAsFooter' => false, 'customFooter' => false])
 
 <div class="{{ $this->responsive ? 'table-responsive' : '' }}">
-    <table {{ $attributes->except(['wire:sortable', 'class']) }} class="{{ trim($attributes->get('class')) ?: 'table table-row-bordered border  gs-5'}}">
+    <table {{ $attributes->except(['wire:sortable', 'class']) }} class="{{ trim($attributes->get('class')) ?: 'table table-row-bordered border gs-7'}}">
         <thead>
-            <tr class="border border-2">
+            <tr class="border border-2 text-center align-middle">
                 {{ $head }}
             </tr>
         </thead>

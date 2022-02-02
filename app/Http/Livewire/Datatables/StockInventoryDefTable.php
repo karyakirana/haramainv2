@@ -43,7 +43,10 @@ class StockInventoryDefTable extends DataTableComponent
             ->where('active_cash', session('ClosedCash'))
             ->where('jenis', 'baik')
             ->select("*")
-            ->selectRaw('stock_opname + stock_masuk - stock_keluar as stock_sisa');
+            ->selectRaw('stock_opname + stock_masuk - stock_keluar as stock_sisa')
+            ->groupBy('id')
+            ->having('stock_sisa', '<', 1000)
+            ->orderBy('stock_sisa');
         return $stockInventory;
     }
 

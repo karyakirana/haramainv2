@@ -4,6 +4,10 @@
             <button type="button" class="btn btn-primary align-self-center" onclick="add()">New Data</button>
         </x-slot>
 
+        <livewire:datatables.penerimaan-penjualan-table-index />
+
+        <x-molecules.modal-confirmation />
+
         <x-molecules.table-datatable id="datatables">
             <x-slot name="thead">
                 <tr class="text-start text-black-50 fw-bolder fs-7 text-uppercase gs-0 border-1">
@@ -108,14 +112,16 @@
             // reload table
             function reloadTable()
             {
-                $('#datatables').DataTable().ajax.reload();
+                Livewire.emit('refreshPenerimaanPenjualanTable');
             }
 
             Livewire.on('store', ()=>{
                 reloadTable();
             });
 
-            Livewire.emit('edit');
+            Livewire.on('reloadTable', ()=>{
+                reloadTable();
+            });
 
             function add()
             {

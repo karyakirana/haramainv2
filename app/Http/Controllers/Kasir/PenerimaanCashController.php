@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 class PenerimaanCashController extends Controller
 {
     //index
-    public function index()
+    public function index($id = null)
     {
-        return view('pages.Keuangan.kasir-penerimaan-cash-index');
+        return view('pages.Keuangan.kasir-penerimaan-cash-index', ['id'=>$id]);
     }
 
     //datatables

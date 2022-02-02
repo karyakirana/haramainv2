@@ -165,7 +165,7 @@ class BaikBaikForm extends Component
             'gudang_asal_id' => $this->gudang_asal_id,
             'gudang_tujuan_id' => $this->gudang_tujuan_id,
             'tgl_mutasi' => $this->tgl_mutasi,
-            'jenis_mutasi' => 'baik',
+            'jenis_mutasi' => 'baik_baik',
             'keterangan' => $this->keterangan,
             'detail' => $dataDetail
         ];

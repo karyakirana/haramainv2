@@ -164,7 +164,7 @@ class BaikRusakForm extends Component
             'gudang_asal_id' => $this->gudang_asal_id,
             'gudang_tujuan_id' => $this->gudang_tujuan_id,
             'tgl_mutasi' => $this->tgl_mutasi,
-            'jenis_mutasi' => 'br',
+            'jenis_mutasi' => 'baik_rusak',
             'keterangan' => $this->keterangan,
             'detail' => $dataDetail
         ];

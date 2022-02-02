@@ -59,4 +59,26 @@ class JurnalPenerimaanPenjualanRepo
             'nominal_kredit'=>$data->total_bayar,
         ]);
     }
+
+    public function rollback($jurnalPenerimaanPenjualan)
+    {
+        // rollback
+        foreach ($jurnalPenerimaanPenjualan->jurnalPenerimaanDetail as $item){
+            Penjualan::query()->find($item['penjualan_id'])->update([
+                'status_bayar'=>'belum'
+            ]);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $jurnalPenerimaanPenjualan = JurnalPenerimaanPenjualan::query()->find($id);
+
+        $jurnalPenerimaanPenjualan->jurnalTransaksi()->delete();
+
+        $this->rollback($jurnalPenerimaanPenjualan);
+
+        $jurnalPenerimaanPenjualan->jurnalPenerimaanDetail()->delete();
+        $jurnalPenerimaanPenjualan->delete();
+    }
 }

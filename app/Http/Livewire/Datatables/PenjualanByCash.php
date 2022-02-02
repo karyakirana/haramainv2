@@ -15,7 +15,7 @@ class PenjualanByCash extends DataTableComponent
     public $customerId;
 
     protected $listeners = [
-        'showPenjualanModal'=>'setCustomerId'
+        //
     ];
 
     public function setCustomerId($id)

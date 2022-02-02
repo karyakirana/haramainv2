@@ -24,10 +24,10 @@ class JurnalPenerimaanController extends Controller
         return $this->datatablesAll($data);
     }
 
-    public function create()
+    public function create($id = null)
     {
         // transaksi jurnal penerimaan
-        return view('pages.Keuangan.jurnal-penerimaan-trans');
+        return view('pages.Keuangan.jurnal-penerimaan-trans', ['id'=>$id]);
     }
 
     public function createCash()

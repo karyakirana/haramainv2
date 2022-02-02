@@ -1,5 +1,5 @@
 @if (!$columnSelect || ($columnSelect && $this->isColumnSelectEnabled('gudang')))
-    <td>
+    <td class="text-center">
         {{$row->gudang->nama}}
     </td>
 @endif
@@ -10,23 +10,23 @@
     </td>
 @endif
 @if (!$columnSelect || ($columnSelect && $this->isColumnSelectEnabled('stock_opname')))
-    <td>
-        {{$row->stock_opname}}
+    <td class="text-end">
+        {{rupiah_format($row->stock_opname)}}
     </td>
 @endif
 @if (!$columnSelect || ($columnSelect && $this->isColumnSelectEnabled('stock_masuk')))
-    <td>
-        {{$row->stock_masuk}}
+    <td class="text-end">
+        {{rupiah_format($row->stock_masuk)}}
     </td>
 @endif
 @if (!$columnSelect || ($columnSelect && $this->isColumnSelectEnabled('stock_keluar')))
-    <td>
-        {{$row->stock_keluar}}
+    <td class="text-end">
+        {{rupiah_format($row->stock_keluar)}}
     </td>
 @endif
 @if (!$columnSelect || ($columnSelect && $this->isColumnSelectEnabled('stock_sisa')))
-    <td>
+    <td class="text-end">
 {{--        {{$row->stock_opname + $row->stock_masuk - $row->stock_keluar}}--}}
-        {{$row->stock_sisa}}
+        {{rupiah_format($row->stock_sisa)}}
     </td>
 @endif

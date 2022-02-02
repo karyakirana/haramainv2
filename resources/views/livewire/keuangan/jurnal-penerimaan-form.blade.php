@@ -10,7 +10,17 @@
                 </div>
                 <label class="col-2 col-form-label">Tambahkan Data</label>
                 <div class="col-4">
-                    <button class="btn btn-primary">Pilih Nota</button>
+                    <button class="btn btn-primary" type="button" wire:click="showPenjualan" >Pilih Nota</button>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label class="col-2 col-form-label">Customer</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <x-atom.input-form :name="__('customer')"/>
+                        <button type="button" class="btn btn-primary input-group-solid">Set</button>
+                    </div>
+                    <x-atom.input-message :name="__('customer')" />
                 </div>
             </div>
         </form>
@@ -50,15 +60,13 @@
         </table>
     </x-organism.card>
 
-    <x-organism.modal id="penjualanModal">
-        <livewire:datatables.penjualan-by-cash />
+    <x-organism.modal :tipe="__('xl')" id="penjualanModal">
+        <livewire:datatables.penjualan-by-cash :customer-id="$customer_id" />
     </x-organism.modal>
 
     <x-organism.modal id="customerModal" >
         <livewire:datatables.customer-for-set />
     </x-organism.modal>
-
-    <x-organism.customer-datatables />
 
     @push('custom-scripts')
         <script>
@@ -74,7 +82,7 @@
                 penjualanModal.hide();
             })
 
-            var customerModal = new bootstrap.Modal(document.getElementById('customerModal'), {
+            let customerModal = new bootstrap.Modal(document.getElementById('customerModal'), {
                 keyboard:false
             })
 

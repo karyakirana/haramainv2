@@ -15,12 +15,14 @@ class KasirPenerimaanCashForm extends Component
         'setAkun'=> 'setAkun',
     ];
     public $daftarAkun = [];
+    public $mode = 'create';
+
     public $nominal, $penerimaan_id;
     public $akun_kategori_nama;
     public $penerimaan;
 
     public $akun_kategori_id, $akun_tipe_id, $akun_id, $kode, $deskripsi;
-    public $tgl_penerimaan, $user_id, $keterangan;
+    public $tgl_penerimaan, $user_id, $user_nama, $keterangan;
 
     public $total_bayar, $total_bayar_rupiah;
 
@@ -32,9 +34,40 @@ class KasirPenerimaanCashForm extends Component
         ]);
     }
 
-    public function mount()
+    public function mount($kasirPenerimaan = null)
     {
         $this->tgl_penerimaan = tanggalan_format(strtotime(now()));
+        if ($kasirPenerimaan){
+            $this->mode = 'update';
+            $kasirPenerimaan = JurnalPenerimaan::query()->with(['users', 'jurnalTransaksi'])->find($kasirPenerimaan);
+
+//            dd($kasirPenerimaan);
+            $this->penerimaan_id = $kasirPenerimaan ->id;
+            $this->user_id = $kasirPenerimaan ->user_id;
+            $this->user_nama =$kasirPenerimaan->users->name;
+            $this->tgl_penerimaan = tanggalan_format( $kasirPenerimaan ->tgl_penerimaan);
+            $this->keterangan = $kasirPenerimaan ->keterangan;
+            $this->total_bayar = $kasirPenerimaan ->nominal;
+
+            foreach ($kasirPenerimaan->jurnalTransaksi as $row)
+            {
+                if ($row->nominal_debet){
+                    $this->daftarAkun[] = [
+                        'akun_id'=>$row->akun_id,
+                        'akun_kategori_id'=>$row->akun_kategori_id,
+                        'akun_kategori_nama'=>$row->akun->akunKategori->deskripsi,
+                        'akun_tipe_id'=>$row->akun_tipe_id,
+                        'kode'=>$row->akun->kode,
+                        'deskripsi'=>$row->akun->deskripsi,
+                        'nominal'=>$row->nominal_kredit
+                    ];
+                }
+                if ($row->nominal_kredit){
+                    $this->penerimaan = $row -> akun_id;
+                }
+            }
+
+        }
     }
 
     public function showAkun()

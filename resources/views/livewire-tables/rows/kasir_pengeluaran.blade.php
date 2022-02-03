@@ -16,4 +16,5 @@
 <td class="text-center" width="15%">
     <x-atom.button-edit wire:click="edit({{$row->id}})"/>
     <x-atom.button-delete wire:click="destroy({{$row->id}})"/>
+    <x-atom.button-print wire:click="print({{$row->id}})"/>
 </td>

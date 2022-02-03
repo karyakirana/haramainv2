@@ -31,4 +31,9 @@ class PenerimaanCashController extends Controller
     {
         return view('pages.Keuangan.kasir-penerimaan-cash-trans', ['id'=>$id]);
     }
+
+    public function rocketMan($id)
+    {
+        //
+    }
 }

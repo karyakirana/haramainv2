@@ -3,6 +3,7 @@
 namespace App\Models\Keuangan;
 
 use App\Models\Master\Customer;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,7 +40,7 @@ class JurnalPenerimaanPenjualan extends Model
 
     public function users()
     {
-        return $this->belongsTo(Customer::class, 'customer_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function jurnalPenerimaanDetail()

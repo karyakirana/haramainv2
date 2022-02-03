@@ -52,9 +52,9 @@
             @forelse($daftarAkun as $index=>$item)
                 <tr>
                     <td>{{$item['akun_kategori_nama']}}</td>
-                    <td>{{$item['kode']}}</td>
+                    <td class="text-center">{{$item['kode']}}</td>
                     <td>{{$item['deskripsi']}}</td>
-                    <td>{{$item['nominal']}}</td>
+                    <td class="text-end">{{rupiah_format($item['nominal'])}}</td>
                 </tr>
             @empty
                 <tr>

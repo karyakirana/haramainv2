@@ -86,6 +86,59 @@ class PenjualanController extends Controller
         ]);
     }
 
+    public function printPdf($id)
+    {
+        $data = Penjualan::query()->find($id);
+        $pdf = \PDF::loadView('pdf.penjualan-invoice', [
+            'penjualan'=>$data
+        ]);
+        $options = [
+            'margin-top'    => 3,
+            'margin-right'  => 3,
+            'margin-bottom' => 3,
+            'margin-left'   => 3,
+            'page-width' => 216,
+            'page-height' => 140,
+        ];
+//        $pdf->setPaper('letter');
+        $pdf->setOptions($options);
+        return $pdf->inline('invoice.pdf');
+    }
+
+    public function rocketMan($dateBegin=null, $dateEnd=null)
+    {
+        return view('pages.penjualan.report-penjualan-index', [
+            'dateBegin'=>$dateBegin,
+            'dateEnd'=>$dateEnd
+        ]);
+    }
+
+    public function rocketManPrint($dateBegin, $dateEnd)
+    {
+        $data = Penjualan::query()
+            ->with(['customer', 'penjualanDetail'])
+            ->where('active_cash', session('ClosedCash'))
+            ->whereBetween('tgl_nota', [$dateBegin, $dateEnd])
+            ->latest('kode')->get();
+        $pdf = \PDF::loadView('pdf.penjualan-report-by-date', [
+            'penjualan'=>$data,
+            'startDate'=>$dateBegin,
+            'endDate'=>$dateEnd
+        ]);
+        $options = [
+            'margin-top'    => 3,
+            'margin-right'  => 3,
+            'margin-bottom' => 5,
+            'margin-left'   => 3,
+//            'page-width' => 216,
+//            'page-height' => 140,
+            'footer-right'  => utf8_decode('Hal [page] dari [topage]')
+        ];
+        $pdf->setPaper('letter');
+        $pdf->setOptions($options);
+        return $pdf->inline('report_penjualan.pdf');
+    }
+
     public function detail()
     {
         return view('livewire.detail.penjualan-detail-view');

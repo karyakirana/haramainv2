@@ -10,7 +10,7 @@
 
     @push('custom-scripts')
         <script>
-            "use strict";
+            "use strict";z
 
             Livewire.emit('edit');
 

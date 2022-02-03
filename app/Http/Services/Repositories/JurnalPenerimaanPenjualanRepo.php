@@ -35,29 +35,8 @@ class JurnalPenerimaanPenjualanRepo
             'keterangan'=>$data->keterangan,
         ]);
 
-        foreach ($data->detail as $item){
-            $jurnalPenerimaan->jurnalPenerimaanDetail()->create([
-                'penjualan_id'=>$item['penjualan_id'],
-            ]);
-            // set lunas
-            Penjualan::query()->find($item['penjualan_id'])->update([
-                'status_bayar'=>'lunas'
-            ]);
-        }
-
-        // debet
-        $jurnalPenerimaan->jurnalTransaksi()->create([
-            'akun_id'=>$data->akunDebet,
-            'nominal_debet'=>$data->total_bayar,
-            'nominal_kredit'=>null,
-        ]);
-
-        // kredit
-        $jurnalPenerimaan->jurnalTransaksi()->create([
-            'akun_id'=>$data->akunKredit,
-            'nominal_debet'=>null,
-            'nominal_kredit'=>$data->total_bayar,
-        ]);
+        $this->storeDetail($data, $jurnalPenerimaan);
+        return $jurnalPenerimaan->id;
     }
 
     public function rollback($jurnalPenerimaanPenjualan)
@@ -70,6 +49,22 @@ class JurnalPenerimaanPenjualanRepo
         }
     }
 
+    public function update($data)
+    {
+        $jurnalPenerimaanPenjualan = JurnalPenerimaanPenjualan::query()->find($data->id);
+
+        // delete
+        $jurnalPenerimaanPenjualan->jurnalPenerimaanDetail()->delete();
+
+        $this->rollback($jurnalPenerimaanPenjualan);
+
+        $jurnalPenerimaanPenjualan->jurnalPenerimaanDetail()->delete();
+
+        $this->storeDetail($data, $jurnalPenerimaanPenjualan);
+
+        return $jurnalPenerimaanPenjualan->id;
+    }
+
     public function destroy($id)
     {
         $jurnalPenerimaanPenjualan = JurnalPenerimaanPenjualan::query()->find($id);
@@ -80,5 +75,36 @@ class JurnalPenerimaanPenjualanRepo
 
         $jurnalPenerimaanPenjualan->jurnalPenerimaanDetail()->delete();
         $jurnalPenerimaanPenjualan->delete();
+    }
+
+    /**
+     * @param $data
+     * @param $jurnalPenerimaanPenjualan
+     */
+    protected function storeDetail($data, $jurnalPenerimaanPenjualan): void
+    {
+        foreach ($data->detail as $item) {
+            $jurnalPenerimaanPenjualan->jurnalPenerimaanDetail()->create([
+                'penjualan_id' => $item['penjualan_id'],
+            ]);
+            // set lunas
+            Penjualan::query()->find($item['penjualan_id'])->update([
+                'status_bayar' => 'lunas'
+            ]);
+        }
+
+        // debet
+        $jurnalPenerimaanPenjualan->jurnalTransaksi()->create([
+            'akun_id' => $data->akunDebet,
+            'nominal_debet' => $data->total_bayar,
+            'nominal_kredit' => null,
+        ]);
+
+        // kredit
+        $jurnalPenerimaanPenjualan->jurnalTransaksi()->create([
+            'akun_id' => $data->akunKredit,
+            'nominal_debet' => null,
+            'nominal_kredit' => $data->total_bayar,
+        ]);
     }
 }

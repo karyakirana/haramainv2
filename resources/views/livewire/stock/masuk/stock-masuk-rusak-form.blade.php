@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    <x-organism.card :title="__('Stock Masuk Baik Transaksi'.$idStockMasuk)">
+    <x-organism.card :title="__('Stock Masuk Rusak Transaksi'.$idStockMasuk)">
 
         <div class="row">
             <div class="col-8">
@@ -134,8 +134,8 @@
 
     @push('custom-scripts')
         <script>
-            $('#tglMasuk').on('change', function (e) {
-                let date = $(this).data("#tglMasuk");
+            $('#tgl_masuk').on('change', function (e) {
+                let date = $(this).data("#tgl_masuk");
                 // eval(date).set('tglLahir', $('#tglLahir').val())
                 console.log(e.target.value);
             @this.tgl_masuk = e.target.value;

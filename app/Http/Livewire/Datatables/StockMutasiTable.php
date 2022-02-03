@@ -66,7 +66,7 @@ class StockMutasiTable extends DataTableComponent
 
     public function editRusak($id)
     {
-        return redirect()->to('stock/mutasi/rusak/rusak/edit/'.$id);
+        return redirect()->to('stock/mutasi/baik/rusak/edit/'.$id);
     }
 
     public function editRusakRusak($id)

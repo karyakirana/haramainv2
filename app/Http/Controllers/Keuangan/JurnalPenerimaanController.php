@@ -30,23 +30,23 @@ class JurnalPenerimaanController extends Controller
         return view('pages.Keuangan.jurnal-penerimaan-trans', ['id'=>$id]);
     }
 
-    public function createCash()
+    public function rocketMan($id)
     {
-        // transaksi penjualan cash
-    }
-
-    public function createTempo()
-    {
-        // transaksi penjualan dari piutang tempo
-    }
-
-    public function editCash($id)
-    {
-        // edit transaksi penjualan cash
-    }
-
-    public function editTempo($id)
-    {
-        // edit transaksi penjualan dari piutang tempo
+        $data = JurnalPenerimaanPenjualan::query()->find($id);
+        $pdf = \PDF::loadView('pdf.jurnal-penerimaan-penjualan-receipt', [
+            'jurnal_penerimaan'=>$data
+        ]);
+        $options = [
+            'margin-top'    => 3,
+            'margin-right'  => 3,
+            'margin-bottom' => 5,
+            'margin-left'   => 3,
+//            'page-width' => 216,
+//            'page-height' => 140,
+            'footer-right'  => utf8_decode('Hal [page] dari [topage]')
+        ];
+        $pdf->setPaper('a4');
+        $pdf->setOptions($options);
+        return $pdf->inline('receipt-penerimaan-penjualan.pdf');
     }
 }

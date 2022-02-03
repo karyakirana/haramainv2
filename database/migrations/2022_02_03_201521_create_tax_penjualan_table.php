@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTaxPerusahaanTable extends Migration
+class CreateTaxPenjualanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateTaxPerusahaanTable extends Migration
      */
     public function up()
     {
-        Schema::create('tax_perusahaan', function (Blueprint $table) {
+        Schema::create('tax_penjualan', function (Blueprint $table) {
             $table->id();
+            $table->string('active_cash');
             $table->string('kode');
-            $table->string('nama');
-            $table->text('alamat');
-            $table->string('npwp');
-            $table->bigInteger('maximal')->nullable()->default(0);
+            $table->unsignedBigInteger('perusahaan_id');
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('penjualan_id');
+            $table->bigInteger('total_bayar')->default(0)->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
@@ -32,6 +34,6 @@ class CreateTaxPerusahaanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tax_perusahaan');
+        Schema::dropIfExists('tax_penjualan');
     }
 }

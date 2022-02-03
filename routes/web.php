@@ -66,16 +66,18 @@ Route::middleware(['auth'])->group(function(){
     Route::get('keuangan/jurnal/penerimaan', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'index'])->name('jurnal.penerimaan.index');
     Route::get('keuangan/jurnal/penerimaan/trans', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'create'])->name('jurnal.penerimaan.trans');
     Route::get('keuangan/jurnal/penerimaan/edit/{id}', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'create']);
+    Route::get('keuangan/jurnal/penerimaan/print/{id}', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'rocketMan']);
 
     Route::get('keuangan/jurnal/pengeluaran', [\App\Http\Controllers\Keuangan\JurnalPengeluaranController::class, 'index'])->name('jurnal.pengeluaran.index');
     Route::get('keuangan/jurnal/mutasi', [\App\Http\Controllers\Keuangan\JurnalMutasiController::class, 'index'])->name('jurnal.mutasi.index');
 
     // dipakai untuk penerimaan
-//    Route::get('keuangan/kasir/pembayaran/cash', [\App\Http\Controllers\Kasir\PembayaranCashController::class, 'index'])->name('pembayaran.cash.index');
+    //    Route::get('keuangan/kasir/pembayaran/cash', [\App\Http\Controllers\Kasir\PembayaranCashController::class, 'index'])->name('pembayaran.cash.index');
 
     Route::get('keuangan/kasir/penerimaan/lain', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'index'])->name('penerimaan.cash.index');
     Route::get('keuangan/kasir/penerimaan/lain/transaksi', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'create'])->name('kasir.penerimaan.cash.transaksi');
     Route::get('keuangan/kasir/penerimaan/lain/edit/{id}', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'create']);
+    Route::get('keuangan/kasir/penerimaan/lain/print/{id}', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'create']);
 
     Route::get('keuangan/kasir/pembayaran/piutang', [\App\Http\Controllers\Kasir\PembayaranPiutangController::class, 'index'])->name('pembayaran.piutang.index');
     Route::get('keuangan/kasir/piutang/pegawai', [\App\Http\Controllers\Keuangan\PiutangPegawaiController::class, 'index'])->name('piutang.pegawai.index');
@@ -97,11 +99,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('stock/masuk/rusak/edit/{id}', [\App\Http\Controllers\Stock\StockMasukController::class, 'editRusak']);
 
 
-// transaksi stock masuk
-        Route::get('stock/masuk/baik/trans', [\App\Http\Controllers\Stock\StockMasukController::class, 'createBaik'])->name('stockmasuk.baik.trans');
-        Route::get('stock/masuk/rusak/trans', [\App\Http\Controllers\Stock\StockMasukController::class, 'createRusak'])->name('stockmasuk.rusak.trans');
+    // transaksi stock masuk
+    Route::get('stock/masuk/baik/trans', [\App\Http\Controllers\Stock\StockMasukController::class, 'createBaik'])->name('stockmasuk.baik.trans');
+    Route::get('stock/masuk/rusak/trans', [\App\Http\Controllers\Stock\StockMasukController::class, 'createRusak'])->name('stockmasuk.rusak.trans');
 
-// stock keluar
+    // stock keluar
     Route::get('stock/keluar', [\App\Http\Controllers\Stock\StockKeluarController::class, 'index'])->name('stockkeluar.index');
     Route::get('stock/keluar/baik', [\App\Http\Controllers\Stock\StockKeluarController::class, 'indexBaik'])->name('stockkeluar.baik');
     Route::get('stock/keluar/baik/edit/{id}', [\App\Http\Controllers\Stock\StockKeluarController::class, 'editBaik']);
@@ -109,10 +111,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('stock/keluar/rusak/edit/{id}', [\App\Http\Controllers\Stock\StockKeluarController::class, 'editRusak']);
 
     //transaksi stock keluar
-        Route::get('stock/keluar/baik/trans', [\App\Http\Controllers\Stock\StockKeluarController::class, 'createBaik'])->name('stockkeluar.baik.trans');
-        Route::get('stock/keluar/rusak/trans', [\App\Http\Controllers\Stock\StockKeluarController::class, 'createRusak'])->name('stockkeluar.rusak.trans');
+    Route::get('stock/keluar/baik/trans', [\App\Http\Controllers\Stock\StockKeluarController::class, 'createBaik'])->name('stockkeluar.baik.trans');
+    Route::get('stock/keluar/rusak/trans', [\App\Http\Controllers\Stock\StockKeluarController::class, 'createRusak'])->name('stockkeluar.rusak.trans');
 
-// Mutasi Stock
+    // Mutasi Stock
     Route::get('stock/mutasi/baik/baik', [\App\Http\Controllers\Stock\StockMutasiController::class, 'indexBaikBaik'])->name('mutasibaik.baik');
     Route::get('stock/mutasi/baik/baik/edit/{id}', [\App\Http\Controllers\Stock\StockMutasiController::class, 'editBaikBaik']);
     Route::get('stock/mutasi/baik/rusak', [\App\Http\Controllers\Stock\StockMutasiController::class, 'indexBaikRusak'])->name('mutasibaik.rusak');
@@ -121,11 +123,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('stock/mutasi/rusak/rusak/edit/{id}', [\App\Http\Controllers\Stock\StockMutasiController::class, 'editRusakRusak']);
 
     // transaksi mutasi stock
-        Route::get('stock/mutasi/baik/baik/trans', [\App\Http\Controllers\Stock\StockMutasiController::class, 'createBaikBaik'])->name('mutasibaik.baik.trans');
-        Route::get('stock/mutasi/baik/rusak/trans', [\App\Http\Controllers\Stock\StockMutasiController::class, 'createBaikRusak'])->name('mutasibaik.rusak.trans');
-        Route::get('stock/mutasi/rusak/rusak/trans', [\App\Http\Controllers\Stock\StockMutasiController::class, 'createRusakRusak'])->name('mutasirusak.rusak.trans');
+    Route::get('stock/mutasi/baik/baik/trans', [\App\Http\Controllers\Stock\StockMutasiController::class, 'createBaikBaik'])->name('mutasibaik.baik.trans');
+    Route::get('stock/mutasi/baik/rusak/trans', [\App\Http\Controllers\Stock\StockMutasiController::class, 'createBaikRusak'])->name('mutasibaik.rusak.trans');
+    Route::get('stock/mutasi/rusak/rusak/trans', [\App\Http\Controllers\Stock\StockMutasiController::class, 'createRusakRusak'])->name('mutasirusak.rusak.trans');
 
-// Stock Opname
+    // Stock Opname
     Route::get('stock/opname', [\App\Http\Controllers\Stock\StockOpnameController::class, 'index'])->name('stockopname.index');
     Route::get('stock/opname/baik', [\App\Http\Controllers\Stock\StockOpnameController::class, 'indexBaik'])->name('stockopname.baik.index');
     Route::get('stock/opname/baik/edit/{id}', [\App\Http\Controllers\Stock\StockOpnameController::class, 'editBaik']);
@@ -133,14 +135,17 @@ Route::middleware(['auth'])->group(function(){
     Route::get('stock/opname/rusak/edit/{id}', [\App\Http\Controllers\Stock\StockOpnameController::class, 'editRusak']);
 
     // transaksi stock opname
-        Route::get('stock/opname/baik/trans', [\App\Http\Controllers\Stock\StockOpnameController::class, 'createBaik'])->name('stockopname.baik.trans');
-        Route::get('stock/opname/rusak/trans', [\App\Http\Controllers\Stock\StockOpnameController::class, 'createRusak'])->name('stockopname.rusak.trans');
+    Route::get('stock/opname/baik/trans', [\App\Http\Controllers\Stock\StockOpnameController::class, 'createBaik'])->name('stockopname.baik.trans');
+    Route::get('stock/opname/rusak/trans', [\App\Http\Controllers\Stock\StockOpnameController::class, 'createRusak'])->name('stockopname.rusak.trans');
 
 
-// stock Inventory
+    // stock Inventory
     Route::get('stock/inventory', [\App\Http\Controllers\Stock\StockInventoryController::class, 'index'])->name('stock.inventory.index');
     Route::get('stock/inventory/gudang/{id}', [\App\Http\Controllers\Stock\StockInventoryController::class, 'indexBaik']);
     Route::get('stock/inventory/rusak', [\App\Http\Controllers\Stock\StockInventoryController::class, 'indexRusak']);
+
+    // tax
+    Route::get('tax/perusahaan', [\App\Http\Controllers\Tax\TaxPenjualanController::class, 'index'])->name('tax.perusahaan');
 
 });
 
@@ -150,3 +155,4 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 //require __DIR__.'/auth.php';
 require __DIR__.'/penjualanRoute.php';
+require __DIR__.'/reportRoute.php';

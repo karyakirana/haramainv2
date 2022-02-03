@@ -76,6 +76,12 @@ class JurnalPenjualanIndexTable extends DataTableComponent
         return redirect()->to('keuangan/kasir/set/piutang/transaksi/'.$id);
     }
 
+
+    public function print($id)
+    {
+        return redirect()->to(''.$id);
+    }
+
     public function destroy($id)
     {
         $this->jurnal_penjualan_id = $id;

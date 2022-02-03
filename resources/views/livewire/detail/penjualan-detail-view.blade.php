@@ -32,7 +32,7 @@
                 </div>
             </div>
         </form>
-        <table class="table table-row-bordered table-bordered">
+        <table class="table table-row-bordered table-bordered gx-5">
             <thead>
             <tr class="border">
                 <th class="text-center">Kode</th>

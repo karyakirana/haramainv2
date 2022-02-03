@@ -12,6 +12,7 @@ Route::middleware(['auth'])->group(function(){
     Route::put('penjualan', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'update']);
     Route::get('penjualan/edit/{id}', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'edit'])->name('edit.penjualan');
     Route::get('penjualan/print/{id}', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'print'])->name('print.penjualan');
+    Route::get('penjualan/printpdf/{id}', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'printPdf']);
 
 
     Route::get('penjualan/new', [\App\Http\Controllers\Penjualan\PenjualanController::class, 'create'])->name('penjualan.create');

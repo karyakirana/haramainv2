@@ -48,6 +48,12 @@ class PenerimaanPenjualanTableIndex extends DataTableComponent
         return redirect()->to('keuangan/jurnal/penerimaan/edit/'.$id);
     }
 
+
+    public function print($id)
+    {
+        return redirect()->to(''.$id);
+    }
+
     public function destroy($id)
     {
         $this->penerimaan_penjualan_id = $id;

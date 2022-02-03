@@ -42,10 +42,10 @@ class StockKeluarBaikForm extends Component
 
         if ($stockKeluar){
             $this->mode = 'update';
-            $stockKeluar = StockKeluar::query()->with(['gudang', 'users', 'stockKeluarDetail'])->find($stockKeluar);
+            $stockKeluar = StockKeluar::query()->with(['gudang', 'users', 'supplier', 'stockKeluarDetail'])->find($stockKeluar);
             $this->idStockKeluar = $stockKeluar ->id;
             $this->supplier_id = $stockKeluar ->supplier_id;
-            $this->supplier_nama = $stockKeluar ->supplier_nama;
+            $this->supplier_nama = $stockKeluar ->supplier->nama ?? '';
             $this->stockable_keluar_id = $stockKeluar ->stockable_keluar_id;
             $this->stockable_keluar_type = $stockKeluar ->stockable_keluar_type;
             $this->kondisi = $stockKeluar ->kondisi;

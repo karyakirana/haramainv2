@@ -16,9 +16,9 @@ class PengeluaranController extends Controller
     }
 
     //transaksi pengeluaran kasir
-    public function create()
+    public function create($id = null)
     {
-        return view('pages.Keuangan.kasir-pengeluaran-trans');
+        return view('pages.Keuangan.kasir-pengeluaran-trans', ['id'=>$id]);
     }
 
     public function datatablesPengeluaran()

@@ -75,11 +75,13 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('keuangan/kasir/penerimaan/lain', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'index'])->name('penerimaan.cash.index');
     Route::get('keuangan/kasir/penerimaan/lain/transaksi', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'create'])->name('kasir.penerimaan.cash.transaksi');
-    Route::get('keuangan/kasir/penerimaan/lain/transaksi/{id}', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'create']);
+    Route::get('keuangan/kasir/penerimaan/lain/edit/{id}', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'create']);
 
     Route::get('keuangan/kasir/pembayaran/piutang', [\App\Http\Controllers\Kasir\PembayaranPiutangController::class, 'index'])->name('pembayaran.piutang.index');
     Route::get('keuangan/kasir/piutang/pegawai', [\App\Http\Controllers\Keuangan\PiutangPegawaiController::class, 'index'])->name('piutang.pegawai.index');
     Route::get('keuangan/kasir/pengeluaran', [\App\Http\Controllers\Kasir\PengeluaranController::class, 'index'])->name('kasir.pengeluaran.index');
+
+    Route::get('keuangan/kasir/pengeluaran/edit/{id}', [\App\Http\Controllers\Kasir\PengeluaranController::class, 'create']);
 
     Route::get('keuangan/kasir/set/piutang', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'indexSet'])->name('set.piutang.index');
     Route::get('keuangan/kasir/set/piutang/transaksi', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'create'])->name('set.piutang.transaksi');

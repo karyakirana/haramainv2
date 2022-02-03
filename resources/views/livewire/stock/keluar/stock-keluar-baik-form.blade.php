@@ -21,7 +21,7 @@
                             <div class="input-group">
                                 <x-atom.input-form wire:model.defer="supplier_nama" readonly/>
                                 <button type="button" class="btn btn-primary" wire:click="showSupplier">Get</button>
-                                <x-atom.input-message :name="__('$supplier_id')" />
+                                <x-atom.input-message :name="__('$supplier_nama')" />
                             </div>
                         </div>
                         <label class="col-2 col-form-label">Gudang</label>
@@ -40,7 +40,7 @@
                     <div class="row mb-4">
                         <label class="col-2 col-form-label">Tgl Keluar</label>
                         <div class="col-4">
-                            <x-atom.input-singledaterange wire:model.defer="tgl_keluar" readonly />
+                            <x-atom.input-singledaterange id="tgl_keluar" wire:model.defer="tgl_keluar" readonly />
                             <x-atom.input-message :name="__('tgl_keluar')" />
                         </div>
                         <label class="col-2 col-form-label">Keterangan</label>
@@ -128,8 +128,8 @@
 
         @push('custom-scripts')
             <script>
-                $('#tglKeluar').on('change', function (e) {
-                    let date = $(this).data("#tglKeluar");
+                $('#tgl_keluar').on('change', function (e) {
+                    let date = $(this).data("#tgl_keluar");
                     // eval(date).set('tglLahir', $('#tglLahir').val())
                     console.log(e.target.value);
                 @this.tgl_keluar = e.target.value;

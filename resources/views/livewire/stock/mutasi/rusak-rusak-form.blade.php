@@ -33,7 +33,7 @@
                     <div class="row mb-4">
                         <label class="col-2 col-form-label">Tgl Mutasi</label>
                         <div class="col-4">
-                            <x-atom.input-singledaterange wire:model.defer="tgl_mutasi" readonly />
+                            <x-atom.input-singledaterange id="tgl_mutasi" wire:model.defer="tgl_mutasi" readonly />
                             <x-atom.input-message :name="__('tgl_mutasi')" />
                         </div>
                         <label class="col-2 col-form-label">Keterangan</label>

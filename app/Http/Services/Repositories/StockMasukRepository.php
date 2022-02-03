@@ -45,6 +45,7 @@ class StockMasukRepository
                 'active_cash'=>session('ClosedCash'),
                 'stockable_masuk_id'=>$data->stockable_masuk_id ?? null,
                 'stockable_masuk_type'=>$data->stockable_masuk_type ?? null,
+                'supplier_id'=>$data->supplier_id,
                 'kondisi'=>$data->kondisi,
                 'gudang_id'=>$data->gudang_id,
                 'user_id'=>Auth::id(),
@@ -73,6 +74,7 @@ class StockMasukRepository
         $stockMasuk->update([
             'stockable_masuk_id'=>$data->stockable_masuk_id ?? null,
             'stockable_masuk_type'=>$data->stockable_masuk_type ?? null,
+            'supplier_id'=>$data->supplier_id,
             'gudang_id'=>$data->gudang_id,
             'user_id'=>Auth::id(),
             'tgl_masuk'=>$data->tgl_masuk,

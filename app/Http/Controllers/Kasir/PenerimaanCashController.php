@@ -27,8 +27,8 @@ class PenerimaanCashController extends Controller
         return $this->datatablesAll($data);
     }
 
-    public function create()
+    public function create($id = null)
     {
-        return view('pages.Keuangan.kasir-penerimaan-cash-trans');
+        return view('pages.Keuangan.kasir-penerimaan-cash-trans', ['id'=>$id]);
     }
 }

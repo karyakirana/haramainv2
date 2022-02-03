@@ -42,13 +42,13 @@ class StockMasukBaikForm extends Component
 
         if ($stockMasuk){
             $this->mode = 'update';
-            $stockMasuk = StockMasuk::query()->with(['gudang', 'users', 'stockMasukDetail'])->find($stockMasuk);
+            $stockMasuk = StockMasuk::query()->with(['gudang', 'users','supplier', 'stockMasukDetail'])->find($stockMasuk);
             $this->idStockMasuk = $stockMasuk ->id;
             $this->stockable_masuk_id = $stockMasuk ->stockable_masuk_id;
             $this->stockable_masuk_type = $stockMasuk ->stockable_masuk_type;
             $this->kondisi = $stockMasuk ->kondisi;
             $this->supplier_id = $stockMasuk ->supplier_id;
-            $this->supplier_nama = $stockMasuk ->supplier->nama;
+            $this->supplier_nama = $stockMasuk ->supplier->nama ??'';
             $this->gudang_id = $stockMasuk->gudang_id;
             $this->user_id = $stockMasuk->user_id;
             $this->tgl_masuk = tanggalan_format($stockMasuk->tgl_masuk);

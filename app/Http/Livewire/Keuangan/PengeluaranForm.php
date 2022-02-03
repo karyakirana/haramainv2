@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Keuangan;
 
 use App\Http\Services\Repositories\JurnalPengeluaranRepo;
 use App\Models\Keuangan\Akun;
+use App\Models\Keuangan\JurnalPengeluaran;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Component;
 
@@ -19,19 +20,54 @@ class PengeluaranForm extends Component
         'setAkun'=> 'setAkun',
     ];
     public $daftarAkun = [];
+    public $mode = 'create';
+
     public $nominal, $pengeluaran_id;
     public $akun_kategori_nama;
     public $pengeluaran;
 
     public $akun_kategori_id, $akun_tipe_id, $akun_id, $kode, $deskripsi;
-    public $tgl_pengeluaran, $user_id, $keterangan;
+    public $tgl_pengeluaran, $user_id, $user_nama, $keterangan;
 
     public $total_bayar, $total_bayar_rupiah;
 
 
-    public function mount()
+    public function mount($kasirPengeluaran = null)
     {
         $this->tgl_pengeluaran = tanggalan_format(strtotime(now()));
+
+        //set edit
+        if ($kasirPengeluaran){
+            $this->mode = 'update';
+            $kasirPengeluaran = JurnalPengeluaran::query()->with(['users', 'jurnalTransaksi'])->find($kasirPengeluaran);
+
+//            dd($kasirPengeluaran);
+            $this->pengeluaran_id = $kasirPengeluaran ->id;
+            $this->user_id = $kasirPengeluaran ->user_id;
+            $this->user_nama =$kasirPengeluaran->users->name;
+            $this->tgl_pengeluaran = tanggalan_format( $kasirPengeluaran ->tgl_pengeluaran);
+            $this->keterangan = $kasirPengeluaran ->keterangan;
+            $this->total_bayar = $kasirPengeluaran ->nominal;
+
+            foreach ($kasirPengeluaran->jurnalTransaksi as $row)
+            {
+                if ($row->nominal_kredit){
+                    $this->daftarAkun[] = [
+                        'akun_id'=>$row->akun_id,
+                        'akun_kategori_id'=>$row->akun_kategori_id,
+                        'akun_kategori_nama'=>$row->akun->akunKategori->deskripsi,
+                        'akun_tipe_id'=>$row->akun_tipe_id,
+                        'kode'=>$row->akun->kode,
+                        'deskripsi'=>$row->akun->deskripsi,
+                        'nominal'=>$row->nominal_kredit
+                    ];
+                }
+                if ($row->nominal_debet){
+                    $this->pengeluaran = $row -> akun_id;
+                }
+            }
+
+        }
     }
 
     public function showAkun()

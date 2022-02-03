@@ -48,11 +48,32 @@ class JurnalPenerimaanRepo
                 'nominal_kredit'=>$item['nominal'],
             ]);
         }
+        return $jurnalPenerimaan->id;
     }
 
     public function update($data)
     {
-        //
+        $jurnalPenerimaan = JurnalPenerimaan::query()->find($data->id);
+
+        // delete transaksi
+        $jurnalPenerimaan->jurnalTransaksi()->delete();
+
+        // debet
+        $jurnalPenerimaan->jurnalTransaksi()->create([
+            'akun_id'=>$data->akunDebet,
+            'nominal_debet'=>$data->total_bayar,
+            'nominal_kredit'=>null,
+        ]);
+
+        // kredit
+        foreach ($data->detail as $item){
+            $jurnalPenerimaan->jurnalTransaksi()->create([
+                'akun_id'=>$item['akun_id'],
+                'nominal_debet'=>null,
+                'nominal_kredit'=>$item['nominal'],
+            ]);
+        }
+        return $jurnalPenerimaan->id;
     }
 
     public function destroy($id)

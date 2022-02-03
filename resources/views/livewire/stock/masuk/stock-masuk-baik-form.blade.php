@@ -22,7 +22,7 @@
                             <div class="input-group">
                             <x-atom.input-form wire:model.defer="supplier_nama" readonly/>
                                 <button type="button" class="btn btn-primary" wire:click="showSupplier">Get</button>
-                                <x-atom.input-message :name="__('$supplier_id')" />
+                                <x-atom.input-message :name="__('$supplier_nama')" />
                             </div>
                         </div>
                         <label class="col-2 col-form-label">Tgl Nota</label>
@@ -134,9 +134,9 @@
 
     @push('custom-scripts')
         <script>
-            $('#tglMasuk').on('change', function (e) {
-                let date = $(this).data("#tglMasuk");
-                // eval(date).set('tglLahir', $('#tglLahir').val())
+            $('#tgl_masuk').on('change', function (e) {
+                let date = $(this).data("#tgl_masuk");
+                // eval(date).set('tgl_masuk', $('#tgl_masuk').val())
                 console.log(e.target.value);
             @this.tgl_masuk = e.target.value;
             })

@@ -76,6 +76,7 @@ class StockMutasiRepo
     public function update($data)
     {
         $mutasi = StockMutasi::query()->find($data->id_stock_mutasi);
+//        dd($data->tgl_mutasi);
 
         // rollback
         foreach ($mutasi->stockMutasiDetail as $row)
@@ -93,27 +94,29 @@ class StockMutasiRepo
             'keterangan'=>$data->keterangan,
         ]);
 
-        $stockKeluar = $mutasi->stockKeluar();
-        $stockMasuk = $mutasi->stockMasuk();
+        $stockKeluar = $mutasi->stockKeluar()->first();
+        $stockMasuk = $mutasi->stockMasuk()->first();
 
         // delete detail mutasi
         $mutasi->stockMutasiDetail()->delete();
-        $stockKeluar->first()->stockKeluarDetail()->delete();
-        $stockMasuk->first()->stockMasukDetail()->delete();
+        $stockKeluar->stockKeluarDetail()->delete();
+        $stockMasuk->stockMasukDetail()->delete();
 
         // update stock keluar
-        $stockKeluar = $stockKeluar->update([
+        $stockKeluar->update([
             'kondisi'=>$data->jenis_mutasi,
             'gudang_id'=>$data->gudang_asal_id,
-            'tgl_keluar'=>tanggalan_database_format($data->tgl_mutasi, 'd-M-Y'),
+//            'tgl_keluar'=>tanggalan_database_format($data->tgl_mutasi, 'd-M-Y'),
+            'tgl_keluar'=>$data->tgl_mutasi,
             'user_id'=>Auth::id(),
             'keterangan'=>$data->keterangan,
         ]);
 
         // update stock masuk
-        $stockMasuk = $stockMasuk->update([
+        $stockMasuk->update([
             'gudang_id'=>$data->gudang_tujuan_id,
-            'tgl_masuk'=>tanggalan_database_format($data->tgl_mutasi, 'd-M-Y'),
+//            'tgl_masuk'=>tanggalan_database_format($data->tgl_mutasi, 'd-M-Y'),
+            'tgl_masuk'=>$data->tgl_mutasi,
             'user_id'=>Auth::id(),
             'nomor_po'=>null,
             'keterangan'=>$data->keterangan,

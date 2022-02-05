@@ -67,7 +67,7 @@ class KasirPengeluaran extends DataTableComponent
 
     public function print($id)
     {
-        return redirect()->to(''.$id);
+        return redirect()->to('keuangan/kasir/pengeluaran/print/'.$id);
     }
 
     public function destroy($id)

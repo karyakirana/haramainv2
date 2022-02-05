@@ -18,6 +18,7 @@ class TaxPenjualanIndexTable extends DataTableComponent
     {
         return [
             Column::make('Kode'),
+            Column::make('Perusahaan'),
             Column::make('Customer'),
             Column::make('Nota'),
             Column::make('Total Bayar'),

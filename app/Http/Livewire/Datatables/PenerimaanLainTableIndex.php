@@ -56,7 +56,7 @@ class PenerimaanLainTableIndex extends DataTableComponent
 
     public function print($id)
     {
-        return redirect()->to(''.$id);
+        return redirect()->to('keuangan/kasir/penerimaan/lain/print/'.$id);
     }
 
     public function destroy($id)

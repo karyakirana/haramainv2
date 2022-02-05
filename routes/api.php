@@ -38,6 +38,8 @@ Route::patch('akun', [\App\Http\Controllers\Keuangan\AkunController::class, 'dat
 Route::patch('akun/kategori', [\App\Http\Controllers\Keuangan\AkunController::class, 'datatablesKategori'])->name('datatables.akun.kategori');
 Route::patch('akun/tipe', [\App\Http\Controllers\Keuangan\AkunController::class, 'datatablesTipe'])->name('datatables.akun.tipe');
 
+Route::patch('tax/perusahaan', [\App\Http\Controllers\Tax\TaxPenjualanController::class, 'datatablesPerusahaan'])->name('datatables.perusahaan');
+
 /**
  * Datatables Penjualan and retur Penjualan
  */

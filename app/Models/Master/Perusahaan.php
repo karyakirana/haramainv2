@@ -18,4 +18,9 @@ class Perusahaan extends Model
         'maximal',
         'keterangan',
     ];
+
+    public function getLastNumKodeAttribute()
+    {
+        return substr($this->kode, 1, 5);
+    }
 }

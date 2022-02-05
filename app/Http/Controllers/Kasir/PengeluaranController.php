@@ -30,4 +30,21 @@ class PengeluaranController extends Controller
             ->get();
         return $this->datatablesAll($data);
     }
+
+    public function rocketMan($id)
+    {
+        $data = JurnalPengeluaran::query()->find($id);
+        $pdf = \PDF::loadView('pdf.jurnal-pengeluaran-receipt', ['data'=>$data]);
+        $options = [
+            'margin-top'    => 3,
+            'margin-right'  => 3,
+            'margin-bottom' => 3,
+            'margin-left'   => 3,
+//            'page-width' => 216,
+//            'page-height' => 140,
+        ];
+        $pdf->setPaper('letter');
+        $pdf->setOptions($options);
+        return $pdf->inline('bukti-kas-keluar.pdf');
+    }
 }

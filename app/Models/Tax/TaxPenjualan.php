@@ -3,6 +3,7 @@
 namespace App\Models\Tax;
 
 use App\Models\Master\Customer;
+use App\Models\Master\Perusahaan;
 use App\Models\Penjualan\Penjualan;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,6 +24,12 @@ class TaxPenjualan extends Model
         'keterangan',
     ];
 
+    // get lastnum of kode
+    public function getLastNumAttribute(): int
+    {
+        return (int) substr($this->kode, '0', '4');
+    }
+
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
@@ -35,7 +42,12 @@ class TaxPenjualan extends Model
 
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function perusahaan()
+    {
+        return $this->belongsTo(Perusahaan::class, 'perusahaan_id');
     }
 
 }

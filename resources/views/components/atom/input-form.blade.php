@@ -1,3 +1,3 @@
-@props(['invalid'=>'', 'name'=>''])
-<input type="text" {{$attributes->merge(['class'=>'form-control '.($errors->has($name) ? 'is-invalid' : '')])}}
->
+@props(['invalid'=>'', 'name'=>'', 'type'=>'text'])
+<input type="{{$type}}" {{$attributes->class(['form-control', 'is-invalid'=>$errors->has($name)])}} name="{{$name}}">
+<x-atom.input-message :name="__($name)" />

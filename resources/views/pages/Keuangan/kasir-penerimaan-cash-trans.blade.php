@@ -1,3 +1,3 @@
 <x-metronics-layout>
-    <livewire:keuangan.kasir-penerimaan-cash-form :kasir_penerimaan="$id ?? ''"/>
+    <livewire:keuangan.kasir-penerimaan-cash-form :jurnal-penerimaan-id="$id??null"/>
 </x-metronics-layout>

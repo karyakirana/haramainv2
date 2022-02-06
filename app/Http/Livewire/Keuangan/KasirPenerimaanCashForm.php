@@ -6,77 +6,93 @@ use App\Models\Keuangan\Akun;
 use App\Http\Services\Repositories\JurnalPenerimaanRepo;
 use App\Models\Keuangan\JurnalPenerimaan;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class KasirPenerimaanCashForm extends Component
 {
     protected $listeners = [
-        'setAkun'=> 'setAkun',
+        'resetForm'=> 'resetForm',
     ];
-    public $daftarAkun = [];
+
     public $mode = 'create';
 
-    public $akun_kategori_nama;
-    public $penerimaan;
-
-    // variabel untuk form utama
-    public $penerimaan_id, $tgl_penerimaan, $sumber, $keterangan;
+    /**
+     * @var
+     * variabel untuk id =form-utama
+     */
+    public $jurnal_penerimaan_id;
+    public $akun;
+    public $tanggal;
+    public $sumber;
+    public $keterangan;
 
     // variabel untuk form detail
-    public $akun_id, $akun_kode, $akun_deskripsi, $akun_nominal, $keterangan_detail;
+    public $akun_id_detail;
+    public $akun_detail;
+    public $deskripsi_detail;
+    public $nominal_detail;
+    public $keterangan_detail;
+
+    // variabel untuk total bayar sum(total_bayar)
+    public $total_bayar;
+    public $total_bayar_rupiah;
 
     // variable untuk table;
+    public $detail = [];
 
     public $akun_kategori_id, $akun_tipe_id, $deskripsi;
     public $user_id, $user_nama;
 
-    public $total_bayar, $total_bayar_rupiah;
-
 
     public function render()
     {
+        $akun_jenis_penerimaan = Akun::query()->whereRelation('akunTipe', 'kode', '=', '111')->get();
         return view('livewire.keuangan.kasir-penerimaan-cash-form',[
-            'akunPenerimaan'=>Akun::query()->whereRelation('akunTipe', 'kode', '=', '111')->get()
+            'akun_jenis_penerimaan'=>$akun_jenis_penerimaan
         ]);
     }
 
-    public function mount($kasirPenerimaan = null)
+    public function mount($jurnal_penerimaan_id = null)
     {
-        $this->tgl_penerimaan = tanggalan_format(strtotime(now()));
-        if ($kasirPenerimaan){
-            $this->mode = 'update';
-            $kasirPenerimaan = JurnalPenerimaan::query()->with(['users', 'jurnalTransaksi'])->find($kasirPenerimaan);
+        // default tanggal
+        $this->tanggal = tanggalan_format(strtotime(now()));
 
-//            dd($kasirPenerimaan);
-            $this->penerimaan_id = $kasirPenerimaan ->id;
-            $this->user_id = $kasirPenerimaan ->user_id;
-            $this->user_nama =$kasirPenerimaan->users->name;
-            $this->tgl_penerimaan = tanggalan_format( $kasirPenerimaan ->tgl_penerimaan);
-            $this->sumber = $kasirPenerimaan->sumber;
-            $this->keterangan = $kasirPenerimaan ->keterangan;
-            $this->total_bayar = $kasirPenerimaan ->nominal;
+        // mounting data for edit
+        if ($jurnal_penerimaan_id)
+        {
+            $jurnal_penerimaan = JurnalPenerimaan::query()->find($jurnal_penerimaan_id);
+            $this->jurnal_penerimaan_id = $jurnal_penerimaan->id;
+            $this->tanggal = $jurnal_penerimaan->tgl_penerimaan;
+            $this->sumber = $jurnal_penerimaan->asal;
 
-            foreach ($kasirPenerimaan->jurnalTransaksi as $row)
+            // set from jurnal_transaksi
+            $jurnal_transaksi = $jurnal_penerimaan->jurnalTransaksi;
+
+            foreach ($jurnal_transaksi as $item)
             {
-                if ($row->nominal_kredit){
-                    $this->daftarAkun[] = [
-                        'akun_id'=>$row->akun_id,
-                        'akun_kategori_id'=>$row->akun_kategori_id,
-                        'akun_kategori_nama'=>$row->akun->akunKategori->deskripsi,
-                        'akun_tipe_id'=>$row->akun_tipe_id,
-                        'kode'=>$row->akun->kode,
-                        'deskripsi'=>$row->akun->deskripsi,
-                        'nominal'=>$row->nominal_kredit,
-                        'keterangan_detail'=>$row->keterangan
+                // set detail
+                if ($item->nominal_debet){
+
+                    $this->detail[] = [
+                        'akun_id_detail'=>$item->akun_id,
+                        'deskripsi_detail'=>$item->akun->deskripsi,
+                        'nominal_detail'=>$item->nominal_debet,
+                        'keterangan_detail'=>$item->keterangan
                     ];
                 }
-                if ($row->nominal_debet){
-                    $this->penerimaan = $row -> akun_id;
-                    $this->keterangan = $row->keterangan;
-                }
-            }
 
+                // set form-utama
+                if ($item->nominal_kredit){
+
+                    $this->akun = $item->akun_id;
+                    $this->keterangan = $item->keterangan;
+                }
+
+            }
+            // hitung total
+            $this->hitung_total();
         }
     }
 
@@ -87,84 +103,95 @@ class KasirPenerimaanCashForm extends Component
 
     public function setAkun(Akun $akun)
     {
-        $this->akun_id = $akun->id;
-        $this->kode =$akun->kode;
-        $this->akun_kategori_id = $akun->akun_kategori_id;
-        $this->akun_kategori_nama = $akun->akunKategori->deskripsi;
-        $this->deskripsi =$akun->deskripsi;
-        $this->nominal=$akun->nominal;
+        $this->akun_id_detail = $akun->id;
+        $this->akun_detail = $akun->kode;
+        $this->deskripsi_detail = $akun->deskripsi;
+        $this->nominal_detail = $akun->nominal;
         $this->emit('hideAkunModal');
 
     }
 
     public function addLine()
     {
-        $this->validate([
-            'nominal'=>'required',
-            'kode'=>'required'
-        ]);
+        // validate
+        $this->validate(
+            [
+                'nominal_detail'=>'required',
+                'akun_detail'=>'required'
+            ],
+            [
+                'akun_detail.required'=>'Data Harus Diisi'
+            ],
+            [
+                'akun_detail'=>'data detail',
+                'nominal_detail'=>'nominal'
+            ]
+        );
 
-        $this->daftarAkun [] = [
-            'akun_id'=>$this->akun_id,
-            'akun_kategori_id'=>$this->akun_kategori_id,
-            'akun_kategori_nama'=>$this->akun_kategori_nama,
-            'akun_tipe_id'=>$this->akun_tipe_id,
-            'kode'=>$this->kode,
-            'deskripsi'=>$this->deskripsi,
-            'nominal'=>$this->nominal,
-            'keterangan_detail'=>$this->keterangan_detail,
+        $this->detail [] = [
+            'akun_id_detail'=>$this->akun_id_detail,
+            'akun_detail'=>$this->akun_detail,
+            'deskripsi_detail'=>$this->deskripsi_detail,
+            'nominal_detail'=>$this->nominal_detail,
+            'keterangan_detail'=>$this->keterangan_detail
         ];
         $this->hitung_total();
-        $this->resetForm();
     }
 
     public function destroyLine($index)
     {
-        unset($this->daftarAkun[$index]);
-        $this->daftarAkun = array_values($this->daftarAkun);
+        unset($this->detail[$index]);
+        $this->detail = array_values($this->detail);
         $this->hitung_total();
     }
-    protected function resetForm()
+
+    public function resetForm()
     {
         $this->resetErrorBag();
         $this->resetValidation();
         $this->reset([
-            'akun_kategori_id', 'akun_tipe_id', 'kode', 'deskripsi', 'nominal'
+            'akun_id_detail', 'akun_detail', 'deskripsi_detail', 'nominal_detail', 'keterangan_detail'
         ]);
     }
 
     public function hitung_total()
     {
         // hitung total
-        $this->total_bayar = array_sum(array_column($this->daftarAkun, 'nominal'));
+        $this->total_bayar = array_sum(array_column($this->detail, 'nominal_detail'));
         $this->total_bayar_rupiah = rupiah_format($this->total_bayar);
     }
 
     public function store()
     {
         $this->validate([
-            'penerimaan'=>'required',
-            'tgl_penerimaan'=>'required'
+            'akun'=>'required',
+            'tanggal'=>'required',
+            'sumber'=>'required',
+            'keterangan'=>'required'
         ]);
 
         // simpan jurnal penerimaan
         $data = (object)[
-            'tgl_penerimaan'=>$this->tgl_penerimaan,
+            'tgl_penerimaan'=>$this->tanggal,
             'total_bayar'=>$this->total_bayar,
             'asal'=>$this->sumber,
             'keterangan'=>$this->keterangan,
 
-            'detail'=>$this->daftarAkun,
-
-            'akunDebet'=>$this->penerimaan,
+            // for jurnal transaksi
+            'detail'=>$this->detail,
+            'akunDebet'=>$this->akun,
+            'keteranganDebet'=>$this->keterangan
         ];
 
         \DB::beginTransaction();
         try {
-            (new JurnalPenerimaanRepo())->store($data);
+            if($this->mode == 'create')
+                (new JurnalPenerimaanRepo())->store($data);
+            else
+                (new JurnalPenerimaanRepo())->update($data);
             \DB::commit();
             return redirect()->to('keuangan/kasir/penerimaan/lain');
-        } catch (ModelNotFoundException $e){
+        } catch (QueryException $e){
             \DB::rollBack();
             session()->flash('message', $e);
         }

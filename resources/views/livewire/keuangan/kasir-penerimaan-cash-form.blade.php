@@ -14,33 +14,31 @@
     <x-organism.card :title="__('Jurnal Penerimaan Lain')">
         <div class="row">
             <div class="col-8">
-        <form id="penerimaanForm">
+        <form id="form-utama">
             <div class="row mb-4">
-                <label class="col-2 col-form-label">Akun Penerimaan</label>
+                <label class="col-2 col-form-label">Akun</label>
                 <div class="col-4">
-                    <select name="selectPenerimaan" id="selectPenerimaan" class="form-control @error('penerimaan') is-invalid @enderror " wire:model.defer="penerimaan">
-                        <option>Data diisi</option>
-                        @forelse($akunPenerimaan as $row)
+                    <x-atom.select :name="__('akun')">
+                        @forelse($akun_jenis_penerimaan as $row)
                             <option value="{{$row->id}}">{{$row->deskripsi}}</option>
                         @empty
                         @endforelse
-                    </select>
-                    <x-atom.input-message :name="__('penerimaan')" />
+                    </x-atom.select>
                 </div>
-                <label class="col-2 col-form-label">Tgl Penerimaan</label>
+                <label class="col-2 col-form-label">Tanggal</label>
                 <div class="col-4">
-                    <x-atom.input-singledaterange id="tgl_penerimaan" wire:model.defer="tgl_penerimaan" :name="__('tgl_penerimaan')" readonly />
+                    <x-atom.input-singledaterange id="tanggal" wire:model.defer="tanggal" :name="__('tanggal')" readonly />
+                    <x-atom.input-message :name="__('tanggal')" />
                 </div>
             </div>
             <div class="row mb-4">
                 <label class="col-2 col-form-label">Sumber</label>
                 <div class="col-4">
                     <x-atom.input-form wire:model.defer="sumber" :name="__('sumber')"/>
-                    <x-atom.input-message :name="__('sumber')" />
                 </div>
                 <label class="col-2 col-form-label">Keterangan</label>
                 <div class="col-4">
-                    <x-atom.input-form wire:model.defer="keterangan" />
+                    <x-atom.input-form wire:model.defer="keterangan" :name="__('keterangan')" />
                 </div>
             </div>
         </form>
@@ -55,11 +53,11 @@
             </tr>
             </thead>
             <tbody class="border">
-            @forelse($daftarAkun as $index=>$item)
+            @forelse($detail as $index=>$item)
                 <tr>
-                    <td class="text-center">{{$item['kode']}}</td>
-                    <td>{{$item['akun_kategori_nama']}}</td>
-                    <td>{{$item['deskripsi']}}</td>
+                    <td class="text-center">{{$item['akun_detail']}}</td>
+                    <td>{{$item['deskripsi_detail']}}</td>
+                    <td>{{$item['keterangan']}}</td>
                     <td class="text-end">{{rupiah_format($item['nominal'])}}</td>
                     <td class="text-center">
                         <x-atom.button-delete wire:click="destroyLine({{$index}})" />
@@ -71,7 +69,7 @@
                 </tr>
             @endforelse
             </tbody>
-            @if($daftarAkun)
+            @if($detail)
                 <tfoot>
                     <tr>
                         <td colspan="3">Total</td>
@@ -82,26 +80,28 @@
         </table>
             </div>
             <div class="col-4 border">
-                <form id="detailForm" class="pt-5">
+                @if($errors->has('akun_detail'))
+                    <x-molecules.warning-alerts>
+                        {{$errors->first('akun_detail')}}
+                    </x-molecules.warning-alerts>
+                @endif
+                <form id="form-detail" class="pt-5">
                     <div class="row pb-5">
                         <label class="col-4 col-form-label">Kode</label>
                         <div class="col-8">
-                            <x-atom.input-form :name="__('kode')" wire:model="kode" class="text-end" readonly/>
-                            <x-atom.input-message :name="__('kode')" />
+                            <x-atom.input-form :name="__('akun_detail')" wire:model.defer="akun_detail" class="text-end" readonly/>
                         </div>
                     </div>
                     <div class="row pb-5">
                         <label class="col-4 col-form-label">Deskripsi</label>
                         <div class="col-8">
-                            <textarea name="deskripsi" id="deskripsi" wire:model="deskripsi" rows="3" class="form-control" readonly></textarea>
-                            <x-atom.input-message :name="__('deskripsi')" />
+                            <x-atom.input-form :name="__('deskripsi_detail')" wire:model.defer="deskripsi_detail" readonly/>
                         </div>
                     </div>
                     <div class="row pb-5">
                         <label class="col-4 col-form-label">Nominal</label>
                         <div class="col-8">
-                            <x-atom.input-form wire:model.defer="nominal" :name="__('nominal')"/>
-                            <x-atom.input-message :name="__('nominal')" />
+                            <x-atom.input-form wire:model.defer="nominal_detail" :name="__('nominal_detail')" class="text-end" :type="__('number')"/>
                         </div>
                     </div>
                     <div class="row pb-5">
@@ -115,13 +115,13 @@
                 <div class="text-center pb-4">
                     <button type="button" class="btn btn-info" wire:click="showAkun">Add Akun</button>
 
-                    <button type="button" class="btn btn-info" wire:click="addLine">Save Data</button>
+                    <button type="button" class="btn btn-primary" wire:click="addLine">Save Data</button>
                 </div>
             </div>
         </div>
         <x-slot name="footer">
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" wire:click="store">Save All</button>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-warning" wire:click="store">Save All</button>
             </div>
         </x-slot>
     </x-organism.card>
@@ -137,6 +137,10 @@
                     keyboard: false
                 })
 
+                document.getElementById('akunModal').addEventListener('hidden.bs.modal', function (){
+                    Livewire.emit('resetForm');
+                });
+
                 window.livewire.on('showAkunModal', ()=>{
                     akunModal.show();
                 })
@@ -144,11 +148,13 @@
                 window.livewire.on('hideAkunModal', ()=>{
                     akunModal.hide();
                 })
-                $('#tgl_penerimaan').on('change', function (e) {
-                    let date = $(this).data("#tgl_penerimaan");
+
+                // tanggal ke livewire
+                $('#tanggal').on('change', function (e) {
+                    let date = $(this).data("#tanggal");
                     // eval(date).set('tglLahir', $('#tglLahir').val())
                     console.log(e.target.value);
-                @this.tgl_penerimaan = e.target.value;
+                @this.tanggal = e.target.value;
                 })
 
             </script>

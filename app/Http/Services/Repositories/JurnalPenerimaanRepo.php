@@ -39,6 +39,7 @@ class JurnalPenerimaanRepo
             'akun_id'=>$data->akunDebet,
             'nominal_debet'=>$data->total_bayar,
             'nominal_kredit'=>null,
+            'keterangan'=>'keteranganDebet'
         ]);
 
         // kredit
@@ -72,6 +73,7 @@ class JurnalPenerimaanRepo
             'akun_id'=>$data->akunDebet,
             'nominal_debet'=>$data->total_bayar,
             'nominal_kredit'=>null,
+            'keterangan'=>$data->keterangan
         ]);
 
         // kredit
@@ -80,6 +82,7 @@ class JurnalPenerimaanRepo
                 'akun_id'=>$item['akun_id'],
                 'nominal_debet'=>null,
                 'nominal_kredit'=>$item['nominal'],
+                'keterangan'=>$item['keterangan_detail'],
             ]);
         }
         return $jurnalPenerimaan->id;

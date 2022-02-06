@@ -28,6 +28,7 @@ class JurnalPenerimaanRepo
             'kode'=>$this->kode(),
             'active_cash'=>session('ClosedCash'),
             'tgl_penerimaan'=>$data->tgl_penerimaan,
+            'sumber'=>$data->sumber,
             'user_id'=>\Auth::id(),
             'nominal'=>$data->total_bayar,
             'keterangan'=>$data->keterangan,
@@ -46,6 +47,7 @@ class JurnalPenerimaanRepo
                 'akun_id'=>$item['akun_id'],
                 'nominal_debet'=>null,
                 'nominal_kredit'=>$item['nominal'],
+                'keterangan'=>$item['keterangan_detail'],
             ]);
         }
         return $jurnalPenerimaan->id;
@@ -54,6 +56,13 @@ class JurnalPenerimaanRepo
     public function update($data)
     {
         $jurnalPenerimaan = JurnalPenerimaan::query()->find($data->id);
+
+        $jurnalPenerimaan->update([
+            'tgl_penerimaan'=>$data->tgl_penerimaan,
+            'sumber'=>$data->sumber,
+            'nominal'=>$data->total_bayar,
+            'keterangan'=>$data->keterangan,
+        ]);
 
         // delete transaksi
         $jurnalPenerimaan->jurnalTransaksi()->delete();

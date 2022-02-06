@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    <x-organism.card :title="__('Penerimaan Lain')">
+    <x-organism.card :title="__('Jurnal Penerimaan Lain')">
         <div class="row">
             <div class="col-8">
         <form id="penerimaanForm">
@@ -47,19 +47,23 @@
         <table class="table gs-3 border-1 pt-5">
             <thead>
             <tr class="border">
-                <th class="text-center" width="20%">Kategori</th>
                 <th class="text-center" width="15%">Kode</th>
-                <th class="text-center" width="20%">Deskripsi</th>
+                <th class="text-center" width="20%">Akun</th>
+                <th class="text-center" width="20%">Keterangan</th>
                 <th class="text-center" width="20%">Nominal</th>
+                <th class="text-center" width="15%"></th>
             </tr>
             </thead>
             <tbody class="border">
             @forelse($daftarAkun as $index=>$item)
                 <tr>
-                    <td>{{$item['akun_kategori_nama']}}</td>
                     <td class="text-center">{{$item['kode']}}</td>
+                    <td>{{$item['akun_kategori_nama']}}</td>
                     <td>{{$item['deskripsi']}}</td>
                     <td class="text-end">{{rupiah_format($item['nominal'])}}</td>
+                    <td class="text-center">
+                        <x-atom.button-delete wire:click="destroyLine({{$index}})" />
+                    </td>
                 </tr>
             @empty
                 <tr>
@@ -67,6 +71,14 @@
                 </tr>
             @endforelse
             </tbody>
+            @if($daftarAkun)
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Total</td>
+                        <td colspan="2">{{$total_bayar_rupiah}}</td>
+                    </tr>
+                </tfoot>
+            @endif
         </table>
             </div>
             <div class="col-4 border">

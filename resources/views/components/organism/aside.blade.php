@@ -227,145 +227,329 @@
         <!--begin::Aside Menu-->
         <div class="hover-scroll-overlay-y px-2 my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="{default: '#kt_aside_toolbar, #kt_aside_footer', lg: '#kt_header, #kt_aside_toolbar, #kt_aside_footer'}" data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="5px">
             <!--begin::Menu-->
+
             <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
-                <div class="menu-item">
-                    <div class="menu-content pt-8 pb-2">
-                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">Master</span>
-                    </div>
-                </div>
-                <div data-kt-menu-trigger="click" class="menu-item {{request()->is('master/produk*') ? 'here show' : ''}} menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item {{request()->is('dashboard/*') ? 'here show' : ''}} menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon fas fa-book">
 											<!--begin::Svg Icon | path: icons/duotune/files/fil025.svg-->
 
                                             <!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">Produk</span>
-										<span class="menu-arrow"></span>
-									</span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <div class="menu-item">
-                                    <a class="menu-link {{request()->is('master/produk') ? 'active' : ''}}" href="/master/produk">
-                                    <span class="menu-bullet">
-                                        <span class="bullet bullet-dot"></span>
-                                    </span>
-                                        <span class="menu-title">Produk list</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{request()->is('master/produk/kategori') ? 'active' : ''}}" href="/master/produk/kategori">
-                                    <span class="menu-bullet">
-                                        <span class="bullet bullet-dot"></span>
-                                    </span>
-                                        <span class="menu-title">Kategori Produk</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{request()->is('master/produk/kategoriharga') ? 'active' : ''}}" href="/master/produk/kategoriharga">
-                                    <span class="menu-bullet">
-                                        <span class="bullet bullet-dot"></span>
-                                    </span>
-                                        <span class="menu-title">Kategori Harga</span>
-                                    </a>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{request()->is('master/supplier*') ? 'here show' : ''}}">
-									<span class="menu-link">
-										<span class="menu-icon fas fa-user-tie">
-											<!--begin::Svg Icon | path: icons/duotune/files/fil025.svg-->
-
-                                            <!--end::Svg Icon-->
-										</span>
-										<span class="menu-title">Supplier</span>
+										<span class="menu-title">Dashboard</span>
 										<span class="menu-arrow"></span>
 									</span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                             <div class="menu-item">
-                                <a class="menu-link {{request()->is('master/supplier') ? 'active' : ''}}" href="/master/supplier">
+                                <a class="menu-link" href="">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Supplier List</span>
+                                    <span class="menu-title">Admin</span>
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link {{request()->is('master/supplier/jenis') ? 'active' : ''}}" href="{{ route('master.supplier.jenis') }}">
+                                <a class="menu-link" href="">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Jenis Supplier</span>
+                                    <span class="menu-title">Penjualan</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Kasir</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Keuangan</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Pajak</span>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{request()->is('master/customer*') ? 'here show' : ''}}">
+            </div>
+
+            <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
+                <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('master/*') ? 'here show' : ''}} menu-accordion">
 									<span class="menu-link">
-										<span class="menu-icon fas fa-user-tie">
+										<span class="menu-icon fas fa-book">
 											<!--begin::Svg Icon | path: icons/duotune/files/fil025.svg-->
 
                                             <!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">Customer</span>
+										<span class="menu-title">Master</span>
 										<span class="menu-arrow"></span>
 									</span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                            <div class="menu-item">
-                                <a class="menu-link {{request()->is('master/customer') ? 'active' : ''}}" href="/master/customer">
+                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion ">
+                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('master/produk*') ? 'here show' : ''}} menu-accordion">
+											<span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Produk</span>
+												<span class="menu-arrow"></span>
+											</span>
+                                <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                        <div class="menu-item">
+                                            <a class="menu-link {{request()->is('master/produk') ? 'active' : ''}}" href="/master/produk">
+                                                  <span class="menu-bullet">
+                                                      <span class="bullet bullet-dot"></span>
+                                                      </span>
+                                                <span class="menu-title">Produk list</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a class="menu-link {{request()->is('master/produk/kategori') ? 'active' : ''}}" href="/master/produk/kategori">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Customer List</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-									<span class="menu-link">
-										<span class="menu-icon fas fa-user-tie">
-											<!--begin::Svg Icon | path: icons/duotune/files/fil025.svg-->
-
-                                            <!--end::Svg Icon-->
-										</span>
-										<span class="menu-title">Pegawai</span>
-										<span class="menu-arrow"></span>
-									</span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('master.pegawai') }}">
+                                                <span class="menu-title">Kategori Produk</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a class="menu-link {{request()->is('master/produk/kategoriharga') ? 'active' : ''}}" href="/master/produk/kategoriharga">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Pegawai List</span>
-                                </a>
-                            </div>
+                                                <span class="menu-title">Kategori Harga</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('master/supplier*') ? 'here show' : ''}} menu-accordion">
+											<span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Supplier</span>
+												<span class="menu-arrow"></span>
+											</span>
+                                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                        <div class="menu-item">
+                                            <a class="menu-link {{request()->is('master/supplier') ? 'active' : ''}}" href="/master/supplier">
+                                                 <span class="menu-bullet">
+                                                 <span class="bullet bullet-dot"></span>
+                                                 </span>
+                                                <span class="menu-title">Supplier List</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a class="menu-link {{request()->is('master/supplier/jenis') ? 'active' : ''}}" href="{{ route('master.supplier.jenis') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                                <span class="menu-title">Jenis Supplier</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('master/customer*') ? 'here show' : ''}} menu-accordion">
+											<span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Customer</span>
+												<span class="menu-arrow"></span>
+											</span>
+                                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                        <div class="menu-item">
+                                            <a class="menu-link {{request()->is('master/customer') ? 'active' : ''}}" href="/master/customer">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                                <span class="menu-title">Customer List</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('master/pegawai*') ? 'here show' : ''}} menu-accordion">
+											<span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Pegawai</span>
+												<span class="menu-arrow"></span>
+											</span>
+                                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                        <div class="menu-item">
+                                            <a class="menu-link {{request()->is('master/pegawai') ? 'active' : ''}}" href="{{ route('master.pegawai') }}">
+                                        <span class="menu-bullet">
+                                             <span class="bullet bullet-dot"></span>
+                                        </span>
+                                                <span class="menu-title">Pegawai List</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
-
                 @can('Sales')
                     <x-organism.aside-sales />
+                @endcan
+                <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan*') ? 'here show' : ''}} menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon fas fa-book">
+											<!--begin::Svg Icon | path: icons/duotune/files/fil025.svg-->
+
+                                            <!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Kasir</span>
+										<span class="menu-arrow"></span>
+									</span>
+                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion ">
+                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/kasir/penerimaan*') ? 'here show' : ''}} menu-accordion">
+											<span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Penerimaan</span>
+												<span class="menu-arrow"></span>
+											</span>
+                                <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('keuangan/kasir/penerimaan')  ? 'active' : ''}} " href="{{ route('jurnal.penerimaan.index') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Penerimaan Nota</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('keuangan/kasir/penerimaan/trans')  ? 'active' : ''}} " href="{{ route('jurnal.penerimaan.trans') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Penerimaan Nota Baru</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('keuangan/kasir/penerimaan/lain')  ? 'active' : ''}} " href="{{ route('penerimaan.cash.index') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Penerimaan Lain</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('keuangan/kasir/penerimaan/lain/transaksi')  ? 'active' : ''}} " href="{{ route('kasir.penerimaan.cash.transaksi') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Penerimaan Lain Baru</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/kasir/pengeluaran*') ? 'here show' : ''}} menu-accordion">
+											<span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Pengeluaran</span>
+												<span class="menu-arrow"></span>
+											</span>
+                                <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('keuangan/kasir/pengeluaran')  ? 'active' : ''}}" href="{{ route('kasir.pengeluaran.index') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Pengeluaran</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('keuangan/kasir/pengeluaran/trans')  ? 'active' : ''}}" href="{{ route('kasir.pengeluaran.trans') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Pengeluaran Baru</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/kasir/set*') ? 'here show' : ''}} menu-accordion">
+											<span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Piutang</span>
+												<span class="menu-arrow"></span>
+											</span>
+                                <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('keuangan/kasir/set/piutang')  ? 'active' : ''}}" href="{{ route('set.piutang.index') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Set Piutang</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('keuangan/kasir/set/piutang/transaksi')  ? 'active' : ''}}" href="{{ route('set.piutang.transaksi') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Set Piutang Baru</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/kasir/piutang*') ? 'here show' : ''}} menu-accordion">
+											<span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Piutang Internal</span>
+												<span class="menu-arrow"></span>
+											</span>
+                                <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('keuangan/kasir/piutang/pegawai')  ? 'active' : ''}}" href="{{ route('piutang.pegawai.index') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Piutang Pegawai</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @can('Keuangan')
+                    <x-organism.aside-keuangan />
                 @endcan
 
                 @can('Stock')
                     <x-organism.aside-stock />
                 @endcan
 
-                @can('Keuangan')
-                    <x-organism.aside-keuangan />
-                @endcan
 
                 @can('SuperAdmin')
                     <x-organism.aside-tax />
                 @endcan
-
             </div>
             <!--end::Menu-->
         </div>

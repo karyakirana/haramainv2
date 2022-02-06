@@ -17,12 +17,19 @@ class KasirPenerimaanCashForm extends Component
     public $daftarAkun = [];
     public $mode = 'create';
 
-    public $penerimaan_id;
     public $akun_kategori_nama;
     public $penerimaan;
 
-    public $akun_kategori_id, $akun_tipe_id, $akun_id, $kode, $deskripsi, $nominal, $keterangan_detail;
-    public $tgl_penerimaan, $user_id, $user_nama, $sumber, $keterangan;
+    // variabel untuk form utama
+    public $penerimaan_id, $tgl_penerimaan, $sumber, $keterangan;
+
+    // variabel untuk form detail
+    public $akun_id, $akun_kode, $akun_deskripsi, $akun_nominal, $keterangan_detail;
+
+    // variable untuk table;
+
+    public $akun_kategori_id, $akun_tipe_id, $deskripsi;
+    public $user_id, $user_nama;
 
     public $total_bayar, $total_bayar_rupiah;
 
@@ -46,12 +53,13 @@ class KasirPenerimaanCashForm extends Component
             $this->user_id = $kasirPenerimaan ->user_id;
             $this->user_nama =$kasirPenerimaan->users->name;
             $this->tgl_penerimaan = tanggalan_format( $kasirPenerimaan ->tgl_penerimaan);
+            $this->sumber = $kasirPenerimaan->sumber;
             $this->keterangan = $kasirPenerimaan ->keterangan;
             $this->total_bayar = $kasirPenerimaan ->nominal;
 
             foreach ($kasirPenerimaan->jurnalTransaksi as $row)
             {
-                if ($row->nominal_debet){
+                if ($row->nominal_kredit){
                     $this->daftarAkun[] = [
                         'akun_id'=>$row->akun_id,
                         'akun_kategori_id'=>$row->akun_kategori_id,
@@ -59,11 +67,13 @@ class KasirPenerimaanCashForm extends Component
                         'akun_tipe_id'=>$row->akun_tipe_id,
                         'kode'=>$row->akun->kode,
                         'deskripsi'=>$row->akun->deskripsi,
-                        'nominal'=>$row->nominal_kredit
+                        'nominal'=>$row->nominal_kredit,
+                        'keterangan_detail'=>$row->keterangan
                     ];
                 }
-                if ($row->nominal_kredit){
+                if ($row->nominal_debet){
                     $this->penerimaan = $row -> akun_id;
+                    $this->keterangan = $row->keterangan;
                 }
             }
 
@@ -101,7 +111,8 @@ class KasirPenerimaanCashForm extends Component
             'akun_tipe_id'=>$this->akun_tipe_id,
             'kode'=>$this->kode,
             'deskripsi'=>$this->deskripsi,
-            'nominal'=>$this->nominal
+            'nominal'=>$this->nominal,
+            'keterangan_detail'=>$this->keterangan_detail,
         ];
         $this->hitung_total();
         $this->resetForm();
@@ -140,6 +151,7 @@ class KasirPenerimaanCashForm extends Component
         $data = (object)[
             'tgl_penerimaan'=>$this->tgl_penerimaan,
             'total_bayar'=>$this->total_bayar,
+            'asal'=>$this->sumber,
             'keterangan'=>$this->keterangan,
 
             'detail'=>$this->daftarAkun,

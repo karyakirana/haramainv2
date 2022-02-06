@@ -10,9 +10,9 @@ Route::middleware(['auth'])->group(function (){
     Route::get('keuangan/neraca/awal', [\App\Http\Controllers\Keuangan\NeracaSaldoController::class, 'neracaSaldoAwal'])->name('neraca.saldo.awal');
     Route::get('keuangan/neraca/akhir', [\App\Http\Controllers\Keuangan\NeracaSaldoController::class, 'neracaSaldoAkhir'])->name('neraca.saldo.akhir');
 
-    Route::get('keuangan/jurnal/penerimaan', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'index'])->name('jurnal.penerimaan.index');
-    Route::get('keuangan/jurnal/penerimaan/trans', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'create'])->name('jurnal.penerimaan.trans');
-    Route::get('keuangan/jurnal/penerimaan/edit/{id}', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'create']);
+    Route::get('keuangan/kasir/penerimaan', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'index'])->name('jurnal.penerimaan.index');
+    Route::get('keuangan/kasir/penerimaan/trans', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'create'])->name('jurnal.penerimaan.trans');
+    Route::get('keuangan/kasir/penerimaan/edit/{id}', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'create']);
     Route::get('keuangan/jurnal/penerimaan/print/{id}', [\App\Http\Controllers\Keuangan\JurnalPenerimaanController::class, 'rocketMan']);
 
     Route::get('keuangan/jurnal/pengeluaran', [\App\Http\Controllers\Keuangan\JurnalPengeluaranController::class, 'index'])->name('jurnal.pengeluaran.index');

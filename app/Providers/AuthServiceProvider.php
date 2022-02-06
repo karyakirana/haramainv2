@@ -35,6 +35,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role == 'guest';
         });
 
+        Gate::define('Sales', function (User $user){
+            return count(array_intersect(['SuperAdmin', 'Sales'], [$user->role]));
+        });
+
         Gate::define('Keuangan', function (User $user){
             return count(array_intersect(['SuperAdmin', 'Keuangan'],[$user->role]) );
         });

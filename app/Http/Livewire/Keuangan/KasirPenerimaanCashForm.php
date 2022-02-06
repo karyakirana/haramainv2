@@ -17,12 +17,12 @@ class KasirPenerimaanCashForm extends Component
     public $daftarAkun = [];
     public $mode = 'create';
 
-    public $nominal, $penerimaan_id;
+    public $penerimaan_id;
     public $akun_kategori_nama;
     public $penerimaan;
 
-    public $akun_kategori_id, $akun_tipe_id, $akun_id, $kode, $deskripsi;
-    public $tgl_penerimaan, $user_id, $user_nama, $keterangan;
+    public $akun_kategori_id, $akun_tipe_id, $akun_id, $kode, $deskripsi, $nominal, $keterangan_detail;
+    public $tgl_penerimaan, $user_id, $user_nama, $sumber, $keterangan;
 
     public $total_bayar, $total_bayar_rupiah;
 

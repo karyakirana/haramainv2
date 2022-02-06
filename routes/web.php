@@ -55,6 +55,9 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('master/pegawai', [\App\Http\Controllers\Master\PegawaiController::class, 'index'])->name('master.pegawai');
 
+    // Gudang
+    Route::get('gudang', [\App\Http\Controllers\Master\GudangController::class, 'index'])->name('master.gudang');
+
     // tax
     Route::get('tax/perusahaan', [\App\Http\Controllers\Tax\TaxPenjualanController::class, 'masterPerusahaan'])->name('tax.perusahaan');
     Route::get('tax/perusahaan/table', [\App\Http\Controllers\Tax\TaxPenjualanController::class, 'index']);

@@ -14,6 +14,7 @@ class JurnalPenerimaan extends Model
         'kode',
         'active_cash',
         'tgl_penerimaan',
+        'sumber',
         'user_id',
         'nominal',
         'keterangan',

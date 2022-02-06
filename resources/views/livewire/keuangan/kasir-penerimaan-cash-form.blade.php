@@ -33,6 +33,11 @@
                 </div>
             </div>
             <div class="row mb-4">
+                <label class="col-2 col-form-label">Sumber</label>
+                <div class="col-4">
+                    <x-atom.input-form wire:model.defer="sumber" :name="__('sumber')"/>
+                    <x-atom.input-message :name="__('sumber')" />
+                </div>
                 <label class="col-2 col-form-label">Keterangan</label>
                 <div class="col-4">
                     <x-atom.input-form wire:model.defer="keterangan" />
@@ -85,6 +90,13 @@
                         <div class="col-8">
                             <x-atom.input-form wire:model.defer="nominal" :name="__('nominal')"/>
                             <x-atom.input-message :name="__('nominal')" />
+                        </div>
+                    </div>
+                    <div class="row pb-5">
+                        <label class="col-4 col-form-label">Keterangan</label>
+                        <div class="col-8">
+                            <x-atom.input-form wire:model.defer="keterangan_detail" :name="__('keterangan_detail')"/>
+                            <x-atom.input-message :name="__('keterangan_detail')" />
                         </div>
                     </div>
                 </form>

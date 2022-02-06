@@ -15,6 +15,7 @@ class JurnalTransaksi extends Model
         'akun_id',
         'nominal_debet',
         'nominal_kredit',
+        'keterangan',
     ];
 
     public function jurnalable()

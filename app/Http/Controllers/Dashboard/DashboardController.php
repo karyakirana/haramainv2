@@ -13,4 +13,9 @@ class DashboardController extends Controller
         // view dashboard general (guest)
         return view('pages.dashboard-index');
     }
+
+    public function keuangan()
+    {
+        return view('pages.dashboard-keuangan');
+    }
 }

@@ -405,7 +405,7 @@
                 @can('Sales')
                     <x-organism.aside-sales />
                 @endcan
-                <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan*') ? 'here show' : ''}} menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/kasir*') ? 'here show' : ''}} menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon fas fa-book">
 											<!--begin::Svg Icon | path: icons/duotune/files/fil025.svg-->

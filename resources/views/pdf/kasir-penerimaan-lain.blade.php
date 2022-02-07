@@ -31,82 +31,94 @@
             letter-spacing: 1px;
             font-size: 9pt;
         }
+        #head-nota th{
+            font-size: 9pt;
+            letter-spacing: 2pt;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col-xs-4">
-            Penerimaan Lain
-        </div>
-        <div class="col-xs-4">
-
-        </div>
-        <div class="col-xs-4">
-            Surabaya, {{tanggalan_format($jurnal_penerimaan_lain->tgl_penerimaan)}} <br>
-        </div>
-    </div>
-    <div class="row" style="margin-top: 12px">
-        <div class="col-xs-8" style="font-size: medium; font-weight: bold">
-            Nomor : {{$jurnal_penerimaan_lain->kode}}
-        </div>
-        <div class="col-xs-4">
-        </div>
-    </div>
-
-    <table class="table table-bordered">
-        <thead style="font-size: small">
+    <table class="table table-bordered" style="margin-bottom: 0pt!important;">
         <tr>
-            <th>KODE</th>
-            <th>Tgl Nota</th>
-            <th>Nominal</th>
-        </tr>
-        </thead>
-        <tbody style="font-size: 9pt">
-        @php
-            $jumlahSubTotal = 0;
-        @endphp
-        @forelse($jurnal_penerimaan_lain->jurnalTransaksi as $item)
-            <tr>
-                <td class="text-center">{{$jurnal_penerimaan_lain->kode}}</td>
-                <td>{{$jurnal_penerimaan_lain->tgl_penerimaan}}</td>
-                <td class="text-right">{{rupiah_format($item->nominal_debet)}}</td>
-                @php
-                    $jumlahSubTotal += $item->nominal_debet;
-                @endphp
-            </tr>
-        @empty
-        @endforelse
-        </tbody>
-        <tfoot style="font-size: smaller">
-        <tr>
-            <td colspan="3">Keterangan : {{$jurnal_penerimaan_lain->keterangan}}</td>
+            <td rowspan="2" style="width: 30%">
+                Diterima dari : <br><br>
+                {{$jurnal_penerimaan_lain->sumber ?? ''}}
+            </td>
+            <td rowspan="2" class="text-center"
+                style="vertical-align: middle!important; font-size: 25pt; font-weight: bolder; width: 40%"
+            >
+                BUKTI KAS MASUK
+            </td>
+            <td style="width: 30%">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <p>Nomor :</p>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        {{$jurnal_penerimaan_lain->kode}}
+                    </div>
+                </div>
+            </td>
         </tr>
         <tr>
-            <td colspan="1" style="border-left-color: white!important; border-bottom-color: white!important; border-right-color: white!important;"></td>
-            <td colspan="1" class="text-right" style="border-left-color: white!important; border-bottom-color: white!important; font-size: medium!important;">Total</td>
-            <td class="text-right">{{rupiah_format($jumlahSubTotal)}}</td>
+            <td>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <p>Tanggal :</p>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        {{tanggalan_format($jurnal_penerimaan_lain->tanggal)}}
+                    </div>
+                </div>
+            </td>
         </tr>
-        </tfoot>
     </table>
-    <div class="row" style="margin-top: -10pt">
-        <div class="col-xs-3 text-center">
-            Penerima
-        </div>
-        <div class="col-xs-3 text-center">
-            Pembayar
-        </div>
-    </div>
-    <div class="row" style="margin-top: 50pt">
-        <div class="col-xs-3 text-center">
-            (&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;)
-        </div>
-        <div class="col-xs-3 text-center">
-            (&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;)
-        </div>
-    </div>
-    <div style="margin-top: 10pt">
-    </div>
+    <table class="table table-bordered" style="margin-top: 0!important; border-top: none!important; margin-bottom: 0pt;">
+        <tr id="head-nota">
+            <th width="10%" style="border-top: none!important; border-bottom: none!important;"></th>
+            <th width="15%" style="border-top: none!important;">Perkiraan</th>
+            <th colspan="2" width="50%" style="border-top: none!important;">Uraian</th>
+            <th class="text-center" style="border-top: none!important; width: 20%">Jumlah</th>
+        </tr>
+        @foreach($jurnal_penerimaan_lain->jurnalTransaksi as $item)
+            @if($item->nominal_kredit)
+                <tr>
+                    <td style="border-bottom: none!important; border-top: none!important;"></td>
+                    <td class="text-center">{{$item->akun->deskripsi}}</td>
+                    <td colspan="2">{{$item->keterangan}}</td>
+                    <td class="text-right">{{rupiah_format($item->nominal_kredit)}}</td>
+                </tr>
+            @endif
+        @endforeach
+        <tr>
+            <td colspan="4" style="font-size: 9pt">
+                Terbilang : {{ucwords(terbilang($jurnal_penerimaan_lain->nominal))}}
+            </td>
+            <td>
+                <div class="row" style="font-size: 9pt">
+                    <div class="col-xs-4">Total :</div>
+                    <div class="col-xs-8 text-right">{{rupiah_format($jurnal_penerimaan_lain->nominal)}}</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table class="table table-bordered">
+        <tr>
+            <td rowspan="2">Catatan</td>
+            <th style="width: 17%">Pembukuan</th>
+            <th style="width: 17%">Mengetahui</th>
+            <th style="width: 17%">Kasir</th>
+            <th style="width: 17%">Penyetor</th>
+        </tr>
+        <tr style="height: 70pt">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr></tr>
+    </table>
 </div>
 </body>
 </html>

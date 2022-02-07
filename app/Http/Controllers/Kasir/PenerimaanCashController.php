@@ -46,7 +46,7 @@ class PenerimaanCashController extends Controller
             'margin-left'   => 3,
 //            'page-width' => 216,
 //            'page-height' => 140,
-            'footer-right'  => utf8_decode('Hal [page] dari [topage]')
+//            'footer-right'  => utf8_decode('Hal [page] dari [topage]')
         ];
         $pdf->setPaper('a4');
         $pdf->setOptions($options);

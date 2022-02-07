@@ -18,7 +18,7 @@
             <div class="row mb-4">
                 <label class="col-2 col-form-label">Akun</label>
                 <div class="col-4">
-                    <x-atom.select :name="__('akun')">
+                    <x-atom.select :name="__('akun')" wire:model.defer="akun">
                         @forelse($akun_jenis_penerimaan as $row)
                             <option value="{{$row->id}}">{{$row->deskripsi}}</option>
                         @empty
@@ -47,7 +47,7 @@
             <tr class="border">
                 <th class="text-center" width="15%">Kode</th>
                 <th class="text-center" width="20%">Akun</th>
-                <th class="text-center" width="20%">Keterangan</th>
+                <th class="text-center" width="30%">Keterangan</th>
                 <th class="text-center" width="20%">Nominal</th>
                 <th class="text-center" width="15%"></th>
             </tr>
@@ -57,8 +57,8 @@
                 <tr>
                     <td class="text-center">{{$item['akun_detail']}}</td>
                     <td>{{$item['deskripsi_detail']}}</td>
-                    <td>{{$item['keterangan']}}</td>
-                    <td class="text-end">{{rupiah_format($item['nominal'])}}</td>
+                    <td>{{$item['keterangan_detail']}}</td>
+                    <td class="text-end">{{rupiah_format($item['nominal_detail'])}}</td>
                     <td class="text-center">
                         <x-atom.button-delete wire:click="destroyLine({{$index}})" />
                     </td>
@@ -70,10 +70,11 @@
             @endforelse
             </tbody>
             @if($detail)
-                <tfoot>
+                <tfoot class="border">
                     <tr>
-                        <td colspan="3">Total</td>
-                        <td colspan="2">{{$total_bayar_rupiah}}</td>
+                        <td colspan="3" class="text-end">Total</td>
+                        <td class="text-end">{{$total_bayar_rupiah}}</td>
+                        <td></td>
                     </tr>
                 </tfoot>
             @endif
@@ -138,7 +139,7 @@
                 })
 
                 document.getElementById('akunModal').addEventListener('hidden.bs.modal', function (){
-                    Livewire.emit('resetForm');
+                    // Livewire.emit('resetForm');
                 });
 
                 window.livewire.on('showAkunModal', ()=>{

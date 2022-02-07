@@ -28,7 +28,7 @@ class JurnalPenerimaanRepo
             'kode'=>$this->kode(),
             'active_cash'=>session('ClosedCash'),
             'tgl_penerimaan'=>$data->tgl_penerimaan,
-            'sumber'=>$data->sumber,
+            'sumber'=>$data->asal,
             'user_id'=>\Auth::id(),
             'nominal'=>$data->total_bayar,
             'keterangan'=>$data->keterangan,
@@ -39,15 +39,15 @@ class JurnalPenerimaanRepo
             'akun_id'=>$data->akunDebet,
             'nominal_debet'=>$data->total_bayar,
             'nominal_kredit'=>null,
-            'keterangan'=>'keteranganDebet'
+            'keterangan'=>$data->keteranganDebet
         ]);
 
         // kredit
         foreach ($data->detail as $item){
             $jurnalPenerimaan->jurnalTransaksi()->create([
-                'akun_id'=>$item['akun_id'],
+                'akun_id'=>$item['akun_id_detail'],
                 'nominal_debet'=>null,
-                'nominal_kredit'=>$item['nominal'],
+                'nominal_kredit'=>$item['nominal_detail'],
                 'keterangan'=>$item['keterangan_detail'],
             ]);
         }
@@ -60,7 +60,7 @@ class JurnalPenerimaanRepo
 
         $jurnalPenerimaan->update([
             'tgl_penerimaan'=>$data->tgl_penerimaan,
-            'sumber'=>$data->sumber,
+            'sumber'=>$data->asal,
             'nominal'=>$data->total_bayar,
             'keterangan'=>$data->keterangan,
         ]);
@@ -79,9 +79,9 @@ class JurnalPenerimaanRepo
         // kredit
         foreach ($data->detail as $item){
             $jurnalPenerimaan->jurnalTransaksi()->create([
-                'akun_id'=>$item['akun_id'],
+                'akun_id'=>$item['akun_id_detail'],
                 'nominal_debet'=>null,
-                'nominal_kredit'=>$item['nominal'],
+                'nominal_kredit'=>$item['nominal_detail'],
                 'keterangan'=>$item['keterangan_detail'],
             ]);
         }

@@ -14,6 +14,7 @@ class KasirPenerimaanCashForm extends Component
 {
     protected $listeners = [
         'resetForm'=> 'resetForm',
+        'setAkun'=>'setAkun'
     ];
 
     public $mode = 'create';
@@ -62,10 +63,12 @@ class KasirPenerimaanCashForm extends Component
         // mounting data for edit
         if ($jurnal_penerimaan_id)
         {
+            $this->mode = 'update';
             $jurnal_penerimaan = JurnalPenerimaan::query()->find($jurnal_penerimaan_id);
             $this->jurnal_penerimaan_id = $jurnal_penerimaan->id;
-            $this->tanggal = $jurnal_penerimaan->tgl_penerimaan;
-            $this->sumber = $jurnal_penerimaan->asal;
+            $this->tanggal = tanggalan_format($jurnal_penerimaan->tgl_penerimaan);
+            $this->sumber = $jurnal_penerimaan->sumber;
+//            dd($jurnal_penerimaan->sumber);
 
             // set from jurnal_transaksi
             $jurnal_transaksi = $jurnal_penerimaan->jurnalTransaksi;
@@ -73,23 +76,24 @@ class KasirPenerimaanCashForm extends Component
             foreach ($jurnal_transaksi as $item)
             {
                 // set detail
-                if ($item->nominal_debet){
+                if ($item->nominal_kredit){
 
                     $this->detail[] = [
                         'akun_id_detail'=>$item->akun_id,
+                        'akun_detail'=>$item->akun->kode,
                         'deskripsi_detail'=>$item->akun->deskripsi,
-                        'nominal_detail'=>$item->nominal_debet,
+                        'nominal_detail'=>$item->nominal_kredit,
                         'keterangan_detail'=>$item->keterangan
                     ];
                 }
 
                 // set form-utama
-                if ($item->nominal_kredit){
+                if ($item->nominal_debet){
 
                     $this->akun = $item->akun_id;
                     $this->keterangan = $item->keterangan;
                 }
-
+//                dd($this->akun);
             }
             // hitung total
             $this->hitung_total();
@@ -136,6 +140,7 @@ class KasirPenerimaanCashForm extends Component
             'keterangan_detail'=>$this->keterangan_detail
         ];
         $this->hitung_total();
+        $this->resetForm();
     }
 
     public function destroyLine($index)
@@ -172,6 +177,7 @@ class KasirPenerimaanCashForm extends Component
 
         // simpan jurnal penerimaan
         $data = (object)[
+            'id'=>$this->jurnal_penerimaan_id,
             'tgl_penerimaan'=>$this->tanggal,
             'total_bayar'=>$this->total_bayar,
             'asal'=>$this->sumber,

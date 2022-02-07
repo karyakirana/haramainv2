@@ -97,10 +97,10 @@ class PenjualanController extends Controller
             'margin-right'  => 3,
             'margin-bottom' => 3,
             'margin-left'   => 3,
-            'page-width' => 216,
-            'page-height' => 140,
+//            'page-width' => 216,
+//            'page-height' => 140,
         ];
-//        $pdf->setPaper('letter');
+        $pdf->setPaper('letter');
         $pdf->setOptions($options);
         return $pdf->inline('invoice.pdf');
     }

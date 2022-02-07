@@ -29,7 +29,7 @@
         body{
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             letter-spacing: 1px;
-            font-size: 9pt;
+            font-size: 12pt;
         }
     </style>
 </head>
@@ -37,7 +37,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-4">
-            Kas Masuk
+            Nomor : {{$data->kode}}
         </div>
         <div class="col-xs-4">
         </div>
@@ -46,68 +46,68 @@
         </div>
     </div>
     <div class="row" style="margin-top: 12px">
-        <div class="col-xs-8" style="font-size: medium; font-weight: bold">
-            Nomor : {{$data->kode}}
+        <div class="col-xs-12 text-center" style="font-size: medium; font-weight: bolder;">
+            <u><h3>KAS KELUAR</h3></u>
         </div>
+    </div>
+    <div class="row" style="margin-top: 15pt">
+        <div class="col-xs-2">Untuk</div>
+        <div class="col-xs-1">:</div>
+        <div class="col-xs-4">{{$data->tujuan}}</div>
+    </div>
+    <div class="row" style="margin-top: 7pt;">
+        <div class="col-xs-2">Keperluan</div>
+        <div class="col-xs-1">:</div>
+        @foreach($data->jurnalTransaksi as $row)
+            @if($row->nominal_debet)
+                <div class="col-xs-4">
+                    {{$row->keterangan}}
+                </div>
+                <div class="col-xs-4">
+                    Rp. {{rupiah_format($row->nominal_debet)}}
+                </div>
+            @endif
+        @endforeach
+    </div>
+    @if($data->jurnalTransaksi->count() > 2)
+        <div class="row" style="margin-top: 7pt;">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-4">
+                Total Keseluruhan
+            </div>
+            <div class="col-xs-4">
+                Rp. {{rupiah_format($data->total_bayar)}}
+            </div>
+        </div>
+    @endif
+    <div class="row" style="margin-top: 7pt;">
+        <div class="col-xs-2">Terbilang</div>
+        <div class="col-xs-1">:</div>
         <div class="col-xs-4">
-        </div>
-    </div>
-    @foreach($data->jurnalTransaksi as $item)
-        <div class="row">
-            <div class="col-xs-2">
-                @if($item->nominal_debet)
-                    Dari Akun
-                @else
-                    Ke Akun
-                @endif
-            </div>
-            <div class="col-xs-1">:</div>
-            <div class="col-xs-5">
-                {{$item->akun->deskripsi}}
+            <div style="border: 2px solid!important; padding: 4pt">
+                {{ucwords(terbilang($data->nominal))}} Rupiah
             </div>
         </div>
-    @endforeach
-
-    <div class="row">
-        <div class="col-xs-2">
-            Uang Sejumlah
-        </div>
-        <div class="col-xs-1">:</div>
-        <div class="col-xs-6">
-            {{terbilang($data->nominal)}}
-        </div>
     </div>
-    <div class="row">
-        <div class="col-xs-2">
-            Keperluan
-        </div>
-        <div class="col-xs-1">:</div>
-        <div class="col-xs-5">
-            {{$data->keterangan}}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <div style="border: solid #0b0b10 !important; font-size: medium; font-weight: bold; margin-top: 10pt; margin-bottom: 10pt">
-                <p style="margin-left: 10pt; margin-top: 5pt">Rp. {{rupiah_format($data->nominal)}}</p>
-            </div>
-
+    <div class="row" style="margin-top: 15pt; margin-bottom: 15pt">
+        <div class="col-xs-12" >
+            <div style="border: 1px solid!important;"></div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-xs-3 text-center">
-            Disiapkan Oleh
+        <div class="col-xs-5 text-center">
+            Mengetahui
         </div>
-        <div class="col-xs-3 text-center">
-            Disetujui Oleh
+        <div class="col-xs-4 text-center">
+            Penerima
         </div>
     </div>
     <div class="row" style="margin-top: 50pt">
-        <div class="col-xs-3 text-center">
+        <div class="col-xs-5 text-center">
             (&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;)
         </div>
-        <div class="col-xs-3 text-center">
+        <div class="col-xs-4 text-center">
             (&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;)
         </div>
     </div>

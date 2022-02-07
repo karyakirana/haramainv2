@@ -27,29 +27,15 @@ class JurnalPengeluaranRepo
         $jurnalPengeluaran = JurnalPengeluaran::query()->create([
             'kode'=>$this->kode(),
             'active_cash'=>session('ClosedCash'),
-            'tgl_pengeluaran'=>$data->tgl_pengeluaran,
+            'tgl_pengeluaran'=>$data->tanggal_pengeluaran,
+            'tujuan'=>$data->tujuan,
             'user_id'=>\Auth::id(),
             'nominal'=>$data->total_bayar,
             'keterangan'=>$data->keterangan,
         ]);
 
         // kredit
-        foreach ($data->detail as $item){
-            $jurnalPengeluaran->jurnalTransaksi()->create([
-                'akun_id'=>$item['akun_id'],
-                'nominal_debet'=>$item['nominal'],
-                'nominal_kredit'=>null,
-            ]);
-        }
-
-        // debet
-        $jurnalPengeluaran->jurnalTransaksi()->create([
-            'akun_id'=>$data->akunKredit,
-            'nominal_debet'=>null,
-            'nominal_kredit'=>$data->total_bayar,
-        ]);
-
-        return $jurnalPengeluaran->id;
+        return $this->storeDetail($data, $jurnalPengeluaran);
     }
 
     public function update($data)
@@ -61,29 +47,15 @@ class JurnalPengeluaranRepo
 
         // update
         $jurnalPengeluaran->update([
-            'tgl_pengeluaran'=>$data->tgl_pengeluaran,
+            'tgl_pengeluaran'=>$data->tanggal_pengeluaran,
+            'tujuan'=>$data->tujuan,
             'user_id'=>\Auth::id(),
             'nominal'=>$data->total_bayar,
             'keterangan'=>$data->keterangan,
         ]);
 
         // kredit
-        foreach ($data->detail as $item){
-            $jurnalPengeluaran->jurnalTransaksi()->create([
-                'akun_id'=>$item['akun_id'],
-                'nominal_debet'=>$item['nominal'],
-                'nominal_kredit'=>null,
-            ]);
-        }
-
-        // debet
-        $jurnalPengeluaran->jurnalTransaksi()->create([
-            'akun_id'=>$data->akunKredit,
-            'nominal_debet'=>null,
-            'nominal_kredit'=>$data->total_bayar,
-        ]);
-
-        return $jurnalPengeluaran->id;
+        return $this->storeDetail($data, $jurnalPengeluaran);
     }
 
 
@@ -95,5 +67,32 @@ class JurnalPengeluaranRepo
         $pengeluaran->jurnalTransaksi()->delete();
 
         $pengeluaran->delete();
+    }
+
+    /**
+     * @param $data
+     * @param $jurnalPengeluaran
+     * @return mixed
+     */
+    protected function storeDetail($data, $jurnalPengeluaran)
+    {
+        foreach ($data->detail as $item) {
+            $jurnalPengeluaran->jurnalTransaksi()->create([
+                'akun_id' => $item['akun_id_detail'],
+                'nominal_debet' => $item['nominal_detail'],
+                'nominal_kredit' => null,
+                'keterangan' => $item['keterangan_detail'],
+            ]);
+        }
+
+        // debet
+        $jurnalPengeluaran->jurnalTransaksi()->create([
+            'akun_id' => $data->akunKredit,
+            'nominal_debet' => null,
+            'nominal_kredit' => $data->total_bayar,
+            'keterangan' => $data->keteranganKredit,
+        ]);
+
+        return $jurnalPengeluaran->id;
     }
 }

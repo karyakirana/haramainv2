@@ -18,7 +18,8 @@ class PenjualanTable extends DataTableComponent
 
     protected $listeners = [
         'refreshPenjualanTable' => '$refresh',
-        'destroySure'=>'destroySure'
+        'destroySure'=>'destroySure',
+        'printBiasa'=>'printBiasa'
     ];
 
     public function __construct($id = null)
@@ -75,6 +76,11 @@ class PenjualanTable extends DataTableComponent
     public function print($id)
     {
         return redirect()->to('penjualan/print/'.$id);
+    }
+
+    public function printBiasa($id)
+    {
+        return redirect()->to('penjualan/printpdf/'.$id);
     }
 
 

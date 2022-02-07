@@ -46,10 +46,12 @@ class JurnalPenerimaanForm extends Component
                 $this->daftarNota[] = [
                     'penjualan_id'=>$item->id,
                     'penjualan_kode'=>$item->kode,
-                    'penjualan_customer'=>$item->customer->nama,
-                    'penjualan_total_bayar'=>$item->total_bayar
+                    'penjualan_customer'=>$jurnalPenerimaan->customer->nama,
+                    'penjualan_total_bayar'=>$jurnalPenerimaan->total_bayar
                 ];
             }
+            $this->hitung_total();
+
         }
     }
 
@@ -107,12 +109,11 @@ class JurnalPenerimaanForm extends Component
             'akunDebet'=>$this->penerimaan,
             'akunKredit'=>Akun::query()->where('kode', '41100')->first()->id
         ];
-//        dd($data);
         \DB::beginTransaction();
         try {
             $idPenerimaan = (new JurnalPenerimaanPenjualanRepo())->store($data);
             \DB::commit();
-            return redirect()->to('keuangan/jurnal/penerimaan');
+            return redirect()->to('keuangan/kasir/penerimaan');
         } catch (QueryException $e){
             \DB::rollBack();
             dd($e);
@@ -135,6 +136,7 @@ class JurnalPenerimaanForm extends Component
         try {
             $idPenerimaan = (new JurnalPenerimaanPenjualanRepo())->update($data);
             \DB::commit();
+            return redirect()->to('keuangan/kasir/penerimaan');
         } catch (QueryException $e){
             \DB::rollBack();
         }

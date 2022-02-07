@@ -95,17 +95,17 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="border-color: white!important;"></td>
-                    <td colspan="2">Sub Total</td>
+                    <td colspan="2" style="border-left: 0.2rem solid!important;">Sub Total</td>
                     <td class="text-right">{{rupiah_format($jumlahSubTotal)}}</td>
                 </tr>
                 <tr>
                     <td colspan="3" style="border-color: white!important;"></td>
-                    <td colspan="2">Biaya Lain</td>
+                    <td colspan="2" style="border-left: 0.2rem solid!important;">Biaya Lain</td>
                     <td class="text-right">{{rupiah_format($penjualan->biaya_lain)}}</td>
                 </tr>
                 <tr>
                     <td colspan="3" style="border-color: white!important;"></td>
-                    <td colspan="2">Total Bayar</td>
+                    <td colspan="2" style="border-left: 0.2rem solid!important;">Total Bayar</td>
                     <td class="text-right">{{rupiah_format($penjualan->total_bayar)}}</td>
                 </tr>
             </tfoot>

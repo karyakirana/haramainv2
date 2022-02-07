@@ -16,45 +16,52 @@
                 <div class="col-8">
                     <form id="pengeluaranForm">
                         <div class="row mb-4">
-                            <label class="col-2 col-form-label">Akun Pengeluaran</label>
+                            <label class="col-2 col-form-label">Akun</label>
                             <div class="col-4">
-                                <select name="selectPengeluaran" id="selectPengeluaran" class="form-control @error('pengeluaran') is-invalid @enderror " wire:model.defer="pengeluaran">
+                                <x-atom.select :name="__('akun')" wire:model.defer="akun">
                                     <option>Data diisi</option>
                                     @forelse($akunPengeluaran as $row)
                                         <option value="{{$row->id}}">{{$row->deskripsi}}</option>
                                     @empty
                                     @endforelse
-                                </select>
-                                <x-atom.input-message :name="__('pengeluaran')" />
+                                </x-atom.select>
                             </div>
-                            <label class="col-2 col-form-label">Tgl Pengeluaran</label>
+                            <label class="col-2 col-form-label">Tanggal</label>
                             <div class="col-4">
-                                <x-atom.input-singledaterange id="tgl_pengeluaran" wire:model.defer="tgl_pengeluaran" :name="__('tgl_pengeluaran')" readonly />
+                                <x-atom.input-singledaterange id="tanggal" wire:model.defer="tanggal" :name="__('tanggal')" readonly />
                             </div>
                         </div>
                         <div class="row mb-4">
+                            <label class="col-2 col-form-label">Tujuan</label>
+                            <div class="col-4">
+                                <x-atom.input-form wire:model.defer="tujuan" :name="__('tujuan')" />
+                            </div>
                             <label class="col-2 col-form-label">Keterangan</label>
                             <div class="col-4">
-                                <x-atom.input-form wire:model.defer="keterangan" />
+                                <x-atom.input-form wire:model.defer="keterangan" :name="__('keterangan')" />
                             </div>
                         </div>
                     </form>
                     <table class="table gs-3 border-1 pt-5">
                         <thead>
                         <tr class="border">
-                            <th class="text-center" width="20%">Kategori</th>
-                            <th class="text-center" width="15%">Kode</th>
-                            <th class="text-center" width="20%">Deskripsi</th>
+                            <th class="text-center" width="20%">Kode</th>
+                            <th class="text-center" width="15%">Akun</th>
+                            <th class="text-center" width="20%">Keterangan</th>
                             <th class="text-center" width="20%">Nominal</th>
+                            <th class="text-center" width="10%"></th>
                         </tr>
                         </thead>
                         <tbody class="border">
-                        @forelse($daftarAkun as $index=>$item)
+                        @forelse($detail as $index=>$item)
                             <tr>
-                                <td>{{$item['akun_kategori_nama']}}</td>
-                                <td class="text-center">{{$item['kode']}}</td>
-                                <td>{{$item['deskripsi']}}</td>
-                                <td class="text-end">{{rupiah_format($item['nominal'])}}</td>
+                                <td class="text-center">{{$item['kode_detail']}}</td>
+                                <td>{{$item['kode_detail']}}</td>
+                                <td>{{$item['keterangan_detail']}}</td>
+                                <td class="text-end">{{rupiah_format($item['nominal_detail'])}}</td>
+                                <td class="align-middle text-center">
+                                    <x-atom.button-delete wire:click="destroyLine({{$index}})" />
+                                </td>
                             </tr>
                         @empty
                             <tr>
@@ -62,6 +69,15 @@
                             </tr>
                         @endforelse
                         </tbody>
+                        @if($detail)
+                            <tfoot class="border">
+                            <tr>
+                                <td colspan="3" class="text-end">Total</td>
+                                <td class="text-end">{{$total_bayar_rupiah}}</td>
+                                <td></td>
+                            </tr>
+                            </tfoot>
+                        @endif
                     </table>
                 </div>
                 <div class="col-4 border">
@@ -69,21 +85,26 @@
                         <div class="row pb-5">
                             <label class="col-4 col-form-label">Kode</label>
                             <div class="col-8">
-                                <x-atom.input-form :name="__('kode')" wire:model="kode" class="text-end" readonly/>
-                                <x-atom.input-message :name="__('kode')" />
+                                <x-atom.input-form :name="__('kode_detail')" wire:model="kode_detail" class="text-end" readonly/>
                             </div>
                         </div>
                         <div class="row pb-5">
                             <label class="col-4 col-form-label">Deskripsi</label>
                             <div class="col-8">
-                                <textarea name="deskripsi" id="deskripsi" wire:model="deskripsi" rows="3" class="form-control" readonly></textarea>
-                                <x-atom.input-message :name="__('deskripsi')" />
+                                <textarea name="deskripsi_detail" wire:model="deskripsi_detail" rows="3" class="form-control" readonly></textarea>
+                                <x-atom.input-message :name="__('deskripsi_detail')" />
                             </div>
                         </div>
                         <div class="row pb-5">
                             <label class="col-4 col-form-label">Nominal</label>
                             <div class="col-8">
-                                <x-atom.input-form wire:model.defer="nominal" :name="__('nominal')"/>
+                                <x-atom.input-form wire:model.defer="nominal_detail" :name="__('nominal_detail')"/>
+                            </div>
+                        </div>
+                        <div class="row pb-5">
+                            <label class="col-4 col-form-label">Keterangan</label>
+                            <div class="col-8">
+                                <x-atom.input-form wire:model.defer="keterangan_detail" :name="__('keterangan_detail')"/>
                                 <x-atom.input-message :name="__('nominal')" />
                             </div>
                         </div>
@@ -120,11 +141,11 @@
                 window.livewire.on('hideAkunModal', ()=>{
                     akunModal.hide();
                 })
-                $('#tgl_pengeluaran').on('change', function (e) {
-                    let date = $(this).data("#tgl_pengeluaran");
+                $('#tanggal').on('change', function (e) {
+                    let date = $(this).data("#tanggal");
                     // eval(date).set('tglLahir', $('#tglLahir').val())
                     console.log(e.target.value);
-                @this.tgl_pengeluaran = e.target.value;
+                @this.tanggal = e.target.value;
                 })
 
             </script>

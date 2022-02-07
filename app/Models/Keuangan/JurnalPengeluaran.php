@@ -15,7 +15,7 @@ class JurnalPengeluaran extends Model
         'active_cash',
         'user_id',
         'tgl_pengeluaran',
-        'asal',
+        'tujuan',
         'nominal',
         'keterangan',
     ];

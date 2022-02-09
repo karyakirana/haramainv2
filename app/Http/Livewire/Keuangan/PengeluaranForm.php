@@ -44,7 +44,7 @@ class PengeluaranForm extends Component
 
     public function mount($kasirPengeluaran = null)
     {
-        $this->tgl_pengeluaran = tanggalan_format(strtotime(now()));
+        $this->tanggal = tanggalan_format(strtotime(now('ASIA/JAKARTA')));
 
         //set edit
         if ($kasirPengeluaran){

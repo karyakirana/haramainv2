@@ -1,6 +1,7 @@
-<div class="card">
+@props(['classCustom'=>'', 'title'])
+<div class="card {{$classCustom}}">
     <div {{$attributes->merge(['class'=>'card-header'])}}>
-        <div class="card-title">{{$title ?? ''}}</div>
+        <div class="card-title" >{{$title ?? ''}}</div>
         {{$header ?? ''}}
     </div>
     <div class="card-body">

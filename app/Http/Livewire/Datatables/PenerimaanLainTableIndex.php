@@ -26,7 +26,7 @@ class PenerimaanLainTableIndex extends DataTableComponent
             Column::make('Kode', 'kode'),
             Column::make('Tanggal', 'tgl_penerimaan'),
             Column::make('Pembuat', 'users.name'),
-            Column::make('Nominal'),
+            Column::make('Nominal', 'nominal'),
             Column::make('Keterangan'),
         ];
     }

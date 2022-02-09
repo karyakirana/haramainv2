@@ -28,7 +28,6 @@ class KasirPenerimaanCashForm extends Component
     public $tanggal;
     public $sumber;
     public $keterangan;
-
     // variabel untuk form detail
     public $akun_id_detail;
     public $akun_detail;

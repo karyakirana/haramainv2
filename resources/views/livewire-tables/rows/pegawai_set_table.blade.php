@@ -1,5 +1,7 @@
-<x-livewire-tables::table.cell>
-{{-- Note: This is a tailwind cell --}}
-{{-- For bootstrap 4, use <x-livewire-tables::bs4.table.cell> --}}
-{{-- For bootstrap 5, use <x-livewire-tables::bs5.table.cell> --}}
-</x-livewire-tables::table.cell>
+<x-atom.table-td class="text-center">{{$row->kode}}</x-atom.table-td>
+<x-atom.table-td >{{$row->nama}}</x-atom.table-td>
+<x-atom.table-td class="text-center">{{$row->telepon}}</x-atom.table-td>
+<x-atom.table-td class="text-center">{{$row->alamat}}</x-atom.table-td>
+<td class="text-center">
+    <button type="button" class="btn btn-flush btn-active-color-info" onclick="Livewire.emit('setPegawai','{{$row->id}}')"><i class="la la-edit fs-2"></i></button>
+</td>

@@ -102,7 +102,7 @@
                             </div>
                         </div>
                         <div class="row pb-5">
-                            <label class="col-4 col-form-label">Keterangan</label>
+                            <label class="col-4 col-form-label">Keterangan Detail</label>
                             <div class="col-8">
                                 <x-atom.input-form wire:model.defer="keterangan_detail" :name="__('keterangan_detail')"/>
                                 <x-atom.input-message :name="__('nominal')" />

@@ -28,7 +28,6 @@ Route::middleware(['auth'])->group(function (){
     Route::get('keuangan/kasir/penerimaan/lain/print/{id}', [\App\Http\Controllers\Kasir\PenerimaanCashController::class, 'rocketMan']);
 
     Route::get('keuangan/kasir/pembayaran/piutang', [\App\Http\Controllers\Kasir\PembayaranPiutangController::class, 'index'])->name('pembayaran.piutang.index');
-    Route::get('keuangan/kasir/piutang/pegawai', [\App\Http\Controllers\Keuangan\PiutangPegawaiController::class, 'index'])->name('piutang.pegawai.index');
 
     Route::get('keuangan/kasir/pengeluaran', [\App\Http\Controllers\Kasir\PengeluaranController::class, 'index'])->name('kasir.pengeluaran.index');
     Route::get('keuangan/kasir/pengeluaran/trans', [\App\Http\Controllers\Kasir\PengeluaranController::class, 'create'])->name('kasir.pengeluaran.trans');
@@ -39,5 +38,11 @@ Route::middleware(['auth'])->group(function (){
     Route::get('keuangan/kasir/set/piutang/transaksi', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'create'])->name('set.piutang.transaksi');
     Route::get('keuangan/kasir/set/piutang/transaksi/{id}', [\App\Http\Controllers\Keuangan\JurnalPenjualanController::class, 'edit']);
 
+    Route::get('keuangan/kasir/piutang/pegawai', [\App\Http\Controllers\Keuangan\PiutangPegawaiController::class, 'index'])->name('piutang.pegawai.index');
     Route::get('keuangan/kasir/piutang/pegawai/trans', \App\Http\Livewire\Keuangan\JurnalPiutangPegawaiForm::class);
+    Route::get('keuangan/kasir/piutang/pegawai/trans/{piutang_id}', \App\Http\Livewire\Keuangan\JurnalPiutangPegawaiForm::class);
+
+    // report keuangan
+    Route::get('keuangan/report', [\App\Http\Controllers\Keuangan\KeuanganReportController::class, 'index'])->name('keuangan.report');
+    Route::get('keuangan/report/cashflow/harian', \App\Http\Livewire\Keuangan\Report\CashFlowHarianForm::class)->name('keuangan.report.cashflow.harian');
 });

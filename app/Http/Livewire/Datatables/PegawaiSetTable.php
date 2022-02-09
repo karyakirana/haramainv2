@@ -13,7 +13,11 @@ class PegawaiSetTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Column Name'),
+            Column::make('Kode', 'kode'),
+            Column::make('Column Name', 'nama'),
+            Column::make('Telepon', 'telepom'),
+            Column::make('Alamat', 'alamat'),
+            Column::make('set'),
         ];
     }
 

@@ -532,6 +532,14 @@
                                             <span class="menu-title">Piutang Pegawai</span>
                                         </a>
                                     </div>
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('keuangan/kasir/piutang/pegawai/trans')  ? 'active' : ''}}" href="/keuangan/kasir/piutang/pegawai/trans">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Piutang Pegawai Baru</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

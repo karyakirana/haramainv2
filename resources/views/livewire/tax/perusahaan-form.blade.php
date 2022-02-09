@@ -5,35 +5,31 @@
                 <label for="taxForm" class="col-sm-4 col-form-label">Nama</label>
                 <div class="col-8">
                     <x-atom.input-form :name="__('nama')" wire:model.defer="nama"/>
-                    <x-atom.input-message :name="__('nama')"/>
                 </div>
             </div>
             <div class="row mb-6">
                 <label for="taxForm" class="col-sm-4 col-form-label">Alamat</label>
                 <div class="col-8">
                     <x-atom.input-form :name="__('alamat')" wire:model.defer="alamat"/>
-                    <x-atom.input-message :name="__('alamat')"/>
+
                 </div>
             </div>
             <div class="row mb-6">
                 <label for="taxForm" class="col-sm-4 col-form-label">NPWP</label>
                 <div class="col-8">
                     <x-atom.input-form :name="__('npwp')" wire:model.defer="npwp"/>
-                    <x-atom.input-message :name="__('npwp')"/>
                 </div>
             </div>
             <div class="row mb-6">
                 <label for="taxForm" class="col-sm-4 col-form-label">Limit</label>
                 <div class="col-8">
                     <x-atom.input-form :name="__('maximal')" wire:model.defer="maximal"/>
-                    <x-atom.input-message :name="__('maximal')"/>
                 </div>
             </div>
             <div class="row mb-6">
                 <label for="taxForm" class="col-sm-4 col-form-label">keterangan</label>
                 <div class="col-8">
                     <x-atom.input-form :name="__('keterangan')" wire:model.defer="keterangan"/>
-                    <x-atom.input-message :name="__('keterangan')"/>
                 </div>
             </div>
         </form>

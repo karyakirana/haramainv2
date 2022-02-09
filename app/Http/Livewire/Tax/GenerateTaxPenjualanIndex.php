@@ -31,7 +31,7 @@ class GenerateTaxPenjualanIndex extends Component
         return sprintf("%04s", $num)."/PJ/".date('Y');
     }
 
-    public function generateAll()
+    public function generateAll($month)
     {
         \DB::beginTransaction();
         try {
@@ -39,10 +39,18 @@ class GenerateTaxPenjualanIndex extends Component
 
             $penjualan = Penjualan::query()
                 ->where('active_cash', session('ClosedCash'))
-                ->whereRaw('MONTH(tgl_nota) = 1 AND  YEAR(tgl_nota)='.date('Y', now('ASIA/JAKARTA')))
+                ->whereRaw('MONTH(tgl_nota) = '.$month.' AND  YEAR(tgl_nota)='.date('Y', strtotime(now('ASIA/JAKARTA'))))
                 ->latest('tgl_nota');
+//            dd($penjualan);
 
-            $penjualan->delete();
+            // delete
+            $taxPenjualan = TaxPenjualan::query()
+                ->whereHas('penjualan', function ($query) use ($month){
+                    $query->whereRaw('MONTH(tgl_nota) = '.$month.' AND  YEAR(tgl_nota)='.date('Y', strtotime(now('ASIA/JAKARTA'))));
+                });
+
+//            dd($taxPenjualan->count());
+            $taxPenjualan->delete();
 
             $num = 0;
             $perusahaan = 0;
@@ -70,6 +78,7 @@ class GenerateTaxPenjualanIndex extends Component
             }
             \DB::commit();
             $this->emit('refreshTaxPenjualan');
+            $this->emit('refreshTaxMonthly');
         } catch (QueryException $e){
             \DB::rollBack();
             dd($e);

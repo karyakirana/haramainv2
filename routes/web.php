@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function(){
 
     // tax
     Route::get('tax/perusahaan', [\App\Http\Controllers\Tax\TaxPenjualanController::class, 'masterPerusahaan'])->name('tax.perusahaan');
+
     Route::get('tax/perusahaan/table', [\App\Http\Controllers\Tax\TaxPenjualanController::class, 'index']);
 
 });

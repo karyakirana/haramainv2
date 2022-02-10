@@ -20,7 +20,7 @@
     <style>
         .table, th, td{
             border-color: #0b0b10!important;
-            font-size: 7.5pt;
+            font-size: 16pt;
         }
         th{
             align-content: center;
@@ -35,7 +35,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
+    <div class="row" style="font-size: 14pt">
         <div class="col-xs-4">
             Nomor : {{$data->kode}}
         </div>
@@ -45,17 +45,17 @@
             Surabaya, {{tanggalan_format($data->tgl_pengeluaran)}} <br>
         </div>
     </div>
-    <div class="row" style="margin-top: 12px">
+    <div class="row" style="margin-top: 12px; font-size: 20pt">
         <div class="col-xs-12 text-center" style="font-size: medium; font-weight: bolder;">
             <u><h3>KAS KELUAR</h3></u>
         </div>
     </div>
-    <div class="row" style="margin-top: 15pt">
+    <div class="row" style="margin-top: 15pt; font-size: 16pt">
         <div class="col-xs-2">Untuk</div>
         <div class="col-xs-1">:</div>
         <div class="col-xs-4">{{$data->tujuan}}</div>
     </div>
-    <div class="row" style="margin-top: 7pt;">
+    <div class="row" style="margin-top: 7pt; font-size: 16pt">
         <div class="col-xs-2">Keperluan</div>
         <div class="col-xs-1">:</div>
         @foreach($data->jurnalTransaksi as $row)
@@ -70,7 +70,7 @@
         @endforeach
     </div>
     @if($data->jurnalTransaksi->count() > 2)
-        <div class="row" style="margin-top: 7pt;">
+        <div class="row" style="margin-top: 7pt; font-size: 16pt">
             <div class="col-xs-3"></div>
             <div class="col-xs-4">
                 Total Keseluruhan
@@ -80,7 +80,7 @@
             </div>
         </div>
     @endif
-    <div class="row" style="margin-top: 7pt;">
+    <div class="row" style="margin-top: 7pt; font-size: 16pt">
         <div class="col-xs-2">Terbilang</div>
         <div class="col-xs-1">:</div>
         <div class="col-xs-4">
@@ -95,7 +95,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="font-size: 16pt">
         <div class="col-xs-5 text-center">
             Mengetahui
         </div>
@@ -103,7 +103,7 @@
             Penerima
         </div>
     </div>
-    <div class="row" style="margin-top: 50pt">
+    <div class="row" style="margin-top: 50pt; font-size: 16pt">
         <div class="col-xs-5 text-center">
             (&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;)
         </div>

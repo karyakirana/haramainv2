@@ -20,7 +20,7 @@
     <style>
         .table, th, td{
             border-color: #0b0b10!important;
-            font-size: 7.5pt;
+            font-size: 14pt;
         }
         th{
             align-content: center;
@@ -32,7 +32,7 @@
             font-size: 9pt;
         }
         #head-nota th{
-            font-size: 9pt;
+            font-size: 11pt;
             letter-spacing: 2pt;
         }
     </style>
@@ -46,16 +46,16 @@
                 {{$jurnal_penerimaan->customer->nama ?? ''}}
             </td>
             <td rowspan="2" class="text-center"
-                style="vertical-align: middle!important; font-size: 25pt; font-weight: bolder; width: 40%"
+                style="vertical-align: middle!important; font-size: 22pt; font-weight: bolder; width: 40%"
             >
                 BUKTI KAS MASUK
             </td>
             <td style="width: 30%">
                 <div class="row">
-                    <div class="col-xs-4">
+                    <div class="col-xs-5">
                         <p>Nomor :</p>
                     </div>
-                    <div class="col-xs-8 text-right">
+                    <div class="col-xs-7 text-right">
                         {{$jurnal_penerimaan->kode}}
                     </div>
                 </div>
@@ -64,10 +64,10 @@
         <tr>
             <td>
                 <div class="row">
-                    <div class="col-xs-4">
+                    <div class="col-xs-5">
                         <p>Tanggal :</p>
                     </div>
-                    <div class="col-xs-8 text-right">
+                    <div class="col-xs-7 text-right">
                         {{tanggalan_format($jurnal_penerimaan->tgl_penerimaan)}}
                     </div>
                 </div>
@@ -92,13 +92,13 @@
             @endif
         @endforeach
         <tr>
-            <td colspan="4" style="font-size: 9pt">
+            <td colspan="4" style="font-size: 10pt">
                 Terbilang : {{ucwords(terbilang($jurnal_penerimaan->total_bayar))}}
             </td>
             <td>
-                <div class="row" style="font-size: 9pt">
-                    <div class="col-xs-4">Total :</div>
-                    <div class="col-xs-8 text-right">{{rupiah_format($jurnal_penerimaan->total_bayar)}}</div>
+                <div class="row" style="font-size: 11pt">
+                    <div class="col-xs-5">Total :</div>
+                    <div class="col-xs-7 text-right">{{rupiah_format($jurnal_penerimaan->total_bayar)}}</div>
                 </div>
             </td>
         </tr>

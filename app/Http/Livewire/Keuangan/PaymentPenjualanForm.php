@@ -12,13 +12,14 @@ class PaymentPenjualanForm extends Component
     public $penjualanTable = [];
 
     protected $listeners = [
-        'setPenjualan'=>'setPenjualan'
+        'setPenjualan'=>'setPenjualan',
+        'setCustomer'=>'setCustomer'
     ];
 
     // variable form utama
     public $tanggal, $jenis, $customer_id, $customer_nama;
     public $akun, $nominal_kas, $nominal_piutang;
-    public $keterangan
+    public $keterangan;
 
     public function render()
     {

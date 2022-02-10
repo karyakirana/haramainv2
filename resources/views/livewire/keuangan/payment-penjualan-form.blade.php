@@ -16,10 +16,10 @@
                 <div class="col-4">
                     <label for="customer" class="d-flex align-items-center fs-6 fw-bold mb-2 required">Customer</label>
                     <div class="input-group">
-                        <input type="text" class="form-control @error('customer') is-invalid @enderror " id="customer">
-                        <button type="button" class="btn btn-primary"><i class="fas fa-user"></i></button>
+                        <input type="text" class="form-control @error('customer_nama') is-invalid @enderror " id="customer" wire:model.defer="customer_nama">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#daftar-customer"><i class="fas fa-user"></i></button>
                     </div>
-                    <x-atom.input-message :name="__('customer')"/>
+                    <x-atom.input-message :name="__('customer_nama')"/>
                 </div>
             </div>
             <div class="row mt-5">
@@ -70,4 +70,20 @@
     <x-organism.modal :tipe="__('xl')" :title="__('Data Penjualan')" id="daftar-penjualan">
         <livewire:datatables.penjualan-by-tempo/>
     </x-organism.modal>
+
+    <x-organism.modal :tipe="__('xl')" :title="__('Data Customer')" id="daftar-customer">
+        <livewire:datatables.customer-for-set />
+    </x-organism.modal>
+
+    @push('custom-scripts')
+        <script>
+            var modalCustomer = new bootstrap.Modal(document.getElementById('daftar-customer'), {
+                keyboard : false
+            })
+
+            Livewire.on('setCustomer', ()=>{
+                modalCustomer.hide()
+            });
+        </script>
+    @endpush
 </div>

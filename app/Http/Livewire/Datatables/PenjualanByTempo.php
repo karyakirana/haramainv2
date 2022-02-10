@@ -16,7 +16,8 @@ class PenjualanByTempo extends DataTableComponent
     public $customerId;
 
     protected $listeners = [
-        'showPenjualanModal'=>'setCustomerId'
+        'showPenjualanModal'=>'setCustomerId',
+        'setCustomer'=>'setCustomerId'
     ];
 
     public function setCustomerId($id)

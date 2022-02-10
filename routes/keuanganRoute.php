@@ -42,6 +42,8 @@ Route::middleware(['auth'])->group(function (){
     Route::get('keuangan/kasir/piutang/pegawai/trans', \App\Http\Livewire\Keuangan\JurnalPiutangPegawaiForm::class);
     Route::get('keuangan/kasir/piutang/pegawai/trans/{piutang_id}', \App\Http\Livewire\Keuangan\JurnalPiutangPegawaiForm::class);
 
+    Route::get('kasir/payment/penjualan', \App\Http\Livewire\Keuangan\PaymentPenjualanForm::class);
+
     // report keuangan
     Route::get('keuangan/report', [\App\Http\Controllers\Keuangan\KeuanganReportController::class, 'index'])->name('keuangan.report');
     Route::get('keuangan/report/cashflow/harian', \App\Http\Livewire\Keuangan\Report\CashFlowHarianForm::class)->name('keuangan.report.cashflow.harian');

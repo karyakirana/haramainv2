@@ -77,7 +77,6 @@
     <table class="table table-bordered" style="margin-top: 0!important; border-top: none!important; margin-bottom: 0pt;">
         <tr id="head-nota">
             <th width="10%" style="border-top: none!important; border-bottom: none!important;"></th>
-            <th width="15%" style="border-top: none!important;">Perkiraan</th>
             <th colspan="2" width="50%" style="border-top: none!important;">Uraian</th>
             <th class="text-center" style="border-top: none!important; width: 20%">Jumlah</th>
         </tr>
@@ -85,20 +84,22 @@
             @if($item->nominal_kredit)
                 <tr>
                     <td style="border-bottom: none!important; border-top: none!important;"></td>
-                    <td class="text-center">{{$item->akun->deskripsi}}</td>
                     <td colspan="2">{{$jurnal_penerimaan_lain->keterangan}}</td>
-                    <td class="text-right">{{rupiah_format($item->nominal_kredit)}}</td>
+                    <td class="text-right">Rp. {{rupiah_format($item->nominal_kredit)}}</td>
                 </tr>
             @endif
         @endforeach
         <tr>
-            <td colspan="4" style="font-size: 10pt">
-                Terbilang : {{ucwords(terbilang($jurnal_penerimaan_lain->nominal))}}
+            <td class="row" colspan="3" style="font-size: 14pt">
+                <div class="col-xs-3">Terbilang :</div>
+                <div class="col-xs-8">
+                    {{ucwords(terbilang($jurnal_penerimaan_lain->nominal))}} Rupiah
+                </div>
             </td>
-            <td>
-                <div class="row" style="font-size: 11pt">
-                    <div class="col-xs-5">Total :</div>
-                    <div class="col-xs-7 text-right">{{rupiah_format($jurnal_penerimaan_lain->nominal)}}</div>
+            <td width="25%">
+                <div class="row" style="font-size: 14pt">
+                    <div class="col-xs-4">Total :</div>
+                    <div class="col-xs-8 text-right">Rp.{{rupiah_format($jurnal_penerimaan_lain->nominal)}}</div>
                 </div>
             </td>
         </tr>

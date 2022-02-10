@@ -77,28 +77,26 @@
     <table class="table table-bordered" style="margin-top: 0!important; border-top: none!important; margin-bottom: 0pt;">
         <tr id="head-nota">
             <th width="10%" style="border-top: none!important; border-bottom: none!important;"></th>
-            <th width="15%" style="border-top: none!important;">Perkiraan</th>
             <th colspan="2" width="50%" style="border-top: none!important;">Uraian</th>
-            <th class="text-center" style="border-top: none!important; width: 20%">Jumlah</th>
+            <th class="text-center" width="35%"  style="border-top: none!important; width: 20%">Jumlah</th>
         </tr>
         @foreach($jurnal_penerimaan->jurnalPenerimaanDetail as $item)
             @if($item->penjualan_id)
                 <tr>
                     <td style="border-bottom: none!important; border-top: none!important;"></td>
-                    <td class="text-center"></td>
                     <td colspan="2">{{$item->penjualan->kode}}</td>
-                    <td class="text-right">{{rupiah_format($jurnal_penerimaan->total_bayar)}}</td>
+                    <td class="text-right">Rp. {{rupiah_format($jurnal_penerimaan->total_bayar)}}</td>
                 </tr>
             @endif
         @endforeach
         <tr>
-            <td colspan="4" style="font-size: 10pt">
+            <td colspan="3" style="font-size: 12pt">
                 Terbilang : {{ucwords(terbilang($jurnal_penerimaan->total_bayar))}}
             </td>
             <td>
-                <div class="row" style="font-size: 11pt">
+                <div class="row" style="font-size: 12pt">
                     <div class="col-xs-5">Total :</div>
-                    <div class="col-xs-7 text-right">{{rupiah_format($jurnal_penerimaan->total_bayar)}}</div>
+                    <div class="col-xs-7 text-right">Rp.{{rupiah_format($jurnal_penerimaan->total_bayar)}}</div>
                 </div>
             </td>
         </tr>

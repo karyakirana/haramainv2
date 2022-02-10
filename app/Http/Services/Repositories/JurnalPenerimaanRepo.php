@@ -15,11 +15,11 @@ class JurnalPenerimaanRepo
 
         // check last num
         if ($query->doesntExist()){
-            return '1/KJP/'.date('Y');
+            return '1/KML/'.date('Y');
         }
 
         $num = $query->first()->last_num + 1;
-        return $num."/KJP/".date('Y');
+        return $num."/KML/".date('Y');
     }
 
     public function store($data)

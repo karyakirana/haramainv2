@@ -61,13 +61,13 @@ class KasirPengeluaran extends DataTableComponent
 
     public function edit($id)
     {
-        return redirect()->to('keuangan/kasir/pengeluaran/edit/'.$id);
+        return redirect()->to('kasir/pengeluaran/edit/'.$id);
     }
 
 
     public function print($id)
     {
-        return redirect()->to('keuangan/kasir/pengeluaran/print/'.$id);
+        return redirect()->to('kasir/pengeluaran/print/'.$id);
     }
 
     public function destroy($id)

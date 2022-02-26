@@ -17,7 +17,7 @@ class CreateSaldoPiutangPenjualanTable extends Migration
             $table->id();
             $table->unsignedBigInteger('customer_id');
             $table->date('tgl_awal');
-            $table->date('tgl_akhir');
+            $table->date('tgl_akhir')->nullable();
             $table->bigInteger('saldo');
             $table->timestamps();
         });

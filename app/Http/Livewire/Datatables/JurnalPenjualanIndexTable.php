@@ -73,7 +73,7 @@ class JurnalPenjualanIndexTable extends DataTableComponent
      */
     public function edit($id)
     {
-        return redirect()->to('keuangan/kasir/set/piutang/transaksi/'.$id);
+        return redirect()->to('kasir/set/piutang/transaksi/'.$id);
     }
 
 

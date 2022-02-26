@@ -19,6 +19,7 @@ class CreateTaxPerusahaanTable extends Migration
             $table->string('nama');
             $table->text('alamat');
             $table->text('npwp');
+            $table->bigInteger('maximal');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

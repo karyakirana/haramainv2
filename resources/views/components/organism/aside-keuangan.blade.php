@@ -46,6 +46,8 @@
                     </div>
                 </div>
             </div>
+
+
             <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/neraca*') ? 'here show' : ''}} menu-accordion">
                                             <span class="menu-link">
 												<span class="menu-bullet">
@@ -81,6 +83,29 @@
                     </div>
                 </div>
             </div>
+
+
+            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/saldo*') ? 'here show' : ''}} menu-accordion">
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Saldo Piutang</span>
+												<span class="menu-arrow"></span>
+											</span>
+                <div class="menu-sub menu-sub-accordion menu-active-bg">
+                    <div class="menu-item">
+                        <a class="menu-link {{request()->is('keuangan/saldo/piutang') ? 'active' : ''}}" href="{{ route('saldo.piutang.index') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                            <span class="menu-title">Saldo Piutang Pembelian</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
             <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('jurnal*') ? 'here show' : ''}} menu-accordion">
                                             <span class="menu-link">
 												<span class="menu-bullet">
@@ -92,7 +117,10 @@
                 <div class="menu-sub menu-sub-accordion menu-active-bg">
 
                 </div>
-            </div> <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('laporan*') ? 'here show' : ''}} menu-accordion">
+            </div>
+
+
+            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('laporan*') ? 'here show' : ''}} menu-accordion">
                                             <span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>

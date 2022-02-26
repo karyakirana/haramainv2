@@ -50,13 +50,13 @@ class PenerimaanLainTableIndex extends DataTableComponent
 
     public function edit($id)
     {
-        return redirect()->to('keuangan/kasir/penerimaan/lain/edit/'.$id);
+        return redirect()->to('kasir/penerimaan/lain/edit/'.$id);
     }
 
 
     public function print($id)
     {
-        return redirect()->to('keuangan/kasir/penerimaan/lain/print/'.$id);
+        return redirect()->to('kasir/penerimaan/lain/print/'.$id);
     }
 
     public function destroy($id)

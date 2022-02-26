@@ -15,6 +15,15 @@ class CreateJurnalPembelianTable extends Migration
     {
         Schema::create('jurnal_pembelian', function (Blueprint $table) {
             $table->id();
+            $table->string('tipe');
+            $table->string('active_cash');
+            $table->string('kode');
+            $table->date('tgl_jurnal');
+            $table->unsignedBigInteger('supplier_id');
+            $table->unsignedBigInteger('user_id');
+            $table->bigInteger('nominal_hutang');
+            $table->integer('jumlah_nota');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,9 @@ class CreateJurnalPembelianDetailTable extends Migration
     {
         Schema::create('jurnal_pembelian_detail', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('jurnal_pembelian_id');
+            $table->unsignedBigInteger('pembelian_id');
+            $table->bigInteger('total_bayar');
             $table->timestamps();
         });
     }

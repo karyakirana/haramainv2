@@ -15,6 +15,10 @@ class CreateSaldoHutangPembelianTable extends Migration
     {
         Schema::create('saldo_hutang_pembelian', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('supplier_id');
+            $table->date('tgl_awal');
+            $table->date('tgl_akhir')->nullable();
+            $table->bigInteger('saldo');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Keuangan;
 
+use App\Models\Keuangan\JurnalPenerimaanPenjualan;
 use App\Models\Master\Customer;
 use App\Models\Penjualan\Penjualan;
 use Livewire\Component;
@@ -49,8 +50,24 @@ class PaymentPenjualanForm extends Component
         $this->penjualanTable = array_values($this->penjualanTable);
     }
 
+    protected function kode()
+    {
+        //
+    }
+
     public function store()
     {
         $this->validate();
+
+        // store Payment
+        $jurnalPenerimaan = JurnalPenerimaanPenjualan::query()->create([
+            'kode',
+            'tgl_penerimaan',
+            'active_cash',
+            'customer_id',
+            'user_id',
+            'total_bayar',
+            'keterangan',
+        ]);
     }
 }

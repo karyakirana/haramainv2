@@ -1,4 +1,4 @@
-<div id="kt_aside" class="aside" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
+\<div id="kt_aside" class="aside" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
     <!--begin::Aside Toolbarl-->
     <div class="aside-toolbar flex-column-auto" id="kt_aside_toolbar">
         <!--begin::Aside user-->
@@ -231,7 +231,7 @@
             <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
                 <div data-kt-menu-trigger="click" class="menu-item {{request()->is('dashboard/*') ? 'here show' : ''}} menu-accordion">
 									<span class="menu-link">
-										<span class="menu-icon fas fa-book">
+										<span class="menu-icon fas fa-globe">
 											<!--begin::Svg Icon | path: icons/duotune/files/fil025.svg-->
 
                                             <!--end::Svg Icon-->
@@ -289,7 +289,7 @@
             <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
                 <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('master/*') ? 'here show' : ''}} menu-accordion">
 									<span class="menu-link">
-										<span class="menu-icon fas fa-book">
+										<span class="menu-icon fas fa-book-open">
 											<!--begin::Svg Icon | path: icons/duotune/files/fil025.svg-->
 
                                             <!--end::Svg Icon-->
@@ -405,9 +405,9 @@
                 @can('Sales')
                     <x-organism.aside-sales />
                 @endcan
-                <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/kasir*') ? 'here show' : ''}} menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('kasir*') ? 'here show' : ''}} menu-accordion">
 									<span class="menu-link">
-										<span class="menu-icon fas fa-book">
+										<span class="menu-icon fas fa-cash-register">
 											<!--begin::Svg Icon | path: icons/duotune/files/fil025.svg-->
 
                                             <!--end::Svg Icon-->
@@ -417,7 +417,7 @@
 									</span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion ">
-                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/kasir/penerimaan*') ? 'here show' : ''}} menu-accordion">
+                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('kasir/penerimaan*') ? 'here show' : ''}} menu-accordion">
 											<span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -427,23 +427,23 @@
 											</span>
                                 <div class="menu-sub menu-sub-accordion menu-active-bg">
                                     <div class="menu-item">
-                                        <a class="menu-link {{request()->is('keuangan/kasir/penerimaan')  ? 'active' : ''}} " href="{{ route('jurnal.penerimaan.index') }}">
+                                        <a class="menu-link {{request()->is('kasir/penerimaan')  ? 'active' : ''}} " href="{{ route('jurnal.penerimaan.index') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                            <span class="menu-title">Penerimaan Nota</span>
+                                            <span class="menu-title">Penerimaan Penjualan</span>
                                         </a>
                                     </div>
                                     <div class="menu-item">
-                                        <a class="menu-link {{request()->is('keuangan/kasir/penerimaan/trans')  ? 'active' : ''}} " href="{{ route('jurnal.penerimaan.trans') }}">
+                                        <a class="menu-link {{request()->is('kasir/penerimaan/trans')  ? 'active' : ''}} " href="{{ route('jurnal.penerimaan.trans') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                            <span class="menu-title">Penerimaan Nota Baru</span>
+                                            <span class="menu-title">Penerimaan Penjualan Baru</span>
                                         </a>
                                     </div>
                                     <div class="menu-item">
-                                        <a class="menu-link {{request()->is('keuangan/kasir/penerimaan/lain')  ? 'active' : ''}} " href="{{ route('penerimaan.cash.index') }}">
+                                        <a class="menu-link {{request()->is('kasir/penerimaan/lain')  ? 'active' : ''}} " href="{{ route('penerimaan.cash.index') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
@@ -451,7 +451,7 @@
                                         </a>
                                     </div>
                                     <div class="menu-item">
-                                        <a class="menu-link {{request()->is('keuangan/kasir/penerimaan/lain/transaksi')  ? 'active' : ''}} " href="{{ route('kasir.penerimaan.cash.transaksi') }}">
+                                        <a class="menu-link {{request()->is('kasir/penerimaan/lain/transaksi')  ? 'active' : ''}} " href="{{ route('kasir.penerimaan.cash.transaksi') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
@@ -461,7 +461,7 @@
                                 </div>
                             </div>
 
-                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/kasir/pengeluaran*') ? 'here show' : ''}} menu-accordion">
+                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('kasir/pengeluaran*') ? 'here show' : ''}} menu-accordion">
 											<span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -471,7 +471,7 @@
 											</span>
                                 <div class="menu-sub menu-sub-accordion menu-active-bg">
                                     <div class="menu-item">
-                                        <a class="menu-link {{request()->is('keuangan/kasir/pengeluaran')  ? 'active' : ''}}" href="{{ route('kasir.pengeluaran.index') }}">
+                                        <a class="menu-link {{request()->is('kasir/pengeluaran')  ? 'active' : ''}}" href="{{ route('kasir.pengeluaran.index') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
@@ -479,7 +479,7 @@
                                         </a>
                                     </div>
                                     <div class="menu-item">
-                                        <a class="menu-link {{request()->is('keuangan/kasir/pengeluaran/trans')  ? 'active' : ''}}" href="{{ route('kasir.pengeluaran.trans') }}">
+                                        <a class="menu-link {{request()->is('kasir/pengeluaran/trans')  ? 'active' : ''}}" href="{{ route('kasir.pengeluaran.trans') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
@@ -488,7 +488,69 @@
                                     </div>
                                 </div>
                             </div>
-                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/kasir/set*') ? 'here show' : ''}} menu-accordion">
+
+
+                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('kasir/pembelian*') ? 'here show' : ''}} menu-accordion">
+											<span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Pembelian</span>
+												<span class="menu-arrow"></span>
+											</span>
+                                <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('kasir/pembelian')  ? 'active' : ''}}" href="{{ route('kasir.pembelian.index') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Pembelian</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('kasir/pembelian/trans')  ? 'active' : ''}}" href="{{ route('kasir.pembelian.trans') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Pembelian Baru</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('kasir/pembelian/retur/baik')  ? 'active' : ''}}" href="{{ route('kasir.retur.baik.pembelian.index') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Retur Baik Pembelian</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('kasir/pembelian/retur/baik/trans')  ? 'active' : ''}}" href="{{ route('kasir.retur.baik.pembelian.trans') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Retur Baik Pembelian Baru</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('kasir/pembelian/retur/rusak')  ? 'active' : ''}}" href="{{ route('kasir.retur.rusak.pembelian.index') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Retur Rusak Pembelian Baru</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('kasir/pembelian/retur/rusak/trans')  ? 'active' : ''}}" href="{{ route('kasir.retur.rusak.pembelian.trans') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Retur Rusak Pembelian Baru</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('kasir/set*') ? 'here show' : ''}} menu-accordion">
 											<span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -498,7 +560,7 @@
 											</span>
                                 <div class="menu-sub menu-sub-accordion menu-active-bg">
                                     <div class="menu-item">
-                                        <a class="menu-link {{request()->is('keuangan/kasir/set/piutang')  ? 'active' : ''}}" href="{{ route('set.piutang.index') }}">
+                                        <a class="menu-link {{request()->is('kasir/set/piutang')  ? 'active' : ''}}" href="{{ route('set.piutang.index') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
@@ -506,7 +568,7 @@
                                         </a>
                                     </div>
                                     <div class="menu-item">
-                                        <a class="menu-link {{request()->is('keuangan/kasir/set/piutang/transaksi')  ? 'active' : ''}}" href="{{ route('set.piutang.transaksi') }}">
+                                        <a class="menu-link {{request()->is('kasir/set/piutang/transaksi')  ? 'active' : ''}}" href="{{ route('set.piutang.transaksi') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
@@ -515,7 +577,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('keuangan/kasir/piutang*') ? 'here show' : ''}} menu-accordion">
+                            <div data-kt-menu-trigger="click" class="menu-item  {{request()->is('kasir/piutang*') ? 'here show' : ''}} menu-accordion">
 											<span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -525,7 +587,7 @@
 											</span>
                                 <div class="menu-sub menu-sub-accordion menu-active-bg">
                                     <div class="menu-item">
-                                        <a class="menu-link {{request()->is('keuangan/kasir/piutang/pegawai')  ? 'active' : ''}}" href="{{ route('piutang.pegawai.index') }}">
+                                        <a class="menu-link {{request()->is('kasir/piutang/pegawai')  ? 'active' : ''}}" href="{{ route('piutang.pegawai.index') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
@@ -533,7 +595,7 @@
                                         </a>
                                     </div>
                                     <div class="menu-item">
-                                        <a class="menu-link {{request()->is('keuangan/kasir/piutang/pegawai/trans')  ? 'active' : ''}}" href="/keuangan/kasir/piutang/pegawai/trans">
+                                        <a class="menu-link {{request()->is('kasir/piutang/pegawai/trans')  ? 'active' : ''}}" href="/kasir/piutang/pegawai/trans">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>

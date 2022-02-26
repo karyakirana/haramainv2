@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddMaximalToTaxPerusahaan extends Migration
+class CreateKasirPenjualanDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddMaximalToTaxPerusahaan extends Migration
      */
     public function up()
     {
-        Schema::table('tax_perusahaan', function (Blueprint $table) {
-            $table->bigInteger('maximal')->after('npwp')->nullable();
+        Schema::create('kasir_penjualan_detail', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('kasir_penjualan_id');
+            $table->unsignedBigInteger('penjualan_id');
         });
     }
 
@@ -25,8 +27,6 @@ class AddMaximalToTaxPerusahaan extends Migration
      */
     public function down()
     {
-        Schema::table('tax_perusahaan', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('kasir_penjualan_detail');
     }
 }
